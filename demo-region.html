@@ -6,192 +6,120 @@
 <title>Central Coast Region — School Sport Portal</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f4f8; color: #0f172a; }
-
-  .site-header {
-    background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6e 60%, #1a56db 100%);
-    color: #fff;
-    padding: 52px 24px 60px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .site-header::after {
-    content: '';
-    position: absolute;
-    bottom: -1px; left: 0; right: 0;
-    height: 32px;
-    background: #f0f4f8;
-    clip-path: ellipse(55% 100% at 50% 100%);
-  }
-  .header-badge {
-    display: inline-block;
-    background: rgba(245,158,11,.15);
-    border: 1px solid rgba(245,158,11,.4);
-    color: #f59e0b;
-    font-size: 11px; font-weight: 700; letter-spacing: .08em;
-    text-transform: uppercase;
-    padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
-  }
-  .site-header h1 { font-size: clamp(24px, 5vw, 38px); font-weight: 900; letter-spacing: -.02em; margin-bottom: 8px; }
-  .site-header p { font-size: 14px; opacity: .72; max-width: 520px; margin: 0 auto; line-height: 1.6; }
-
-  .container { max-width: 920px; margin: 0 auto; padding: 0 20px; }
-
-  .section { margin: 44px 0; }
-  .section-title {
-    font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
-    color: #64748b; margin-bottom: 14px; padding-bottom: 8px;
-    border-bottom: 2px solid #e2e8f0;
-  }
-
-  /* Division cards */
-  .division-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 16px;
-  }
-  .division-card {
-    background: linear-gradient(135deg, #0d1b3e, #1a3a6e);
-    color: #fff;
-    border-radius: 16px;
-    padding: 26px 28px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    text-decoration: none;
-    box-shadow: 0 4px 20px rgba(13,27,62,.25);
-    transition: transform .15s, box-shadow .15s;
-  }
-  .division-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(13,27,62,.35); }
-  .division-card .dc-icon { font-size: 30px; flex-shrink: 0; }
-  .division-card .dc-label { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; opacity: .55; margin-bottom: 3px; }
-  .division-card .dc-name { font-size: 18px; font-weight: 800; }
-  .division-card .dc-url { font-size: 11px; opacity: .45; margin-top: 3px; }
-  .division-card .dc-arrow { margin-left: auto; opacity: .45; font-size: 20px; flex-shrink: 0; }
-
-  /* Info cards */
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 14px;
-  }
-  .info-card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 22px 24px;
-    box-shadow: 0 2px 10px rgba(0,0,0,.07);
-  }
-  .info-card h3 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
-  .info-card p { font-size: 13px; color: #64748b; line-height: 1.6; }
-
-  /* Stats */
-  .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 12px;
-  }
-  .stat-card {
-    background: #fff; border-radius: 14px; padding: 22px 16px;
-    text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,.07);
-  }
-  .stat-card .stat-number { font-size: 34px; font-weight: 900; color: #1a56db; }
-  .stat-card .stat-label { font-size: 12px; color: #64748b; margin-top: 5px; font-weight: 600; }
-
-  .notice {
-    background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px;
-    padding: 16px 20px; font-size: 13px; color: #92400e;
-    margin-bottom: 20px; display: flex; gap: 10px; align-items: flex-start;
-  }
-
-  .site-footer {
-    background: #0d1b3e; color: rgba(255,255,255,.45);
-    text-align: center; padding: 24px; font-size: 12px; margin-top: 60px;
-  }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f4f8; color: #0f172a; line-height: 1.5; }
+  .demo-banner { background: #f59e0b; color: #0d1b3e; text-align: center; padding: 10px 16px; font-size: 13px; font-weight: 700; }
+  .demo-banner a { color: #0d1b3e; text-decoration: underline; }
+  .site-header { background: linear-gradient(135deg, #3b0764, #7c3aed 60%, #a855f7); color: #fff; padding: 40px 24px 48px; text-align: center; }
+  .header-badge { display: inline-block; background: rgba(168,85,247,.2); border: 1px solid rgba(168,85,247,.4); color: #ede9fe; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
+  .site-header h1 { font-size: clamp(22px, 5vw, 34px); font-weight: 900; letter-spacing: -.02em; }
+  .site-header p { font-size: 14px; opacity: .85; max-width: 520px; margin: 8px auto 0; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+  .section { margin: 36px 0; }
+  .section-title { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #64748b; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #e2e8f0; }
+  .card { background: #fff; border-radius: 14px; padding: 20px 22px; box-shadow: 0 2px 10px rgba(0,0,0,.07); margin-bottom: 14px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+  .stat { background: #fff; padding: 18px; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .stat .num { font-size: 28px; font-weight: 900; color: #7c3aed; }
+  .stat .lab { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+  .pathway { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .pw-step { background: #fff; border-radius: 12px; padding: 16px 14px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.06); border-top: 4px solid #a855f7; }
+  .pw-step .n { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #7c3aed; }
+  .pw-step .t { font-size: 14px; font-weight: 700; margin-top: 4px; }
+  .pw-step .s { font-size: 11px; color: #64748b; margin-top: 4px; }
+  .division-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .division-tile { background: #fff; border-radius: 12px; padding: 16px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.06); text-decoration: none; color: #0f172a; display: block; border: 2px solid transparent; transition: border-color .15s, transform .15s; }
+  .division-tile:hover { border-color: #a855f7; transform: translateY(-2px); }
+  .division-tile .ic { font-size: 22px; }
+  .division-tile .nm { font-size: 14px; font-weight: 700; margin-top: 6px; }
+  .division-tile .en { font-size: 12px; color: #64748b; margin-top: 3px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 8px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; border-bottom: 2px solid #e2e8f0; }
+  td { padding: 10px 8px; border-bottom: 1px solid #f1f5f9; }
+  .date-pill { background: #ede9fe; color: #6d28d9; padding: 3px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; }
+  .connected { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .conn { background: #fff; border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,.06); border: 2px solid transparent; transition: border-color .15s, transform .15s; }
+  .conn:hover { border-color: #a855f7; transform: translateY(-2px); }
+  .conn .ic { font-size: 20px; }
+  .conn .lab { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #94a3b8; }
+  .conn .nm { font-size: 13px; font-weight: 700; }
+  .site-footer { background: #0d1b3e; color: rgba(255,255,255,.45); text-align: center; padding: 22px; font-size: 12px; margin-top: 50px; }
 </style>
 </head>
 <body>
-<div style="background:#f59e0b;color:#0d1b3e;text-align:center;padding:10px 16px;font-size:13px;font-weight:700;">
-  📍 DEMO PAGE — fictional data. Real region pages are unlisted, visible only to logged-in coordinators. <a href="/" style="color:#0d1b3e;text-decoration:underline;">← Back to portal</a>
-</div>
-
-<!-- Shared nav auto-injects here -->
-<script data-site="westernmetropolitanregion" src="https://schoolsportportal.com.au/schoolsportportal-nav.js"></script>
+<div class="demo-banner">📍 DEMO PAGE — fictional data. Real region pages are unlisted, visible only to logged-in coordinators. <a href="/">← Back to portal</a></div>
 
 <header class="site-header">
-  <div class="header-badge">🏛️ Victoria, Australia</div>
+  <div class="header-badge">🗺️ State Sport Pathway</div>
   <h1>Central Coast Region</h1>
-  <p>The home of school sport for the Central Coast Region — connecting divisions, districts, and schools across the west of Melbourne.</p>
+  <p>The home of school sport for the Central Coast Region — connecting divisions, districts, and schools across the coast.</p>
 </header>
 
 <main class="container">
 
   <div class="section">
     <p class="section-title">Region at a Glance</p>
-    <div class="stats-bar">
-      <div class="stat-card"><div class="stat-number">2</div><div class="stat-label">Divisions</div></div>
-      <div class="stat-card"><div class="stat-number">1+</div><div class="stat-label">Districts</div></div>
-      <div class="stat-card"><div class="stat-number">T1–4</div><div class="stat-label">All Terms</div></div>
-      <div class="stat-card"><div class="stat-number">10+</div><div class="stat-label">Sports</div></div>
+    <div class="stats">
+      <div class="stat"><div class="num">2</div><div class="lab">Divisions</div></div>
+      <div class="stat"><div class="num">5</div><div class="lab">Districts</div></div>
+      <div class="stat"><div class="num">28</div><div class="lab">Schools</div></div>
+      <div class="stat"><div class="num">8,650</div><div class="lab">Students</div></div>
     </div>
   </div>
 
   <div class="section">
-    <p class="section-title">Notice</p>
-    <div class="notice">
-      <span>📢</span>
-      <span>Welcome to the Central Coast Region school sport hub. Regional carnival and representative information coming soon.</span>
+    <p class="section-title">The Sport Pathway</p>
+    <div class="card">
+      <div class="pathway">
+        <div class="pw-step"><div class="n">Step 1</div><div class="t">🏫 School</div><div class="s">House carnival</div></div>
+        <div class="pw-step"><div class="n">Step 2</div><div class="t">📍 District</div><div class="s">Top athletes from each school</div></div>
+        <div class="pw-step"><div class="n">Step 3</div><div class="t">🏛️ Division</div><div class="s">Top athletes from each district</div></div>
+        <div class="pw-step"><div class="n">Step 4</div><div class="t">🗺️ Region</div><div class="s">This level</div></div>
+        <div class="pw-step"><div class="n">Step 5</div><div class="t">🏆 State</div><div class="s">State finals</div></div>
+      </div>
+      <p style="font-size:13px;color:#64748b;margin-top:14px;">Every result from every school carnival auto-rolls up through the pathway. No re-entering data, no chasing schools for PDFs — the top performers surface at each level automatically.</p>
     </div>
   </div>
 
   <div class="section">
-    <p class="section-title">Divisions in this Region</p>
+    <p class="section-title">Divisions in Central Coast Region</p>
     <div class="division-grid">
-      <a class="division-card" href="/demo-division">
-        <span class="dc-icon">🏆</span>
-        <div>
-          <div class="dc-label">Division</div>
-          <div class="dc-name">Eastbay Division</div>
-          <div class="dc-url">schoolsportportal.com.au/demo-division</div>
-        </div>
-        <span class="dc-arrow">→</span>
+      <a class="division-tile" href="/demo-division">
+        <span class="ic">🏛️</span>
+        <div class="nm">Eastbay Division</div>
+        <div class="en">3 districts · 17 schools · 5,240 students</div>
       </a>
-      <a class="division-card" href="/#">
-        <span class="dc-icon">🏆</span>
-        <div>
-          <div class="dc-label">Division</div>
-          <div class="dc-name">Seaside Division</div>
-          <div class="dc-url">schoolsportportal.com.au/#</div>
-        </div>
-        <span class="dc-arrow">→</span>
-      </a>
+      <div class="division-tile" style="opacity:.7;">
+        <span class="ic">🏛️</span>
+        <div class="nm">Seaside Division</div>
+        <div class="en">2 districts · 11 schools · 3,410 students</div>
+      </div>
     </div>
   </div>
 
   <div class="section">
-    <p class="section-title">Region Information</p>
-    <div class="info-grid">
-      <div class="info-card">
-        <h3>🏅 State Pathways</h3>
-        <p>The top performers from divisional carnivals progress to state-level competitions through the Central Coast Region pathway.</p>
-      </div>
-      <div class="info-card">
-        <h3>📅 Regional Carnivals</h3>
-        <p>Regional carnival dates will be listed here as they are confirmed each school year.</p>
-      </div>
-      <div class="info-card">
-        <h3>🏛️ Victorian School Sport</h3>
-        <p>This region operates under the Victorian School Sport framework. Visit <a href="https://www.vicsport.com.au" style="color:#1a56db;">vicsport.com.au</a> for state information.</p>
-      </div>
+    <p class="section-title">2026 Regional Carnival Calendar</p>
+    <div class="card">
+      <table>
+        <thead><tr><th>Carnival</th><th>Date</th><th>Venue</th></tr></thead>
+        <tbody>
+          <tr><td>🏊 Region Swimming</td><td><span class="date-pill">Wed 15 Apr 2026</span></td><td>State Aquatic Centre</td></tr>
+          <tr><td>🌲 Region Cross Country</td><td><span class="date-pill">Thu 25 Jun 2026</span></td><td>Coastal Park</td></tr>
+          <tr><td>🏃 Region Athletics</td><td><span class="date-pill">Tue 22 Sep 2026</span></td><td>State Athletics Stadium</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
+  <div class="section">
+    <p class="section-title">Connected Sites</p>
+    <div class="connected">
+      <a class="conn" href="/demo-division"><span class="ic">🏛️</span><div><div class="lab">Division</div><div class="nm">Eastbay Division →</div></div></a>
+      <a class="conn" href="/demo-district"><span class="ic">📍</span><div><div class="lab">District</div><div class="nm">Riverside District →</div></div></a>
+      <a class="conn" href="/demo-school"><span class="ic">🏫</span><div><div class="lab">School</div><div class="nm">Riverside Primary →</div></div></a>
+    </div>
+  </div>
 </main>
 
-<footer class="site-footer">
-  <p>schoolsportportal.com.au/demo-region &nbsp;·&nbsp; Victorian School Sport</p>
-</footer>
-
+<footer class="site-footer">schoolsportportal.com.au/demo-region · Central Coast Region · fictional data</footer>
 </body>
 </html>
-
