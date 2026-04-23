@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wyndham Division — School Sport Portal</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f4f8; color: #0f172a; }
+
+  .site-header {
+    background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6e 60%, #1a56db 100%);
+    color: #fff;
+    padding: 52px 24px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 32px;
+    background: #f0f4f8;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(245,158,11,.15);
+    border: 1px solid rgba(245,158,11,.4);
+    color: #f59e0b;
+    font-size: 11px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
+  }
+  .site-header h1 { font-size: clamp(24px, 5vw, 38px); font-weight: 900; letter-spacing: -.02em; margin-bottom: 8px; }
+  .site-header p { font-size: 14px; opacity: .72; max-width: 480px; margin: 0 auto; line-height: 1.6; }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+  .section { margin: 44px 0; }
+  .section-title {
+    font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+    color: #64748b; margin-bottom: 14px; padding-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .info-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 22px 24px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.07);
+  }
+  .info-card h3 { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+  .info-card p { font-size: 13px; color: #64748b; line-height: 1.6; }
+
+  .notice {
+    background: #fffbeb; border: 1px solid #fcd34d; border-radius: 12px;
+    padding: 16px 20px; font-size: 13px; color: #92400e;
+    margin-bottom: 20px; display: flex; gap: 10px; align-items: flex-start;
+  }
+
+  .sites-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .site-link {
+    background: #fff; border-radius: 12px; padding: 16px 20px;
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: #0f172a;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    border: 2px solid transparent;
+    transition: border-color .15s, transform .15s;
+  }
+  .site-link:hover { border-color: #1a56db; transform: translateY(-2px); }
+  .site-link .site-icon { font-size: 22px; flex-shrink: 0; }
+  .site-link .site-label { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #94a3b8; margin-bottom: 2px; }
+  .site-link .site-name { font-size: 13px; font-weight: 700; }
+  .site-link .site-arrow { margin-left: auto; color: #94a3b8; font-size: 14px; flex-shrink: 0; }
+
+  .sport-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .sport-card {
+    background: #fff; border-radius: 14px; padding: 20px 16px;
+    text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    transition: transform .15s;
+  }
+  .sport-card:hover { transform: translateY(-2px); }
+  .sport-card .sport-emoji { font-size: 32px; margin-bottom: 8px; }
+  .sport-card .sport-name { font-size: 13px; font-weight: 700; }
+  .sport-card .sport-season { font-size: 11px; color: #94a3b8; margin-top: 3px; }
+
+  .site-footer {
+    background: #0d1b3e; color: rgba(255,255,255,.45);
+    text-align: center; padding: 24px; font-size: 12px; margin-top: 60px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Shared nav auto-injects here -->
+<script data-site="wyndhamdivision" src="https://schoolsportportal.com.au/schoolsportportal-nav.js"></script>
+
+<header class="site-header">
+  <div class="header-badge">🏆 Western Metro Region</div>
+  <h1>Wyndham Division</h1>
+  <p>School sport fixtures, representative programs, and competition information for the Wyndham Division.</p>
+</header>
+
+<main class="container">
+
+  <div class="section">
+    <p class="section-title">Notice</p>
+    <div class="notice">
+      <span>📢</span>
+      <span>Welcome to the Wyndham Division school sport page. Fixtures, carnivals, and representative information coming soon.</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Division Sports</p>
+    <div class="sport-grid">
+      <div class="sport-card"><div class="sport-emoji">🏃</div><div class="sport-name">Athletics</div><div class="sport-season">Term 1–2</div></div>
+      <div class="sport-card"><div class="sport-emoji">🏊</div><div class="sport-name">Swimming</div><div class="sport-season">Term 1</div></div>
+      <div class="sport-card"><div class="sport-emoji">⚽</div><div class="sport-name">Football</div><div class="sport-season">Term 2</div></div>
+      <div class="sport-card"><div class="sport-emoji">🏀</div><div class="sport-name">Basketball</div><div class="sport-season">Term 2</div></div>
+      <div class="sport-card"><div class="sport-emoji">🎾</div><div class="sport-name">Tennis</div><div class="sport-season">Term 3</div></div>
+      <div class="sport-card"><div class="sport-emoji">🏑</div><div class="sport-name">Hockey</div><div class="sport-season">Term 3</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Division Information</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>🏅 Representative Sport</h3>
+        <p>Students who excel at district level progress to Wyndham Division representative competitions.</p>
+      </div>
+      <div class="info-card">
+        <h3>📅 Carnival Dates</h3>
+        <p>Division carnival dates and venues will be listed here as they are confirmed each term.</p>
+      </div>
+      <div class="info-card">
+        <h3>📞 Contact</h3>
+        <p>Contact your school PE coordinator or district convener for Wyndham Division sport enquiries.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Connected Sites</p>
+    <div class="sites-row">
+      <a class="site-link" href="/wmr">
+        <span class="site-icon">🏛️</span>
+        <div><div class="site-label">Region (Parent)</div><div class="site-name">Western Metro Region</div></div>
+        <span class="site-arrow">→</span>
+      </a>
+      <a class="site-link" href="/hobsonsbaydivision">
+        <span class="site-icon">🏆</span>
+        <div><div class="site-label">Sibling Division</div><div class="site-name">Hobsons Bay Division</div></div>
+        <span class="site-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <p>schoolsportportal.com.au/wyndhamdivision &nbsp;·&nbsp; Western Metropolitan Region School Sport</p>
+</footer>
+
+</body>
+</html>
+
