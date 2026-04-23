@@ -21,3 +21,5 @@ Connected to Vercel project `schoolsportportal`. Push to `main` triggers auto-de
 - `sportportal.com.au` — flagship, marketing, payment
 - `sportcarnival.com.au` — carnival management tool
 - `carnivaltiming.com` — on-the-day timing tool
+
+<!-- deploy trigger: connect vercel -->
