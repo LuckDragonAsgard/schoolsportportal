@@ -6,83 +6,122 @@
 <title>Riverside District — School Sport Portal</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f4f8; color: #0f172a; min-height: 100vh; }
-  .site-header {
-    background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6e 60%, #1a56db 100%);
-    color: #fff; padding: 52px 24px 60px; text-align: center; position: relative; overflow: hidden;
-  }
-  .site-header::after {
-    content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
-    height: 32px; background: #f0f4f8; clip-path: ellipse(55% 100% at 50% 100%);
-  }
-  .header-badge {
-    display: inline-block; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.4);
-    color: #f59e0b; font-size: 11px; font-weight: 700; letter-spacing: .08em;
-    text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
-  }
-  .site-header h1 { font-size: clamp(24px, 5vw, 38px); font-weight: 900; letter-spacing: -.02em; margin-bottom: 8px; }
-  .site-header p { font-size: 14px; opacity: .72; max-width: 480px; margin: 0 auto; line-height: 1.6; }
-  .container { max-width: 880px; margin: 0 auto; padding: 0 20px; }
-  .coming-soon {
-    background: #fff; border-radius: 20px; padding: 60px 40px; text-align: center;
-    box-shadow: 0 4px 24px rgba(0,0,0,.08); margin: 40px auto; max-width: 560px;
-  }
-  .cs-icon { font-size: 56px; margin-bottom: 20px; }
-  .cs-title { font-size: 26px; font-weight: 900; margin-bottom: 10px; }
-  .cs-sub { font-size: 15px; color: #64748b; line-height: 1.7; margin-bottom: 28px; }
-  .cs-badge {
-    display: inline-block; background: #eff6ff; border: 1px solid #bfdbfe;
-    color: #1d4ed8; font-size: 12px; font-weight: 700; padding: 6px 16px;
-    border-radius: 20px; margin-bottom: 28px;
-  }
-  .btn {
-    display: inline-block; background: #1a56db; color: #fff; padding: 13px 28px;
-    border-radius: 10px; font-weight: 700; font-size: 14px; text-decoration: none;
-    transition: background .15s;
-  }
-  .btn:hover { background: #1648c0; }
-  .nav-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
-  .nav-link {
-    background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;
-    padding: 8px 16px; font-size: 12px; font-weight: 600; color: #475569;
-    text-decoration: none; transition: all .15s;
-  }
-  .nav-link:hover { border-color: #1a56db; color: #1a56db; }
-  footer {
-    text-align: center; padding: 30px 20px; font-size: 12px; color: #94a3b8; margin-top: 20px;
-  }
-  footer a { color: #1a56db; text-decoration: none; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f4f8; color: #0f172a; line-height: 1.5; }
+  .demo-banner { background: #f59e0b; color: #0d1b3e; text-align: center; padding: 10px 16px; font-size: 13px; font-weight: 700; }
+  .demo-banner a { color: #0d1b3e; text-decoration: underline; }
+  .site-header { background: linear-gradient(135deg, #0d1b3e, #1a3a6e 60%, #1a56db); color: #fff; padding: 40px 24px 48px; text-align: center; position: relative; overflow: hidden; }
+  .site-header::after { content:''; position:absolute; bottom:-1px; left:0; right:0; height:32px; background:#f0f4f8; clip-path:ellipse(55% 100% at 50% 100%); }
+  .header-badge { display: inline-block; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.4); color: #f59e0b; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 12px; }
+  .site-header h1 { font-size: clamp(22px, 5vw, 34px); font-weight: 900; letter-spacing: -.02em; }
+  .site-header p { font-size: 14px; opacity: .78; max-width: 520px; margin: 8px auto 0; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+  .section { margin: 36px 0; }
+  .section-title { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #64748b; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid #e2e8f0; }
+  .card { background: #fff; border-radius: 14px; padding: 20px 22px; box-shadow: 0 2px 10px rgba(0,0,0,.07); margin-bottom: 14px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .stat { background: #fff; padding: 18px; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .stat .num { font-size: 28px; font-weight: 900; color: #1a56db; }
+  .stat .lab { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+  .school-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .school-tile { background: #fff; border-radius: 12px; padding: 16px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.06); display: flex; gap: 12px; align-items: center; }
+  .school-tile .ic { font-size: 26px; flex-shrink: 0; }
+  .school-tile .nm { font-size: 13px; font-weight: 700; }
+  .school-tile .en { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 8px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; border-bottom: 2px solid #e2e8f0; }
+  td { padding: 10px 8px; border-bottom: 1px solid #f1f5f9; }
+  tr:hover td { background: #f8fafc; }
+  .date-pill { background: #dbeafe; color: #1d4ed8; padding: 3px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; }
+  .status-pill { padding: 3px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; display: inline-block; }
+  .st-done { background: #d1fae5; color: #047857; }
+  .st-now { background: #fef3c7; color: #a16207; }
+  .st-next { background: #e5e7eb; color: #475569; }
+  .connected { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .conn { background: #fff; border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,.06); border: 2px solid transparent; transition: border-color .15s, transform .15s; }
+  .conn:hover { border-color: #1a56db; transform: translateY(-2px); }
+  .conn .ic { font-size: 20px; }
+  .conn .lab { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #94a3b8; }
+  .conn .nm { font-size: 13px; font-weight: 700; }
+  .site-footer { background: #0d1b3e; color: rgba(255,255,255,.45); text-align: center; padding: 22px; font-size: 12px; margin-top: 50px; }
 </style>
 </head>
 <body>
-<div style="background:#f59e0b;color:#0d1b3e;text-align:center;padding:10px 16px;font-size:13px;font-weight:700;">
-  📍 DEMO PAGE — fictional data. Real district pages are unlisted, visible only to logged-in coordinators. <a href="/" style="color:#0d1b3e;text-decoration:underline;">← Back to portal</a>
-</div>
-<div class="site-header">
+<div class="demo-banner">📍 DEMO PAGE — fictional data. Real district pages are unlisted, visible only to logged-in coordinators. <a href="/">← Back to portal</a></div>
+
+<header class="site-header">
   <div class="header-badge">📍 Eastbay Division</div>
   <h1>Riverside District</h1>
-  <p>School sport fixtures, results and information for schools across the Riverside District.</p>
-</div>
-<div class="container">
-  <div class="coming-soon">
-    <div class="cs-icon">🏗️</div>
-    <div class="cs-badge">COMING SOON — 2026</div>
-    <div class="cs-title">This page is being set up</div>
-    <div class="cs-sub">
-      The Riverside District sport portal is coming soon — with live carnival results, team selections, fixtures and school pages for every school in the district.<br><br>
-      Powered by <strong>SportCarnival</strong> &amp; <strong>SchoolSportPortal</strong>.
+  <p>School sport fixtures, carnival results and representative teams across the Riverside District.</p>
+</header>
+
+<main class="container">
+
+  <div class="section">
+    <p class="section-title">District at a Glance</p>
+    <div class="stats">
+      <div class="stat"><div class="num">6</div><div class="lab">Member schools</div></div>
+      <div class="stat"><div class="num">1,820</div><div class="lab">Students</div></div>
+      <div class="stat"><div class="num">3</div><div class="lab">District carnivals /yr</div></div>
+      <div class="stat"><div class="num">72</div><div class="lab">Division reps selected</div></div>
     </div>
-    <a href="mailto:paddy.gallivan@education.vic.gov.au" class="btn">Get Early Access →</a>
   </div>
-  <div class="nav-links">
-    <a href="https://schoolsportportal.com.au" class="nav-link">🏛️ School Sport Portal</a>
-    <a href="https://schoolsportportal.com.au/demo-division" class="nav-link">🏆 Eastbay Division</a>
-    <a href="https://sportcarnival.com.au" class="nav-link">🏃 SportCarnival</a>
+
+  <div class="section">
+    <p class="section-title">Member Schools</p>
+    <div class="school-grid">
+      <div class="school-tile"><span class="ic">🏫</span><div><div class="nm">Riverside Primary School</div><div class="en">420 students</div></div></div>
+      <div class="school-tile"><span class="ic">🏫</span><div><div class="nm">Bayside Park PS</div><div class="en">380 students</div></div></div>
+      <div class="school-tile"><span class="ic">🏫</span><div><div class="nm">Greenlawn PS</div><div class="en">310 students</div></div></div>
+      <div class="school-tile"><span class="ic">🏫</span><div><div class="nm">Meadowbrook PS</div><div class="en">290 students</div></div></div>
+      <div class="school-tile"><span class="ic">🏫</span><div><div class="nm">Harbour Heights PS</div><div class="en">250 students</div></div></div>
+      <div class="school-tile"><span class="ic">🏫</span><div><div class="nm">Oak Valley PS</div><div class="en">170 students</div></div></div>
+    </div>
   </div>
-</div>
-<footer>
-  schoolsportportal.com.au/altonadistrict · Eastbay Division · Western Metropolitan Region<br>
-  <a href="https://sportcarnival.com.au">sportcarnival.com.au</a>
-</footer>
+
+  <div class="section">
+    <p class="section-title">2026 District Carnival Calendar</p>
+    <div class="card">
+      <table>
+        <thead><tr><th>Carnival</th><th>Date</th><th>Venue</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>🏊 District Swimming</td><td><span class="date-pill">Fri 6 Mar 2026</span></td><td>Aquadome Pool</td><td><span class="status-pill st-done">Completed</span></td></tr>
+          <tr><td>🌲 District Cross Country</td><td><span class="date-pill">Thu 15 May 2026</span></td><td>Riverside Reserve</td><td><span class="status-pill st-now">This week</span></td></tr>
+          <tr><td>🏃 District Athletics</td><td><span class="date-pill">Wed 26 Aug 2026</span></td><td>Newport Athletics Track</td><td><span class="status-pill st-next">Upcoming</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">District Team — Swimming 2026 (Progressing to Division)</p>
+    <div class="card">
+      <table>
+        <thead><tr><th>Event</th><th>Swimmer</th><th>Time</th></tr></thead>
+        <tbody>
+          <tr><td>Girls 11 50m Free</td><td>Ruby C. · Riverside Primary</td><td>32.84</td></tr>
+          <tr><td>Girls 11 50m Free</td><td>Mia L. · Bayside Park PS</td><td>33.12</td></tr>
+          <tr><td>Girls 11 50m Free</td><td>Willow S. · Riverside Primary</td><td>33.92</td></tr>
+          <tr><td>Boys 11 50m Free</td><td>Leo P. · Greenlawn PS</td><td>31.02</td></tr>
+          <tr><td>Boys 11 50m Free</td><td>Max J. · Riverside Primary</td><td>31.58</td></tr>
+          <tr><td>Boys 12 50m Breast</td><td>Jasper D. · Riverside Primary</td><td>41.17</td></tr>
+          <tr><td>Girls 12 50m Back</td><td>Ivy R. · Meadowbrook PS</td><td>38.44</td></tr>
+          <tr><td>Boys 10 50m Fly</td><td>Finn B. · Harbour Heights PS</td><td>45.22</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:#64748b;margin-top:10px;">Top performers auto-roll from each school's carnival into the district team. Public view: first name + last initial + school. Full names stored securely, visible only to signed-in coordinators.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <p class="section-title">Connected Sites</p>
+    <div class="connected">
+      <a class="conn" href="/demo-division"><span class="ic">🏛️</span><div><div class="lab">Division (parent)</div><div class="nm">Eastbay Division →</div></div></a>
+      <a class="conn" href="/demo-school"><span class="ic">🏫</span><div><div class="lab">Member school</div><div class="nm">Riverside Primary →</div></div></a>
+      <a class="conn" href="https://sportcarnival.com.au"><span class="ic">🏆</span><div><div class="lab">Carnival tool</div><div class="nm">SportCarnival →</div></div></a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">schoolsportportal.com.au/demo-district · Riverside District · Eastbay Division · fictional data</footer>
 </body>
 </html>
