@@ -159,9 +159,7 @@ const WINTER_SPORTS=[{key:'AFL',label:'AFL',emoji:'🏈'},{key:'Soccer',label:'S
 const GENDERS=['Girls','Boys/Mixed'];
 let db,divisionData={};
 function init(){try{firebase.initializeApp(FIREBASE_CONFIG);db=firebase.database();db.ref('division_hub/hobsonsbay/2026').on('value',snap=>{divisionData=snap.val()||{};renderWinnersBoard();});}catch(e){document.getElementById('winners-board').innerHTML='<div class="loading-state">⚠️ Unable to connect to live data.</div>';}}
-function getWinner(sport,gender,district){const key=sport+'__'+gender;return divisionData?.[key]?.districts?.[district]||null;}
+function getWinner(sport,gender,district){const key=sport+'__'+gender.replace(/\//g,'_');return divisionData?.[key]?.districts?.[district]||null;}
 function renderWinnersBoard(){const board=document.getElementById('winners-board');let confirmed=0,html='';WINTER_SPORTS.forEach(sport=>{html+=`<div class="sport-block"><div class="sport-header"><span class="sport-emoji">${sport.emoji}</span><span class="sport-name">${sport.label}</span></div><div class="sport-body">`;GENDERS.forEach(gender=>{html+=`<div class="gender-row"><span class="gender-label">${gender}</span>`;HB_DISTRICTS.forEach(dist=>{const w=getWinner(sport.key,gender,dist.key);if(w&&w.winner){confirmed++;html+=`<div class="district-winner-cell has-winner"><div class="district-name-label">${dist.label}</div><div class="trophy-icon">🏆</div><div class="winner-school">${w.winner}</div>${w.runnerUp?`<div class="runner-up-label">2nd: ${w.runnerUp}</div>`:''}</div>`;}else if(!dist.live){html+=`<div class="district-winner-cell pending"><div class="district-name-label">${dist.label}</div><div class="pending-label">–</div></div>`;}else{html+=`<div class="district-winner-cell pending"><div class="district-name-label">${dist.label}</div><div class="pending-label">In progress…</div></div>`;}});html+=`</div>`;});html+=`</div></div>`;});board.innerHTML=html;document.getElementById('stat-confirmed').textContent=confirmed;document.getElementById('last-updated').textContent='Last updated: '+new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});}
 init();
-</script>
-</body>
-</html>
+</scrip
