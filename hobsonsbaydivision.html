@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hobsons Bay Division — School Sport Portal</title>
+<meta name="description" content="Live district winners for Hobsons Bay Division primary school sport — AFL, Soccer, Netball, Hockey and Softball.">
+<meta property="og:title" content="Hobsons Bay Division Sport">
+<meta property="og:description" content="Live district winners for Hobsons Bay Division — AFL, Soccer, Netball, Hockey and Softball.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://schoolsportportal.com.au/hobsonsbaydivision">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0d1b3e">
+<link rel="manifest" id="pwa-manifest">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f4f8; color: #0f172a; }
@@ -80,6 +88,14 @@
   @keyframes spin { to{transform:rotate(360deg)} }
   .site-footer { background: #0d1b3e; color: rgba(255,255,255,.45); text-align: center; padding: 24px; font-size: 12px; margin-top: 60px; }
   .last-updated { font-size: 11px; color: #94a3b8; margin-top: 6px; font-style: italic; }
+  .share-btn { background: rgba(255,255,255,.15); color: #fff; border: 1px solid rgba(255,255,255,.3); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background .2s; margin-top: 14px; }
+  .share-btn:hover { background: rgba(255,255,255,.25); }
+  .district-filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; align-items: center; }
+  .district-filter-bar span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #64748b; }
+  .dist-pill { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 2px solid #e2e8f0; background: #fff; cursor: pointer; transition: all .18s; color: #374151; }
+  .dist-pill.active { background: #0d1b3e; color: #fff; border-color: #0d1b3e; }
+  .district-winner-cell.dimmed { opacity: .25; }
+  .district-winner-cell.highlighted { box-shadow: 0 0 0 2px #f59e0b; }
 </style>
 </head>
 <body>
@@ -88,6 +104,7 @@
   <div class="header-badge">Western Metro Region</div>
   <h1>Hobsons Bay Division</h1>
   <p>District competition results — winners automatically appear as scores are finalised.</p>
+  <button class="share-btn" onclick="sharePage()">📤 Share Results</button>
 </header>
 <main class="container">
   <div class="section">
@@ -104,7 +121,10 @@
       Winter Sport — District Winners
       <span class="live-dot">LIVE</span>
     </p>
-    <div id="winners-board">
+    <div class="district-filter-bar" id="dist-filter-bar">
+      <span>Highlight:</span>
+    </div>
+<div id="winners-board">
       <div class="loading-state">
         <div class="loading-spinner"></div>
         Connecting to live results…
@@ -162,4 +182,50 @@ function init(){try{firebase.initializeApp(FIREBASE_CONFIG);db=firebase.database
 function getWinner(sport,gender,district){const key=sport+'__'+gender.replace(/\//g,'_');return divisionData?.[key]?.districts?.[district]||null;}
 function renderWinnersBoard(){const board=document.getElementById('winners-board');let confirmed=0,html='';WINTER_SPORTS.forEach(sport=>{html+=`<div class="sport-block"><div class="sport-header"><span class="sport-emoji">${sport.emoji}</span><span class="sport-name">${sport.label}</span></div><div class="sport-body">`;GENDERS.forEach(gender=>{html+=`<div class="gender-row"><span class="gender-label">${gender}</span>`;HB_DISTRICTS.forEach(dist=>{const w=getWinner(sport.key,gender,dist.key);if(w&&w.winner){confirmed++;html+=`<div class="district-winner-cell has-winner"><div class="district-name-label">${dist.label}</div><div class="trophy-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 3 4 3 4 11"/><polyline points="16 3 20 3 20 11"/><path d="M4 11a8 8 0 0 0 16 0"/><path d="M12 19v3"/><path d="M8 22h8"/></svg></div><div class="winner-school">${w.winner}</div>${w.runnerUp?`<div class="runner-up-label">2nd: ${w.runnerUp}</div>`:''}</div>`;}else if(!dist.live){html+=`<div class="district-winner-cell pending"><div class="district-name-label">${dist.label}</div><div class="pending-label">–</div></div>`;}else{html+=`<div class="district-winner-cell pending"><div class="district-name-label">${dist.label}</div><div class="pending-label">In progress…</div></div>`;}});html+=`</div>`;});html+=`</div></div>`;});board.innerHTML=html;document.getElementById('stat-confirmed').textContent=confirmed;document.getElementById('last-updated').textContent='Last updated: '+new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});}
 init();
-</scrip
+
+// District filter pills
+var activeDist=null;
+(function(){
+  var bar=document.getElementById('dist-filter-bar');
+  HB_DISTRICTS.forEach(function(d){
+    var btn=document.createElement('button');
+    btn.className='dist-pill';btn.textContent=d.label;btn.dataset.key=d.key;
+    btn.onclick=function(){
+      if(activeDist===d.key){activeDist=null;document.querySelectorAll('.dist-pill').forEach(function(b){b.classList.remove('active');});}
+      else{activeDist=d.key;document.querySelectorAll('.dist-pill').forEach(function(b){b.classList.toggle('active',b.dataset.key===d.key);});}
+      applyDistFilter();
+    };
+    bar.appendChild(btn);
+  });
+})();
+function applyDistFilter(){
+  document.querySelectorAll('.district-winner-cell').forEach(function(el){
+    if(!activeDist){el.classList.remove('dimmed','highlighted');return;}
+    var label=el.querySelector('.district-name-label');
+    if(!label)return;
+    var dist=HB_DISTRICTS.find(function(d){return d.label===label.textContent.trim();});
+    if(dist&&dist.key===activeDist){el.classList.remove('dimmed');el.classList.add('highlighted');}
+    else{el.classList.add('dimmed');el.classList.remove('highlighted');}
+  });
+}
+var _origRender=renderWinnersBoard;
+function renderWinnersBoard(){_origRender();if(activeDist)applyDistFilter();}
+
+// Share
+function sharePage(){
+  var txt='Live district winners for Hobsons Bay Division primary school sport!';
+  var url=window.location.href;
+  if(navigator.share){navigator.share({title:'Hobsons Bay Division Sport',text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){alert('Link copied!');}).catch(function(){prompt('Copy:',url);});}
+  else{prompt('Copy this link:',url);}
+}
+
+// PWA manifest
+(function(){
+  var m={name:"Hobsons Bay Division Sport",short_name:"HB Division",start_url:window.location.href,display:"standalone",background_color:"#0d1b3e",theme_color:"#0d1b3e",icons:[{src:"data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0d1b3e" rx="20"/><text y=".88em" font-size="70" x="12">🏆</text></svg>'),sizes:"any",type:"image/svg+xml"}]};
+  var ml=document.getElementById('pwa-manifest');
+  if(ml)ml.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(m));
+})();
+</script>
+</body>
+</html>
