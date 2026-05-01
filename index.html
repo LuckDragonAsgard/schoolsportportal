@@ -541,6 +541,47 @@
   </div>
 </section>
 
+<section id="ai-demo" style="background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 100%);padding:60px 0">
+  <div class="section-inner" style="max-width:680px">
+    <div class="section-tag" style="color:#a5b4fc;text-align:center">🤖 AI-Powered</div>
+    <h2 class="section-h2" style="text-align:center;color:#fff">Falkor AI — built in</h2>
+    <p class="section-lead" style="text-align:center;color:rgba(255,255,255,.7);margin-bottom:32px">Every SSP subscription includes AI-generated event descriptions, sport plans, and house summaries. Try it below.</p>
+    <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:24px">
+      <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+        <input id="ai-event-input" type="text" placeholder="Enter an event (e.g. Year 5 100m Sprint)" style="flex:1;min-width:200px;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:.95rem;outline:none" />
+        <button onclick="tryAIDemo()" style="padding:10px 20px;background:#6366f1;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:.95rem;white-space:nowrap">✨ Generate</button>
+      </div>
+      <div id="ai-demo-result" style="min-height:60px;color:rgba(255,255,255,.85);font-size:.9rem;line-height:1.6;font-style:italic;display:none;padding:12px;background:rgba(99,102,241,.15);border-radius:10px"></div>
+      <div id="ai-demo-loading" style="display:none;color:rgba(255,255,255,.5);font-size:.88rem;padding:8px 0">🐉 Falkor is writing...</div>
+    </div>
+    <p style="text-align:center;margin-top:16px;color:rgba(255,255,255,.4);font-size:.8rem">Powered by Falkor AI · luckdragon.io</p>
+  </div>
+</section>
+<script>
+async function tryAIDemo() {
+  const inp = document.getElementById('ai-event-input');
+  const res = document.getElementById('ai-demo-result');
+  const load = document.getElementById('ai-demo-loading');
+  const event = inp.value.trim();
+  if (!event) { inp.focus(); return; }
+  res.style.display='none'; load.style.display='block';
+  try {
+    const r = await fetch('https://falkor-ssp-ai.luckdragon.io/event-description', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ event, school: 'your school', ageGroup: 'Primary', format: 'carnival' })
+    });
+    if (r.ok) {
+      const d = await r.json();
+      res.textContent = d.description || d.result || 'No response';
+      res.style.display='block';
+    }
+  } catch(e) { res.textContent='Could not connect to AI. Try again shortly.'; res.style.display='block'; }
+  load.style.display='none';
+}
+document.getElementById('ai-event-input')?.addEventListener('keydown', e=>{ if(e.key==='Enter') tryAIDemo(); });
+</script>
+
+
 <section id="pricing">
   <div class="section-inner">
     <div class="section-tag" style="text-align:center">Pricing</div>
