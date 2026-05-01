@@ -71,7 +71,7 @@
   .sites-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 12px; }
   .site-link { background: #fff; border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,.06); border: 2px solid transparent; transition: border-color .15s,transform .15s; }
   .site-link:hover { border-color: #1a56db; transform: translateY(-2px); }
-  .site-link .site-icon { font-size: 22px; flex-shrink: 0; }
+  .site-link .site-icon { display:flex;align-items:center;justify-content:center;color:#64748b; flex-shrink: 0; }
   .site-link .site-label { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #94a3b8; margin-bottom: 2px; }
   .site-link .site-name { font-size: 13px; font-weight: 700; }
   .site-link .site-arrow { margin-left: auto; color: #94a3b8; font-size: 14px; flex-shrink: 0; }
@@ -85,7 +85,7 @@
 <body>
 <script data-site="hobsonsbaydivision" src="https://schoolsportportal.com.au/schoolsportportal-nav.js"></script>
 <header class="site-header">
-  <div class="header-badge">🏆 Western Metro Region</div>
+  <div class="header-badge">Western Metro Region</div>
   <h1>Hobsons Bay Division</h1>
   <p>District competition results — winners automatically appear as scores are finalised.</p>
 </header>
@@ -116,7 +116,7 @@
     <p class="section-title">Districts in this Division</p>
     <div class="district-grid">
       <a class="district-card" href="/williamstowndistrict">
-        <span class="dc-icon">📍</span>
+        <span class="dc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
         <div>
           <div class="dc-label">District</div>
           <div class="dc-name">Williamstown District</div>
@@ -125,15 +125,15 @@
         <span class="dc-arrow">→</span>
       </a>
       <div class="district-card" style="opacity:.45;cursor:default">
-        <span class="dc-icon">📍</span>
+        <span class="dc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
         <div><div class="dc-label">District</div><div class="dc-name">Altona District</div><div class="dc-url">Coming soon</div></div>
       </div>
       <div class="district-card" style="opacity:.45;cursor:default">
-        <span class="dc-icon">📍</span>
+        <span class="dc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
         <div><div class="dc-label">District</div><div class="dc-name">Laverton District</div><div class="dc-url">Coming soon</div></div>
       </div>
       <div class="district-card" style="opacity:.45;cursor:default">
-        <span class="dc-icon">📍</span>
+        <span class="dc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
         <div><div class="dc-label">District</div><div class="dc-name">Point Cook District</div><div class="dc-url">Coming soon</div></div>
       </div>
     </div>
@@ -141,9 +141,9 @@
   <div class="section">
     <p class="section-title">Connected Sites</p>
     <div class="sites-row">
-      <a class="site-link" href="/wmr"><span class="site-icon">🏛️</span><div><div class="site-label">Region (Parent)</div><div class="site-name">Western Metro Region</div></div><span class="site-arrow">→</span></a>
-      <a class="site-link" href="/wyndhamdivision"><span class="site-icon">🏆</span><div><div class="site-label">Sibling Division</div><div class="site-name">Wyndham Division</div></div><span class="site-arrow">→</span></a>
-      <a class="site-link" href="/williamstowndistrict"><span class="site-icon">📍</span><div><div class="site-label">District (Child)</div><div class="site-name">Williamstown District</div></div><span class="site-arrow">→</span></a>
+      <a class="site-link" href="/wmr"><span class="site-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><div><div class="site-label">Region (Parent)</div><div class="site-name">Western Metro Region</div></div><span class="site-arrow">→</span></a>
+      <a class="site-link" href="/wyndhamdivision"><span class="site-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 3 4 3 4 11"/><polyline points="16 3 20 3 20 11"/><path d="M4 11a8 8 0 0 0 16 0"/><path d="M12 19v3"/><path d="M8 22h8"/></svg></span><div><div class="site-label">Sibling Division</div><div class="site-name">Wyndham Division</div></div><span class="site-arrow">→</span></a>
+      <a class="site-link" href="/williamstowndistrict"><span class="site-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><div class="site-label">District (Child)</div><div class="site-name">Williamstown District</div></div><span class="site-arrow">→</span></a>
     </div>
   </div>
 </main>
@@ -155,11 +155,11 @@
 <script>
 const FIREBASE_CONFIG={apiKey:"AIzaSyA-bNl8XqvZ7DQ6YftL9teXbqxYICBlPF8",authDomain:"willy-district-sport.firebaseapp.com",databaseURL:"https://willy-district-sport-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"willy-district-sport",storageBucket:"willy-district-sport.firebasestorage.app",messagingSenderId:"212867741935",appId:"1:212867741935:web:68e67c7c96dd474fe2831a"};
 const HB_DISTRICTS=[{key:'williamstown',label:'Williamstown',live:true},{key:'altona',label:'Altona',live:false},{key:'laverton',label:'Laverton',live:false},{key:'pointcook',label:'Point Cook',live:false}];
-const WINTER_SPORTS=[{key:'AFL',label:'AFL',emoji:'🏈'},{key:'Soccer',label:'Soccer',emoji:'⚽'},{key:'Netball',label:'Netball',emoji:'🏀'},{key:'Hockey',label:'Hockey',emoji:'🏑'},{key:'Softball',label:'Softball',emoji:'⚾'}];
+const WINTER_SPORTS=[{key:'AFL',label:'AFL',emoji:''},{key:'Soccer',label:'Soccer',emoji:''},{key:'Netball',label:'Netball',emoji:''},{key:'Hockey',label:'Hockey',emoji:''},{key:'Softball',label:'Softball',emoji:''}];
 const GENDERS=['Girls','Boys/Mixed'];
 let db,divisionData={};
 function init(){try{firebase.initializeApp(FIREBASE_CONFIG);db=firebase.database();db.ref('division_hub/hobsonsbay/2026').on('value',snap=>{divisionData=snap.val()||{};renderWinnersBoard();});}catch(e){document.getElementById('winners-board').innerHTML='<div class="loading-state">⚠️ Unable to connect to live data.</div>';}}
 function getWinner(sport,gender,district){const key=sport+'__'+gender.replace(/\//g,'_');return divisionData?.[key]?.districts?.[district]||null;}
-function renderWinnersBoard(){const board=document.getElementById('winners-board');let confirmed=0,html='';WINTER_SPORTS.forEach(sport=>{html+=`<div class="sport-block"><div class="sport-header"><span class="sport-emoji">${sport.emoji}</span><span class="sport-name">${sport.label}</span></div><div class="sport-body">`;GENDERS.forEach(gender=>{html+=`<div class="gender-row"><span class="gender-label">${gender}</span>`;HB_DISTRICTS.forEach(dist=>{const w=getWinner(sport.key,gender,dist.key);if(w&&w.winner){confirmed++;html+=`<div class="district-winner-cell has-winner"><div class="district-name-label">${dist.label}</div><div class="trophy-icon">🏆</div><div class="winner-school">${w.winner}</div>${w.runnerUp?`<div class="runner-up-label">2nd: ${w.runnerUp}</div>`:''}</div>`;}else if(!dist.live){html+=`<div class="district-winner-cell pending"><div class="district-name-label">${dist.label}</div><div class="pending-label">–</div></div>`;}else{html+=`<div class="district-winner-cell pending"><div class="district-name-label">${dist.label}</div><div class="pending-label">In progress…</div></div>`;}});html+=`</div>`;});html+=`</div></div>`;});board.innerHTML=html;document.getElementById('stat-confirmed').textContent=confirmed;document.getElementById('last-updated').textContent='Last updated: '+new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});}
+function renderWinnersBoard(){const board=document.getElementById('winners-board');let confirmed=0,html='';WINTER_SPORTS.forEach(sport=>{html+=`<div class="sport-block"><div class="sport-header"><span class="sport-emoji">${sport.emoji}</span><span class="sport-name">${sport.label}</span></div><div class="sport-body">`;GENDERS.forEach(gender=>{html+=`<div class="gender-row"><span class="gender-label">${gender}</span>`;HB_DISTRICTS.forEach(dist=>{const w=getWinner(sport.key,gender,dist.key);if(w&&w.winner){confirmed++;html+=`<div class="district-winner-cell has-winner"><div class="district-name-label">${dist.label}</div><div class="trophy-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 3 4 3 4 11"/><polyline points="16 3 20 3 20 11"/><path d="M4 11a8 8 0 0 0 16 0"/><path d="M12 19v3"/><path d="M8 22h8"/></svg></div><div class="winner-school">${w.winner}</div>${w.runnerUp?`<div class="runner-up-label">2nd: ${w.runnerUp}</div>`:''}</div>`;}else if(!dist.live){html+=`<div class="district-winner-cell pending"><div class="district-name-label">${dist.label}</div><div class="pending-label">–</div></div>`;}else{html+=`<div class="district-winner-cell pending"><div class="district-name-label">${dist.label}</div><div class="pending-label">In progress…</div></div>`;}});html+=`</div>`;});html+=`</div></div>`;});board.innerHTML=html;document.getElementById('stat-confirmed').textContent=confirmed;document.getElementById('last-updated').textContent='Last updated: '+new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});}
 init();
 </scrip
