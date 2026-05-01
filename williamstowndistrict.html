@@ -295,22 +295,22 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 <span class="user-badge" id="user-badge"></span><button class="hdr-btn" id="auth-btn" onclick="handleAuth()">Login</button></div>
 </div>
 <nav><div class="nav-inner" id="main-nav">
-<a class="active" data-page="home">🏠 Home</a>
-<a data-page="fixtures">📅 Scores</a>
-<a data-page="ladders"><span class="live-dot"></span>📊 Standings</a>
-<a data-page="enter">✏️ Enter Scores</a>
-<a data-page="venues">📍 Venues</a>
-<a data-page="guidelines">📋 Guidelines</a>
-<a data-page="contacts" class="coach-only">📞 Contacts</a>
-<a data-page="history">🏆 History</a>
-<a data-page="admin" class="coach-only" id="admin-nav" style="display:none">⚙️ Admin</a>
+<a class="active" data-page="home"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</a>
+<a data-page="fixtures"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Scores</a>
+<a data-page="ladders"><span class="live-dot"></span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Standings</a>
+<a data-page="enter"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Enter Scores</a>
+<a data-page="venues"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Venues</a>
+<a data-page="guidelines"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg> Guidelines</a>
+<a data-page="contacts" class="coach-only"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.62 4.38 2 2 0 0 1 3.62 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contacts</a>
+<a data-page="history"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 3 4 3 4 11"/><polyline points="16 3 20 3 20 11"/><path d="M4 11a8 8 0 0 0 16 0"/><path d="M12 19v3"/><path d="M8 22h8"/></svg> History</a>
+<a data-page="admin" class="coach-only" id="admin-nav" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Admin</a>
 </div></nav>
 </header>
 <div class="container">
 <div class="page active" id="pg-home">
 <div id="games-today-banner" style="display:none"></div>
 <div class="coach-banner" id="coach-banner">
-  <div class="cb-label">👋 Coach Mode</div>
+  <div class="cb-label">Coach Mode</div>
   <div class="cb-row">
     <div class="cb-info" id="coach-banner-info">Select your school below to enter scores</div>
     <button class="cb-btn" onclick="goTo('enter')">✏️ Enter Scores →</button>
@@ -319,10 +319,10 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 <div class="hero"><span class="season-badge" id="home-season-badge">2026 Season</span><h2 id="home-title">Winter Sport</h2>
 <p id="home-desc">Live results, ladders and fixtures for AFL, Soccer, Netball, Hockey and Softball across the Williamstown District.</p>
 <div class="parent-actions">
-  <button class="parent-btn gold" onclick="goTo('fixtures')">📅 See Latest Scores</button>
-  <button class="parent-btn ghost" onclick="goTo('ladders')">📊 View Standings</button>
+  <button class="parent-btn gold" onclick="goTo('fixtures')"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> See Latest Scores</button>
+  <button class="parent-btn ghost" onclick="goTo('ladders')"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> View Standings</button>
 </div>
-<div class="share-strip"><button class="share-btn-hero" onclick="shareResults()">📤 Share Results</button></div>
+<div class="share-strip"><button class="share-btn-hero" onclick="shareResults()"> Share Results</button></div>
 </div>
 <div class="mobile-season-toggle" id="mobile-season-toggle">
 <button class="season-btn active" data-season="summer" onclick="setSeason('summer')">Summer Sport</button>
@@ -330,8 +330,8 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 </div>
 <div id="home-countdown" class="countdown-banner" style="display:none"></div>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px">
-<div class="card"><div class="card-header">📅 Latest Results <span class="badge badge-live" id="latest-results-badge" style="display:none"><span class="live-dot"></span>Live</span></div><div class="card-body" id="home-latest-results"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
-<div class="card"><div class="card-header">📊 Current Leaders <span class="badge badge-live"><span class="live-dot"></span>Live</span></div><div class="card-body" id="home-leaders"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
+<div class="card"><div class="card-header"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Latest Results <span class="badge badge-live" id="latest-results-badge" style="display:none"><span class="live-dot"></span>Live</span></div><div class="card-body" id="home-latest-results"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
+<div class="card"><div class="card-header"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Current Leaders <span class="badge badge-live"><span class="live-dot"></span>Live</span></div><div class="card-body" id="home-leaders"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
 <div class="card"><div class="card-header">⏭️ Next Round <span class="badge badge-upcoming" id="home-next-badge"></span></div><div class="card-body" id="home-next-round"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
 </div>
 <div class="card"><div class="card-header">2026 Calendar</div><div class="card-body">
@@ -354,7 +354,7 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 <div class="tab-row" id="fixture-tabs"></div>
 <div style="display:flex;justify-content:center;margin-bottom:14px"><div class="gender-toggle"><button class="gender-btn active" onclick="setGender('Girls')">Girls</button><button class="gender-btn" onclick="setGender('Boys/Mixed')">Boys/Mixed</button></div></div>
 <div class="school-filter-bar">
-  <label>🏫 Filter by school:</label>
+  <label>Filter by school:</label>
   <select id="fixture-school-filter" class="form-select" style="font-size:.82rem;padding:6px 10px" onchange="renderFixtures()">
     <option value="">All Schools</option>
   </select>
@@ -608,7 +608,7 @@ function initFirebase(){if(FIREBASE_CONFIG.apiKey==="YOUR_API_KEY"){fbReady=fals
 function loadLocal(){try{allScores=JSON.parse(localStorage.getItem('wds_scores')||'{}')}catch(e){allScores={}}try{const local=JSON.parse(localStorage.getItem('wds_history')||'[]');allHistory=[...BUILTIN_HISTORY.map((h,i)=>({id:'b_'+i,...h})),...local]}catch(e){allHistory=[...BUILTIN_HISTORY.map((h,i)=>({id:'b_'+i,...h}))]}}
 function saveLocal(){localStorage.setItem('wds_scores',JSON.stringify(allScores));localStorage.setItem('wds_history',JSON.stringify(allHistory))}
 function getScore(sp,g,r){if(currentSeason==="summer"){const key=sp+'__'+g+'__'+r;if(SUMMER_SCORES[key])return SUMMER_SCORES[key];if(SUMMER_SCORES[sp+'__'+g+'__Ladder'])return SUMMER_SCORES[sp+'__'+g+'__Ladder'];return null}return allScores[sp+'__'+g+'__'+r]||null}
-function setScore(sp,g,r,d){allScores[sp+'__'+g+'__'+r]=d;if(fbReady){db.ref('scores/'+sp+'__'+g+'__'+r).set(d);checkAndPropagateWinner(sp,g);}else{saveLocal();renderAll()}}function checkAndPropagateWinner(sp,g){if(!fbReady)return;const FIX=currentSeason==='summer'?SUMMER_FIX:WINTER_FIX;const rounds=Object.keys(FIX).filter(r=>r!=='Grand Final');for(const r of rounds){const sc=getScore(sp,g,r);if(!sc)return;const matches=FIX[r];for(let i=0;i<matches.length;i++){const s=sc[i];if(!s||s.home===''||s.away===''||s.home==null||s.away==null)return;if(isNaN(+s.home)||isNaN(+s.away))return;}}const ladder=calcLadder(sp,g);if(!ladder||!ladder.length)return;const winner=ladder[0].name;const runnerUp=ladder.length>1?ladder[1].name:'';const season=currentSeason||'winter';const safeG=g.replace(/\//g,'_');const path='division_hub/hobsonsbay/2026/'+sp+'__'+safeG+'/districts/williamstown';db.ref(path).set({winner:winner,runnerUp:runnerUp,sport:sp,gender:g,district:'Williamstown',season:season,confirmedAt:Date.now(),auto:true});toast('🏆 '+sp+' ('+g+') complete! '+winner+' wins — auto-sent to division!','success');}
+function setScore(sp,g,r,d){allScores[sp+'__'+g+'__'+r]=d;if(fbReady){db.ref('scores/'+sp+'__'+g+'__'+r).set(d);checkAndPropagateWinner(sp,g);}else{saveLocal();renderAll()}}function checkAndPropagateWinner(sp,g){if(!fbReady)return;const FIX=currentSeason==='summer'?SUMMER_FIX:WINTER_FIX;const rounds=Object.keys(FIX).filter(r=>r!=='Grand Final');for(const r of rounds){const sc=getScore(sp,g,r);if(!sc)return;const matches=FIX[r];for(let i=0;i<matches.length;i++){const s=sc[i];if(!s||s.home===''||s.away===''||s.home==null||s.away==null)return;if(isNaN(+s.home)||isNaN(+s.away))return;}}const ladder=calcLadder(sp,g);if(!ladder||!ladder.length)return;const winner=ladder[0].name;const runnerUp=ladder.length>1?ladder[1].name:'';const season=currentSeason||'winter';const safeG=g.replace(/\//g,'_');const path='division_hub/hobsonsbay/2026/'+sp+'__'+safeG+'/districts/williamstown';db.ref(path).set({winner:winner,runnerUp:runnerUp,sport:sp,gender:g,district:'Williamstown',season:season,confirmedAt:Date.now(),auto:true});toast(sp+' ('+g+') complete! '+winner+' wins — auto-sent to division!','success');}
 function handleAuth(){if(currentUser){if(fbReady)firebase.auth().signOut();else{currentUser=null;userRole=null;updateAuthUI();renderAll()}}else{document.getElementById('login-modal').classList.add('show');document.getElementById('login-email').focus()}}
 function closeLogin(){document.getElementById('login-modal').classList.remove('show');document.getElementById('login-error').style.display='none'}
 function doLogin(){const e=document.getElementById('login-email').value.trim(),p=document.getElementById('login-pass').value;if(!e||!p){showLoginErr('Enter email and password');return}if(fbReady){firebase.auth().signInWithEmailAndPassword(e,p).then(()=>closeLogin()).catch(er=>showLoginErr(er.code==='auth/invalid-credential'?'Invalid email or password':er.message))}else{currentUser={email:e,uid:'demo'};userRole='admin';closeLogin();updateAuthUI();renderAll();toast('Logged in (demo mode)','info')}}
@@ -669,24 +669,24 @@ function renderGuidelines(){
   const G=currentSeason==="summer"?SUMMER_GUIDELINES:WINTER_GUIDELINES;
   titleEl.textContent=(currentSeason==="summer"?"Summer":"Winter")+" Sport 2026 Guidelines";
   const SPORT_RULES=[
-    {sport:'AFL',emoji:'🏈',url:'https://www.ssv.vic.edu.au/Downloads%20Library/SSVAustralianFootball-PrimaryQuickFacts.pdf'},
-    {sport:'Soccer',emoji:'⚽',url:'http://www.ssv.vic.edu.au/state/Documents/RulesFootball(Soccer)Primary.pdf'},
-    {sport:'Netball',emoji:'🏀',url:'http://www.ssv.vic.edu.au/state/Documents/RulesNetballPrimary.pdf'},
-    {sport:'Hockey',emoji:'🏑',url:'http://www.ssv.vic.edu.au/state/Documents/RulesHockey7sPrimary.pdf'},
-    {sport:'Softball',emoji:'⚾',url:'https://www.ssv.vic.edu.au/state/Documents/RulesSoftballPrimary.pdf'}
+    {sport:'AFL',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/SSVAustralianFootball-PrimaryQuickFacts.pdf'},
+    {sport:'Soccer',emoji:'',url:'http://www.ssv.vic.edu.au/state/Documents/RulesFootball(Soccer)Primary.pdf'},
+    {sport:'Netball',emoji:'',url:'http://www.ssv.vic.edu.au/state/Documents/RulesNetballPrimary.pdf'},
+    {sport:'Hockey',emoji:'',url:'http://www.ssv.vic.edu.au/state/Documents/RulesHockey7sPrimary.pdf'},
+    {sport:'Softball',emoji:'',url:'https://www.ssv.vic.edu.au/state/Documents/RulesSoftballPrimary.pdf'}
   ];
   const SSV_DOCS=[
-    {label:'2026 SSV Info — Teachers',desc:'SSV PDF',emoji:'👨‍🏫',url:'https://www.ssv.vic.edu.au/Downloads%20Library/2026SchoolSportVictoriaInformation-Teachers.pdf'},
-    {label:'2026 SSV Info — Parents & Guardians',desc:'SSV PDF',emoji:'👪',url:'https://www.ssv.vic.edu.au/Downloads%20Library/2026SchoolSportVictoriaInformation-ParentsandGuardians.pdf'},
-    {label:'2026 Coordinator Reference Guide',desc:'SSV PDF',emoji:'📋',url:'https://www.ssv.vic.edu.au/Downloads%20Library/2026SchoolSportCoordinatorReferenceGuide.pdf'},
-    {label:'Accident & Incident Report Procedure',desc:'SSV PDF',emoji:'🚑',url:'https://www.ssv.vic.edu.au/Downloads%20Library/AccidentandIncidentReportProcedure.pdf'},
-    {label:'Accident & Incident Report Form',desc:'SSV Form',emoji:'📝',url:'https://www.ssv.vic.edu.au/Downloads%20Library/AccidentIncidentReportForm.pdf'}
+    {label:'2026 SSV Info — Teachers',desc:'SSV PDF',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/2026SchoolSportVictoriaInformation-Teachers.pdf'},
+    {label:'2026 SSV Info — Parents & Guardians',desc:'SSV PDF',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/2026SchoolSportVictoriaInformation-ParentsandGuardians.pdf'},
+    {label:'2026 Coordinator Reference Guide',desc:'SSV PDF',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/2026SchoolSportCoordinatorReferenceGuide.pdf'},
+    {label:'Accident & Incident Report Procedure',desc:'SSV PDF',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/AccidentandIncidentReportProcedure.pdf'},
+    {label:'Accident & Incident Report Form',desc:'SSV Form',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/AccidentIncidentReportForm.pdf'}
   ];
   const rulesHTML=currentSeason==="winter"?`
-    <p class="doc-section-title">📖 SSV Sport Rules — Primary</p>
+    <p class="doc-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> SSV Sport Rules — Primary</p>
     <div class="doc-links-grid">${SPORT_RULES.map(r=>`<a class="doc-link-card" href="${r.url}" target="_blank" rel="noopener"><span class="doc-icon">${r.emoji}</span><div><div>${r.sport} Rules</div><div class="doc-label">SSV PDF ↗</div></div></a>`).join('')}</div>`:'';
   const docsHTML=`
-    <p class="doc-section-title">📄 SSV Resources & Safety</p>
+    <p class="doc-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> SSV Resources &amp; Safety</p>
     <div class="doc-links-grid">${SSV_DOCS.map(d=>`<a class="doc-link-card" href="${d.url}" target="_blank" rel="noopener"><span class="doc-icon">${d.emoji}</span><div><div>${d.label}</div><div class="doc-label">${d.desc} ↗</div></div></a>`).join('')}</div>`;
   document.getElementById('guidelines-body').innerHTML=
     G.map((g,i)=>`<div class="guideline-item"><span class="guideline-num">${i+1}</span><span>${g}</span></div>`).join('')+
