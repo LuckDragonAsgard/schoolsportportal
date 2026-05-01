@@ -267,6 +267,254 @@
   </div>
 </section>
 
+
+<section id="flow-demo" style="background:#0d1117;padding:64px 0 80px;border-top:1px solid #21262d">
+  <div class="section-inner" style="max-width:960px">
+    <div class="section-tag" style="color:#14b8a6">See the connection</div>
+    <h2 class="section-h2" style="color:#f0f6fc">Timing flows straight to the school page</h2>
+    <p class="section-lead" style="color:rgba(255,255,255,.65);margin-bottom:48px">
+      Record a finish in Carnival Timing — it appears on the school results board in real time. No exports, no copy-paste, no delays.
+    </p>
+
+    <!-- Split screen demo -->
+    <div id="flow-container" style="display:flex;gap:0;align-items:stretch;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px #30363d,0 24px 64px rgba(0,0,0,.6)">
+
+      <!-- LEFT: CT Phone -->
+      <div style="flex:1;background:#161b22;padding:0;display:flex;flex-direction:column">
+        <div style="background:#21262d;padding:12px 16px;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:10px">
+          <div style="width:8px;height:8px;border-radius:50%;background:#3fb950"></div>
+          <span style="color:#8b949e;font-size:11px;font-family:monospace">carnivaltiming.com</span>
+          <span style="margin-left:auto;background:#14b8a6;color:#000;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px">LIVE</span>
+        </div>
+        <div style="padding:20px;flex:1">
+          <div style="color:#8b949e;font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Race Control</div>
+          <div style="color:#f0f6fc;font-size:15px;font-weight:700;margin-bottom:2px" id="fd-event">100m Sprint — Year 5/6 Girls</div>
+          <div style="color:#8b949e;font-size:11px;margin-bottom:16px">Heat 1 of 2</div>
+
+          <!-- Timer display -->
+          <div style="background:#0d1117;border-radius:10px;padding:16px;margin-bottom:16px;text-align:center;border:1px solid #30363d">
+            <div style="color:#8b949e;font-size:10px;margin-bottom:4px">ELAPSED</div>
+            <div id="fd-timer" style="font-size:36px;font-weight:900;font-family:monospace;color:#14b8a6;letter-spacing:.05em">00:00.00</div>
+            <div id="fd-status" style="color:#8b949e;font-size:11px;margin-top:4px">Waiting to arm…</div>
+          </div>
+
+          <!-- Results being recorded -->
+          <div style="color:#8b949e;font-size:10px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Finishers</div>
+          <div id="fd-finishers" style="display:flex;flex-direction:column;gap:6px;min-height:120px">
+            <div style="color:#30363d;font-size:12px;text-align:center;padding:20px 0">No finishers yet</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MIDDLE: Arrow -->
+      <div style="width:56px;background:#0d1117;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;flex-shrink:0;border-left:1px solid #21262d;border-right:1px solid #21262d">
+        <div id="fd-pulse" style="width:32px;height:32px;border-radius:50%;background:#21262d;display:flex;align-items:center;justify-content:center;transition:all .3s">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#30363d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div id="fd-sync-label" style="color:#30363d;font-size:8px;text-transform:uppercase;letter-spacing:.05em;writing-mode:vertical-rl;text-orientation:mixed">syncing</div>
+      </div>
+
+      <!-- RIGHT: School results page -->
+      <div style="flex:1;background:#fff;display:flex;flex-direction:column">
+        <div style="background:#1e3a5f;padding:12px 16px;display:flex;align-items:center;gap:10px">
+          <span style="color:rgba(255,255,255,.5);font-size:11px;font-family:monospace">schoolsportportal.com.au/demo-school</span>
+        </div>
+        <div style="padding:20px;flex:1">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+            <div style="width:28px;height:28px;background:#1e3a5f;border-radius:6px;display:flex;align-items:center;justify-content:center">
+              <span style="font-size:14px">🏫</span>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:#1e3a5f">Williamstown Primary</div>
+              <div style="font-size:10px;color:#6b7280">Athletics Carnival 2026</div>
+            </div>
+          </div>
+
+          <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:8px">
+            <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0" id="fd-live-dot"></div>
+            <span style="font-size:11px;color:#166534;font-weight:600">Live — results updating now</span>
+          </div>
+
+          <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px" id="fd-school-event">100m Sprint — Yr 5/6 Girls</div>
+
+          <div style="border:1px solid #e5e7eb;border-radius:8px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:32px 1fr 72px;background:#f9fafb;padding:6px 10px;border-bottom:1px solid #e5e7eb">
+              <span style="font-size:9px;font-weight:700;color:#9ca3af">#</span>
+              <span style="font-size:9px;font-weight:700;color:#9ca3af">ATHLETE</span>
+              <span style="font-size:9px;font-weight:700;color:#9ca3af;text-align:right">TIME</span>
+            </div>
+            <div id="fd-results" style="min-height:120px">
+              <div style="padding:20px;text-align:center;color:#d1d5db;font-size:12px">Waiting for results…</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div style="text-align:center;margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="https://schoolsportportal.com.au/demo-school" target="_blank"
+         style="display:inline-flex;align-items:center;gap:8px;background:#1e3a5f;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px">
+        View full school demo page →
+      </a>
+      <a href="https://carnivaltiming.com" target="_blank"
+         style="display:inline-flex;align-items:center;gap:8px;background:#14b8a6;color:#000;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px">
+        Try Carnival Timing →
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  // Demo sequence
+  const athletes = [
+    { name: 'Mia Chen', house: 'Blue', time: '14.82' },
+    { name: 'Zara Patel', house: 'Red', time: '15.14' },
+    { name: 'Isla Murray', house: 'Green', time: '15.39' },
+    { name: 'Sophie Tran', house: 'Yellow', time: '15.71' },
+    { name: 'Ava Williams', house: 'Blue', time: '16.05' },
+  ];
+  const houseColors = { Blue: '#3b82f6', Red: '#ef4444', Green: '#22c55e', Yellow: '#eab308' };
+
+  const timerEl = document.getElementById('fd-timer');
+  const statusEl = document.getElementById('fd-status');
+  const finishersEl = document.getElementById('fd-finishers');
+  const resultsEl = document.getElementById('fd-results');
+  const pulseEl = document.getElementById('fd-pulse');
+  const syncLabel = document.getElementById('fd-sync-label');
+  const liveDot = document.getElementById('fd-live-dot');
+
+  let running = false, startMs = 0, rafId = null, phase = 0, recorded = [], seqTimeout = null;
+
+  function fmtTime(ms) {
+    const s = Math.floor(ms / 1000);
+    const m = Math.floor(s / 60);
+    const cents = Math.floor((ms % 1000) / 10);
+    return `${String(m).padStart(2,'0')}:${String(s % 60).padStart(2,'0')}.${String(cents).padStart(2,'0')}`;
+  }
+
+  function tick() {
+    if (!running) return;
+    timerEl.textContent = fmtTime(Date.now() - startMs);
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function addFinisher(athlete, time) {
+    const place = recorded.length + 1;
+    recorded.push({ ...athlete, time, place });
+
+    // CT side
+    if (finishersEl.querySelector('[style*="color:#30363d"]')) finishersEl.innerHTML = '';
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:8px;background:#0d1117;border-radius:6px;padding:8px 10px;opacity:0;transition:opacity .4s,transform .4s;transform:translateY(8px)';
+    row.innerHTML = `
+      <span style="color:#f0f6fc;font-size:12px;font-weight:700;width:18px">${place}</span>
+      <span style="color:#f0f6fc;font-size:12px;flex:1">${athlete.name}</span>
+      <span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;background:${houseColors[athlete.house]}22;color:${houseColors[athlete.house]}">${athlete.house}</span>
+      <span style="color:#14b8a6;font-size:13px;font-weight:700;font-family:monospace">${time}s</span>
+    `;
+    finishersEl.appendChild(row);
+    setTimeout(() => { row.style.opacity = '1'; row.style.transform = 'none'; }, 30);
+
+    // Pulse the sync arrow
+    pulseEl.style.background = '#14b8a6';
+    pulseEl.style.transform = 'scale(1.2)';
+    pulseEl.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    syncLabel.style.color = '#14b8a6';
+    setTimeout(() => {
+      pulseEl.style.background = '#21262d';
+      pulseEl.style.transform = 'none';
+      pulseEl.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#30363d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      syncLabel.style.color = '#30363d';
+    }, 600);
+
+    // School side — add result 400ms later (simulating network)
+    setTimeout(() => {
+      if (resultsEl.querySelector('[style*="color:#d1d5db"]')) resultsEl.innerHTML = '';
+      const sRow = document.createElement('div');
+      sRow.style.cssText = `display:grid;grid-template-columns:32px 1fr 72px;padding:8px 10px;border-bottom:1px solid #f3f4f6;align-items:center;background:${place === 1 ? '#fefce8' : '#fff'};opacity:0;transition:opacity .4s,background 1s`;
+      sRow.innerHTML = `
+        <span style="font-size:12px;font-weight:700;color:${place === 1 ? '#92400e' : '#6b7280'}">${place}</span>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:#111827">${athlete.name}</div>
+          <div style="font-size:9px;color:${houseColors[athlete.house]};font-weight:700">${athlete.house} House</div>
+        </div>
+        <span style="font-size:13px;font-weight:700;color:#1e3a5f;text-align:right;font-family:monospace">${time}s</span>
+      `;
+      resultsEl.appendChild(sRow);
+      setTimeout(() => { sRow.style.opacity = '1'; }, 30);
+      setTimeout(() => { if (place===1) sRow.style.background = '#fff'; }, 1200);
+
+      // Pulse live dot
+      liveDot.style.transform = 'scale(1.6)';
+      setTimeout(() => { liveDot.style.transform = 'none'; }, 400);
+    }, 400);
+  }
+
+  function resetDemo() {
+    recorded = [];
+    running = false;
+    if (rafId) cancelAnimationFrame(rafId);
+    if (seqTimeout) clearTimeout(seqTimeout);
+    timerEl.textContent = '00:00.00';
+    statusEl.textContent = 'Waiting to arm…';
+    finishersEl.innerHTML = '<div style="color:#30363d;font-size:12px;text-align:center;padding:20px 0">No finishers yet</div>';
+    resultsEl.innerHTML = '<div style="padding:20px;text-align:center;color:#d1d5db;font-size:12px">Waiting for results…</div>';
+  }
+
+  function runSequence() {
+    resetDemo();
+
+    // Phase 1: ARM
+    setTimeout(() => {
+      statusEl.textContent = '🔴 Armed — race about to start';
+      statusEl.style.color = '#ef4444';
+    }, 1200);
+
+    // Phase 2: GO
+    setTimeout(() => {
+      statusEl.textContent = '🟢 GO! Race running…';
+      statusEl.style.color = '#3fb950';
+      running = true;
+      startMs = Date.now();
+      tick();
+    }, 2800);
+
+    // Phase 3–7: athletes finish one by one
+    const finishTimes = [14820, 15140, 15390, 15710, 16050]; // ms after GO
+    athletes.forEach((a, i) => {
+      setTimeout(() => {
+        addFinisher(a, a.time);
+        if (i === athletes.length - 1) {
+          setTimeout(() => {
+            running = false;
+            if (rafId) cancelAnimationFrame(rafId);
+            timerEl.textContent = a.time + '.00';
+            statusEl.textContent = '✅ Race complete — results published';
+            statusEl.style.color = '#3fb950';
+            // Restart after pause
+            seqTimeout = setTimeout(runSequence, 5000);
+          }, 800);
+        }
+      }, 2800 + finishTimes[i]);
+    });
+  }
+
+  // Start when section scrolls into view
+  const section = document.getElementById('flow-demo');
+  if (!section) return;
+  const obs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      obs.disconnect();
+      setTimeout(runSequence, 600);
+    }
+  }, { threshold: 0.3 });
+  obs.observe(section);
+})();
+</script>
+
+
 <section id="how">
   <div class="section-inner">
     <div class="section-tag">How it works</div>
