@@ -7,6 +7,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Willy District Sport">
 <meta name="theme-color" content="#1a365d">
+<meta property="og:title" content="Williamstown District Sport">
+<meta property="og:description" content="Live scores, ladders and fixtures for AFL, Soccer, Netball, Hockey and Softball across the Williamstown District primary schools.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://schoolsportportal.com.au/williamstowndistrict">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Williamstown District Sport">
+<meta name="twitter:description" content="Live scores and ladders for Williamstown District primary school sport.">
+<link rel="manifest" id="pwa-manifest">
 <title>Williamstown District Sport</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -249,6 +257,23 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 .footer-inner{max-width:1200px;margin:0 auto}
 .footer-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:10px}
 .footer-tagline{opacity:.5;margin-top:8px;font-size:.68rem}
+/* ---- v2 enhancements ---- */
+.today-banner{background:linear-gradient(135deg,#c53030,#9b2c2c);border-radius:12px;padding:14px 20px;margin-bottom:16px;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;box-shadow:0 4px 12px rgba(197,48,48,.3);animation:pulse-red 2s infinite}
+@keyframes pulse-red{0%,100%{box-shadow:0 4px 12px rgba(197,48,48,.3)}50%{box-shadow:0 4px 22px rgba(197,48,48,.65)}}
+.today-banner .td-text{font-weight:700;font-size:.95rem}.today-banner .td-sub{font-size:.78rem;opacity:.85;margin-top:2px}
+.today-btn{background:#fff;color:#c53030;border:none;padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s;flex-shrink:0}
+.today-btn:hover{background:#fff5f5;transform:translateY(-1px)}
+.round-block.future{opacity:.5}
+.accordion-group .accordion-body{overflow:hidden;transition:max-height .3s ease;max-height:0}
+.accordion-group.open .accordion-body{max-height:700px}
+.home-sport-label{cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px}
+.acc-chevron{margin-left:auto;font-size:.78rem;transition:transform .25s;color:var(--gray-light);flex-shrink:0}
+.accordion-group.open .acc-chevron{transform:rotate(180deg)}
+.share-strip{display:flex;justify-content:flex-end;margin-top:10px}
+.share-btn-hero{background:rgba(255,255,255,.14);color:var(--white);border:1px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.share-btn-hero:hover{background:rgba(255,255,255,.24)}
+.school-filter-bar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.school-filter-bar label{font-size:.8rem;color:var(--gray);font-weight:600;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -283,6 +308,7 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 </header>
 <div class="container">
 <div class="page active" id="pg-home">
+<div id="games-today-banner" style="display:none"></div>
 <div class="coach-banner" id="coach-banner">
   <div class="cb-label">👋 Coach Mode</div>
   <div class="cb-row">
@@ -296,6 +322,7 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
   <button class="parent-btn gold" onclick="goTo('fixtures')">📅 See Latest Scores</button>
   <button class="parent-btn ghost" onclick="goTo('ladders')">📊 View Standings</button>
 </div>
+<div class="share-strip"><button class="share-btn-hero" onclick="shareResults()">📤 Share Results</button></div>
 </div>
 <div class="mobile-season-toggle" id="mobile-season-toggle">
 <button class="season-btn active" data-season="summer" onclick="setSeason('summer')">Summer Sport</button>
@@ -326,6 +353,13 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 <div class="page" id="pg-fixtures">
 <div class="tab-row" id="fixture-tabs"></div>
 <div style="display:flex;justify-content:center;margin-bottom:14px"><div class="gender-toggle"><button class="gender-btn active" onclick="setGender('Girls')">Girls</button><button class="gender-btn" onclick="setGender('Boys/Mixed')">Boys/Mixed</button></div></div>
+<div class="school-filter-bar">
+  <label>🏫 Filter by school:</label>
+  <select id="fixture-school-filter" class="form-select" style="font-size:.82rem;padding:6px 10px" onchange="renderFixtures()">
+    <option value="">All Schools</option>
+  </select>
+  <button class="btn btn-outline btn-sm" onclick="clearSchoolFilter()" id="school-filter-clear" style="display:none">✕ Clear</button>
+</div>
 <div id="fixture-rounds"></div>
 </div>
 <div class="page" id="pg-enter">
@@ -660,10 +694,4 @@ function renderGuidelines(){
 }
 function renderContacts(){document.getElementById('district-contacts').innerHTML=CONTACTS_DATA.district.map(c=>`<div class="contact-card"><h4>${c.school}</h4><p style="font-weight:600;color:var(--navy)">${c.name}</p><p><div class="label">Email</div><a href="mailto:${c.email}">${c.email}</a></p><p><div class="label">Phone</div><a href="tel:${c.phone.replace(/\s/g,'')}">${c.phone}</a></p></div>`).join('');document.getElementById('school-contacts').innerHTML=CONTACTS_DATA.schools.map(c=>`<div class="contact-card"><h4>${c.name}</h4><p style="font-weight:600;color:var(--navy)">${c.contact}</p><p><div class="label">Email</div><a href="mailto:${c.email}">${c.email}</a></p><p><div class="label">Phone</div><a href="tel:${c.phone.replace(/\s/g,'')}">${c.phone}</a></p></div>`).join('')}
 let _historySeason=null;
-function showHistory(season){_historySeason=season;const records=(allHistory||[]).filter(r=>r.season===season).sort((a,b)=>b.year-a.year);const years=[...new Set(records.map(r=>r.year))].sort((a,b)=>b-a);const sel=document.getElementById('history-year-filter');sel.innerHTML='<option value="all">All Years</option>'+years.map(y=>`<option value="${y}">${y}</option>`).join('');document.getElementById('history-detail').style.display='block';document.getElementById('history-detail-title').textContent=season+' - Historical Results';renderHistoryTable(records,season);document.getElementById('history-detail').scrollIntoView({behavior:'smooth'})}
-function filterHistoryYear(){if(!_historySeason)return;const y=document.getElementById('history-year-filter').value;let records=(allHistory||[]).filter(r=>r.season===_historySeason).sort((a,b)=>b.year-a.year);if(y!=='all')records=records.filter(r=>r.year===+y);renderHistoryTable(records,_historySeason)}
-function renderHistoryTable(records,season){const isA=userRole==='admin';document.getElementById('history-tbody').innerHTML=records.length===0?`<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--gray)">No records yet.${isA?' Use the form above to add results.':''}</td></tr>`:records.map(r=>`<tr><td><strong>${r.year}</strong></td><td>${r.event||''}</td><td class="medal-1">${r.winner||''}</td><td class="medal-2">${r.runner||'-'}</td><td style="font-size:.8rem;color:var(--gray)">${r.notes||''}</td>${isA&&!(r.id||'').startsWith('b_')?`<td><button class="btn btn-danger btn-sm" onclick="deleteHistory('${r.id||''}','${season}')">Del</button></td>`:(isA?'<td></td>':'')}</tr>`).join('')}
-const SCHOOL_MAP={"Williamstown Gold":"Williamstown Primary","Williamstown Green":"Williamstown Primary","Williamstown North Gold":"Williamstown North","Williamstown North Green":"Williamstown North"};
-function normalizeSchool(s){return SCHOOL_MAP[s]||s}
-function renderCountdown(){const el=document.getElementById('home-countdown');if(!el)return;const now=new Date();const winterStart=new Date(2026,4,1,9,0,0);const winterEnd=new Date(2026,5,12);const summerEnd=new Date(2026,2,27);if(currentSeason==='summer'&&now<winterStart){const diff=winterStart-now;const days=Math.floor(diff/(1000*60*60*24));const hrs=Math.floor((diff%(1000*60*60*24))/(1000*60*60));const mins=Math.floor((diff%(1000*60*60))/(1000*60));el.style.display='flex';el.innerHTML=`<div><div class="cd-label">Coming Up Next</div><div class="cd-title">Winter Sport 2026</div><div class="cd-label" style="margin-top:4px">AFL &bull; Soccer &bull; Netball &bull; Hockey &bull; Softball</div></div><div class="cd-units"><div class="cd-unit"><span class="cd-num">${days}</span><span class="cd-lbl">Days</span></div><div class="cd-unit"><span class="cd-num">${hrs}</span><span class="cd-lbl">Hours</span></div><div class="cd-unit"><span class="cd-num">${mins}</span><span class="cd-lbl">Mins</span></div></div>`}else if(currentSeason==='winter'&&now<=winterEnd){el.style.display='flex';el.innerHTML=`<div><div class="cd-label">Season In Progress</div><div class="cd-title">Winter Sport 2026 <span style="font-size:.75rem;opacity:.7">LIVE</span></div></div><div style="display:flex;align-items:center;gap:8px"><span class="live-dot" style="width:10px;height:10px"></span><span style="font-weight:600">Scores updating live</span></div>`}else{el.style.display='none'}}
-function renderTally(){const tally={};(allHistory||[]).forEach(r=>{if(r.winner){const s=normalizeSchool(r.winner);tally[s]=(tally[s]||0)+1}});const sorted=Object.entries(tally).sort((a,b)=>b[1]-a[1]);const el=document.getElementById('home-tally');if(!el)return;el.inne
+function showHistory(season){_historySeason=season;const records=(allHistory||[]).filter(r=>r.season===season).sort((a,b)=>b.year-a.year);const years=[...new Set(records.map(r=>r.year))].sort((a,b)=>b-a);const sel=document.getElementById('history-year-filter');sel.innerHTML='<option value="all">All Years</option>'+years.map(y=>`<option value="${y}">${y}</option>`).join('');document.getElementById('history-detail').style.display='block';document.getElementById('history-detail-title').textContent=season+' - Historical Results';renderHistoryTable(records,season);document.getElementById('history-detail').scrollIntoView({behavior:'smooth'})
