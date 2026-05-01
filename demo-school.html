@@ -57,7 +57,8 @@
     transition: transform .15s;
   }
   .sport-card:hover { transform: translateY(-2px); }
-  .sport-card .sport-emoji { font-size: 30px; margin-bottom: 8px; }
+  .sport-chip { font-size:11px;font-weight:800;letter-spacing:.06em;color:#1a56db;background:#eff6ff;padding:5px 10px;border-radius:8px;display:inline-block;margin-bottom:8px; }
+  .sport-card .sport-emoji { margin-bottom:8px;display:flex;align-items:center;justify-content:center; }
   .sport-card .sport-name { font-size: 13px; font-weight: 700; }
   .sport-card .sport-detail { font-size: 11px; color: #94a3b8; margin-top: 3px; }
 
@@ -72,7 +73,7 @@
     gap: 20px;
     box-shadow: 0 4px 20px rgba(13,27,62,.25);
   }
-  .highlight-card .hc-icon { font-size: 44px; flex-shrink: 0; }
+  .highlight-card .hc-icon { font-size:44px; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#60a5fa; }
   .highlight-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
   .highlight-card p { font-size: 13px; opacity: .75; line-height: 1.6; }
 
@@ -106,7 +107,7 @@
     transition: border-color .15s, transform .15s;
   }
   .site-link:hover { border-color: #1a56db; transform: translateY(-2px); }
-  .site-link .site-icon { font-size: 22px; flex-shrink: 0; }
+  .site-link .site-icon { flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#64748b; }
   .site-link .site-label { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #94a3b8; margin-bottom: 2px; }
   .site-link .site-name { font-size: 13px; font-weight: 700; }
   .site-link .site-arrow { margin-left: auto; color: #94a3b8; font-size: 14px; flex-shrink: 0; }
@@ -129,14 +130,14 @@
 </head>
 <body>
 <div style="background:#f59e0b;color:#0d1b3e;text-align:center;padding:10px 16px;font-size:13px;font-weight:700;">
-  📍 DEMO PAGE — fictional data. Real school pages are unlisted, visible only to logged-in staff. <a href="/" style="color:#0d1b3e;text-decoration:underline;">← Back to portal</a>
+  ⚠ DEMO PAGE — fictional data. Real school pages are unlisted, visible only to logged-in staff. <a href="/" style="color:#0d1b3e;text-decoration:underline;">← Back to portal</a>
 </div>
 
 <!-- Shared nav auto-injects here -->
 <script data-site="demo-school" src="https://schoolsportportal.com.au/schoolsportportal-nav.js"></script>
 
 <header class="site-header">
-  <div class="header-badge">🏫 Riverside District</div>
+  <div class="header-badge">Riverside District</div>
   <h1>Riverside Primary School</h1>
   <p>School sport news, team selections, and competition information for Riverside Primary School students.</p>
 </header>
@@ -145,7 +146,7 @@
 
   <div class="section">
     <div class="highlight-card">
-      <span class="hc-icon">🏅</span>
+      <span class="hc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="6"/><path d="M9 3h6l2 5H7z"/></svg></span>
       <div>
         <h3>Sport at Riverside Primary</h3>
         <p>Our students compete across a full range of school sports at district, division, and regional level throughout the year. Check this page for updates on carnivals, team selections, and results.</p>
@@ -156,7 +157,7 @@
   <div class="section">
     <p class="section-title">Notice</p>
     <div class="notice">
-      <span>📢</span>
+      <span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>
       <span>Welcome to the Riverside Primary sport page. Upcoming events, team lists, and results will be posted here throughout the year.</span>
     </div>
   </div>
@@ -164,14 +165,14 @@
   <div class="section">
     <p class="section-title">Sports We Compete In</p>
     <div class="sport-grid">
-      <div class="sport-card"><div class="sport-emoji">🏃</div><div class="sport-name">Athletics</div><div class="sport-detail">District Carnival</div></div>
-      <div class="sport-card"><div class="sport-emoji">🏊</div><div class="sport-name">Swimming</div><div class="sport-detail">District Carnival</div></div>
-      <div class="sport-card"><div class="sport-emoji">🏃‍♂️</div><div class="sport-name">Cross Country</div><div class="sport-detail">District Carnival</div></div>
-      <div class="sport-card"><div class="sport-emoji">⚽</div><div class="sport-name">Football</div><div class="sport-detail">District Comp</div></div>
-      <div class="sport-card"><div class="sport-emoji">🏀</div><div class="sport-name">Basketball</div><div class="sport-detail">District Comp</div></div>
-      <div class="sport-card"><div class="sport-emoji">🎾</div><div class="sport-name">Tennis</div><div class="sport-detail">District Comp</div></div>
-      <div class="sport-card"><div class="sport-emoji">🏑</div><div class="sport-name">Hockey</div><div class="sport-detail">District Comp</div></div>
-      <div class="sport-card"><div class="sport-emoji">🏐</div><div class="sport-name">Volleyball</div><div class="sport-detail">District Comp</div></div>
+      <div class="sport-card"><div class="sport-chip">ATH</div><div class="sport-name">Athletics</div><div class="sport-detail">District Carnival</div></div>
+      <div class="sport-card"><div class="sport-chip">SWIM</div><div class="sport-name">Swimming</div><div class="sport-detail">District Carnival</div></div>
+      <div class="sport-card"><div class="sport-chip">XC</div><div class="sport-name">Cross Country</div><div class="sport-detail">District Carnival</div></div>
+      <div class="sport-card"><div class="sport-chip">FOOTY</div><div class="sport-name">Football</div><div class="sport-detail">District Comp</div></div>
+      <div class="sport-card"><div class="sport-chip">BBALL</div><div class="sport-name">Basketball</div><div class="sport-detail">District Comp</div></div>
+      <div class="sport-card"><div class="sport-chip">TEN</div><div class="sport-name">Tennis</div><div class="sport-detail">District Comp</div></div>
+      <div class="sport-card"><div class="sport-chip">HOCK</div><div class="sport-name">Hockey</div><div class="sport-detail">District Comp</div></div>
+      <div class="sport-card"><div class="sport-chip">VB</div><div class="sport-name">Volleyball</div><div class="sport-detail">District Comp</div></div>
     </div>
   </div>
 
@@ -179,7 +180,7 @@
     <p class="section-title">Carnivals</p>
     <div class="sites-row">
       <a class="site-link" href="https://sportcarnival.com.au/demo-school/athletics">
-        <span class="site-icon">🏃</span>
+        <span class="site-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
         <div>
           <div class="site-label">SportCarnival · Athletics</div>
           <div class="site-name">Athletics Carnival</div>
@@ -188,7 +189,7 @@
         <span class="site-arrow">→</span>
       </a>
       <a class="site-link" href="https://sportcarnival.com.au/demo-school/swimming">
-        <span class="site-icon">🏊</span>
+        <span class="site-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c1.4-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0"/><path d="M2 17c1.4-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0"/><path d="M2 7c1.4-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0"/></svg></span>
         <div>
           <div class="site-label">SportCarnival · Swimming</div>
           <div class="site-name">Swimming Carnival</div>
@@ -197,7 +198,7 @@
         <span class="site-arrow">→</span>
       </a>
       <a class="site-link" href="https://sportcarnival.com.au/demo-school/crosscountry">
-        <span class="site-icon">🏃‍♂️</span>
+        <span class="site-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20v-8l-5-8-5 8v8"/><path d="M5 20h14"/><path d="M12 4v16"/></svg></span>
         <div>
           <div class="site-label">SportCarnival · Cross Country</div>
           <div class="site-name">Cross Country</div>
@@ -212,15 +213,15 @@
     <p class="section-title">School Sport Information</p>
     <div class="info-grid">
       <div class="info-card">
-        <h3>📅 Upcoming Events</h3>
+        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Upcoming Events</h3>
         <p>Carnival and competition dates will be posted here each term. Keep an eye on this page and school newsletters.</p>
       </div>
       <div class="info-card">
-        <h3>🏅 Selection & Trials</h3>
+        <h3><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="6"/><path d="M9 3h6l2 5H7z"/></svg> Selection &amp; Trials</h3>
         <p>Students selected for district or division representative teams will be notified via school. Details here when available.</p>
       </div>
       <div class="info-card">
-        <h3>📞 Contact</h3>
+        <h3><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.62 4.38 2 2 0 0 1 3.62 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contact</h3>
         <p>For school sport enquiries, speak with the PE teacher or school sport coordinator at Riverside Primary School.</p>
       </div>
     </div>
@@ -230,17 +231,17 @@
     <p class="section-title">Connected Sites</p>
     <div class="sites-row">
       <a class="site-link" href="/demo-district">
-        <span class="site-icon">📍</span>
+        <span class="site-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
         <div><div class="site-label">District (Parent)</div><div class="site-name">Riverside District</div></div>
         <span class="site-arrow">→</span>
       </a>
       <a class="site-link" href="/demo-division">
-        <span class="site-icon">🏆</span>
+        <span class="site-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 3 4 3 4 11"/><polyline points="16 3 20 3 20 11"/><path d="M4 11a8 8 0 0 0 16 0"/><path d="M12 19v3"/><path d="M8 22h8"/></svg></span>
         <div><div class="site-label">Division</div><div class="site-name">Eastbay Division</div></div>
         <span class="site-arrow">→</span>
       </a>
       <a class="site-link" href="/demo-region">
-        <span class="site-icon">🏛️</span>
+        <span class="site-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
         <div><div class="site-label">Region</div><div class="site-name">Western Metro Region</div></div>
         <span class="site-arrow">→</span>
       </a>
