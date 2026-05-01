@@ -29,7 +29,7 @@
   .division-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
   .division-tile { background: #fff; border-radius: 12px; padding: 16px 18px; box-shadow: 0 2px 8px rgba(0,0,0,.06); text-decoration: none; color: #0f172a; display: block; border: 2px solid transparent; transition: border-color .15s, transform .15s; }
   .division-tile:hover { border-color: #a855f7; transform: translateY(-2px); }
-  .division-tile .ic { font-size: 22px; }
+  .division-tile .ic { display:flex; align-items:center; justify-content:center; color:#64748b; }
   .division-tile .nm { font-size: 14px; font-weight: 700; margin-top: 6px; }
   .division-tile .en { font-size: 12px; color: #64748b; margin-top: 3px; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -39,17 +39,17 @@
   .connected { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
   .conn { background: #fff; border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0f172a; box-shadow: 0 2px 8px rgba(0,0,0,.06); border: 2px solid transparent; transition: border-color .15s, transform .15s; }
   .conn:hover { border-color: #a855f7; transform: translateY(-2px); }
-  .conn .ic { font-size: 20px; }
+  .conn .ic { display:flex; align-items:center; justify-content:center; color:#64748b; }
   .conn .lab { font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #94a3b8; }
   .conn .nm { font-size: 13px; font-weight: 700; }
   .site-footer { background: #0d1b3e; color: rgba(255,255,255,.45); text-align: center; padding: 22px; font-size: 12px; margin-top: 50px; }
 </style>
 </head>
 <body>
-<div class="demo-banner">📍 DEMO PAGE — fictional data. Real region pages are unlisted, visible only to logged-in coordinators. <a href="/">← Back to portal</a></div>
+<div class="demo-banner">⚠ DEMO PAGE — fictional data. Real region pages are unlisted, visible only to logged-in coordinators. <a href="/">← Back to portal</a></div>
 
 <header class="site-header">
-  <div class="header-badge">🗺️ State Sport Pathway</div>
+  <div class="header-badge">State Sport Pathway</div>
   <h1>Central Coast Region</h1>
   <p>The home of school sport for the Central Coast Region — connecting divisions, districts, and schools across the coast.</p>
 </header>
@@ -70,11 +70,11 @@
     <p class="section-title">The Sport Pathway</p>
     <div class="card">
       <div class="pathway">
-        <div class="pw-step"><div class="n">Step 1</div><div class="t">🏫 School</div><div class="s">House carnival</div></div>
-        <div class="pw-step"><div class="n">Step 2</div><div class="t">📍 District</div><div class="s">Top athletes from each school</div></div>
-        <div class="pw-step"><div class="n">Step 3</div><div class="t">🏛️ Division</div><div class="s">Top athletes from each district</div></div>
-        <div class="pw-step"><div class="n">Step 4</div><div class="t">🗺️ Region</div><div class="s">This level</div></div>
-        <div class="pw-step"><div class="n">Step 5</div><div class="t">🏆 State</div><div class="s">State finals</div></div>
+        <div class="pw-step"><div class="n">Step 1</div><div class="t"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> School</div><div class="s">House carnival</div></div>
+        <div class="pw-step"><div class="n">Step 2</div><div class="t"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> District</div><div class="s">Top athletes from each school</div></div>
+        <div class="pw-step"><div class="n">Step 3</div><div class="t"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> Division</div><div class="s">Top athletes from each district</div></div>
+        <div class="pw-step"><div class="n">Step 4</div><div class="t"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg> Region</div><div class="s">This level</div></div>
+        <div class="pw-step"><div class="n">Step 5</div><div class="t"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 3 4 3 4 11"/><polyline points="16 3 20 3 20 11"/><path d="M4 11a8 8 0 0 0 16 0"/><path d="M12 19v3"/><path d="M8 22h8"/></svg> State</div><div class="s">State finals</div></div>
       </div>
       <p style="font-size:13px;color:#64748b;margin-top:14px;">Every result from every school carnival auto-rolls up through the pathway. No re-entering data, no chasing schools for PDFs — the top performers surface at each level automatically.</p>
     </div>
@@ -84,12 +84,12 @@
     <p class="section-title">Divisions in Central Coast Region</p>
     <div class="division-grid">
       <a class="division-tile" href="/demo-division">
-        <span class="ic">🏛️</span>
+        <span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
         <div class="nm">Eastbay Division</div>
         <div class="en">3 districts · 17 schools · 5,240 students</div>
       </a>
       <div class="division-tile" style="opacity:.7;">
-        <span class="ic">🏛️</span>
+        <span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span>
         <div class="nm">Seaside Division</div>
         <div class="en">2 districts · 11 schools · 3,410 students</div>
       </div>
@@ -102,9 +102,9 @@
       <table>
         <thead><tr><th>Carnival</th><th>Date</th><th>Venue</th></tr></thead>
         <tbody>
-          <tr><td>🏊 Region Swimming</td><td><span class="date-pill">Wed 15 Apr 2026</span></td><td>State Aquatic Centre</td></tr>
-          <tr><td>🌲 Region Cross Country</td><td><span class="date-pill">Thu 25 Jun 2026</span></td><td>Coastal Park</td></tr>
-          <tr><td>🏃 Region Athletics</td><td><span class="date-pill">Tue 22 Sep 2026</span></td><td>State Athletics Stadium</td></tr>
+          <tr><td><span style="vertical-align:middle;margin-right:6px"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12c1.4-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0"/><path d="M2 17c1.4-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0"/><path d="M2 7c1.4-1 3-1 4.5 0s3 1 4.5 0 3-1 4.5 0 3 1 4.5 0"/></svg></span>Region Swimming</td><td><span class="date-pill">Wed 15 Apr 2026</span></td><td>State Aquatic Centre</td></tr>
+          <tr><td><span style="vertical-align:middle;margin-right:6px"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20v-8l-5-8-5 8v8"/><path d="M5 20h14"/><path d="M12 4v16"/></svg></span>Region Cross Country</td><td><span class="date-pill">Thu 25 Jun 2026</span></td><td>Coastal Park</td></tr>
+          <tr><td><span style="vertical-align:middle;margin-right:6px"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>Region Athletics</td><td><span class="date-pill">Tue 22 Sep 2026</span></td><td>State Athletics Stadium</td></tr>
         </tbody>
       </table>
     </div>
@@ -113,9 +113,9 @@
   <div class="section">
     <p class="section-title">Connected Sites</p>
     <div class="connected">
-      <a class="conn" href="/demo-division"><span class="ic">🏛️</span><div><div class="lab">Division</div><div class="nm">Eastbay Division →</div></div></a>
-      <a class="conn" href="/demo-district"><span class="ic">📍</span><div><div class="lab">District</div><div class="nm">Riverside District →</div></div></a>
-      <a class="conn" href="/demo-school"><span class="ic">🏫</span><div><div class="lab">School</div><div class="nm">Riverside Primary →</div></div></a>
+      <a class="conn" href="/demo-division"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></span><div><div class="lab">Division</div><div class="nm">Eastbay Division →</div></div></a>
+      <a class="conn" href="/demo-district"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><div class="lab">District</div><div class="nm">Riverside District →</div></div></a>
+      <a class="conn" href="/demo-school"><span class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><div><div class="lab">School</div><div class="nm">Riverside Primary →</div></div></a>
     </div>
   </div>
 </main>
