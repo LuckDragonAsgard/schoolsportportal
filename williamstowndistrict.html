@@ -937,7 +937,7 @@ function exportData(){const data={scores:allScores,history:allHistory,exportedAt
 function resetSeason(){if(!confirm('RESET ALL SCORES? This cannot be undone.'))return;const c=prompt('Type RESET to confirm:');if(c!=='RESET'){toast('Reset cancelled','info');return;}if(!fbReady){toast('Firebase not connected','error');return;}db.ref('scores').remove().then(()=>{allScores={};renderAll();toast('All scores reset!','success');}).catch(err=>toast(err.message,'error'));}
 }
 (function(){
-  document.querySelectorAll('.nav-inner a[data-page]').forEach(function(a){a.addEventListener('click',function(){document.querySelector('nav').classList.remove('mob-open');goTo(this.dataset.page);});});
+  document.querySelectorAll('.nav-inner a[data-page]').forEach(function(a){a.addEventListener('click',function(){var p=this.dataset.page;document.querySelector('nav').classList.remove('mob-open');goTo(p);if(p==='notices'){showNoticeForm();if(db&&!noticesRef)initNotices();}if(p==='scoresheets'){renderScoresheetsGrid();}});});
   var sel=document.getElementById('fixture-school-filter');
   if(sel){TEAMS.forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;sel.appendChild(o);});}
   var ml=document.getElementById('pwa-manifest');
@@ -1181,17 +1181,7 @@ function deleteSheet(season, sportKey, id){
   });
 }
 
-// ══════════════════════════════════════════════════════════
-// OVERRIDE goTo to handle new pages
-// ══════════════════════════════════════════════════════════
-(function(){
-  var _origGoTo = window.goTo;
-  window.goTo = function(page){
-    _origGoTo(page);
-    if(page==='notices'){ showNoticeForm(); if(db&&!noticesRef) initNotices(); }
-    if(page==='scoresheets'){ renderScoresheetsGrid(); }
-  };
-})();
+// Page-specific init handled in nav click listeners below
 
 // ══════════════════════════════════════════════════════════
 // OVERRIDE initFirebase to also init notices
