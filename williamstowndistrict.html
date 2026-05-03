@@ -315,6 +315,56 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 .footer-bottom{max-width:1200px;margin:16px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.75rem;color:rgba(255,255,255,.45)}
 @media(max-width:600px){.footer-inner{grid-template-columns:1fr}.footer-bottom{flex-direction:column}}
 
+
+/* ── Notices board ───────────────────────────────────── */
+.notices-feed{margin:0 0 16px;display:flex;flex-direction:column;gap:8px}
+.notice-card{border-radius:10px;padding:10px 14px;display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid #e2e8f0;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.notice-badge{flex-shrink:0;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:20px;margin-top:1px}
+.badge-venue{background:#dbeafe;color:#1d4ed8}
+.badge-forfeit{background:#fee2e2;color:#b91c1c}
+.badge-date{background:#fef9c3;color:#92400e}
+.badge-general{background:#dcfce7;color:#15803d}
+.notice-body{flex:1;min-width:0}
+.notice-body strong{font-size:.85rem;color:var(--navy);display:block;margin-bottom:2px}
+.notice-body p{font-size:.82rem;color:#475569;margin:0;line-height:1.45}
+.notice-meta{font-size:.72rem;color:#94a3b8;margin-top:3px}
+.notice-del{background:none;border:none;cursor:pointer;color:#cbd5e1;font-size:1rem;padding:0 2px;line-height:1}
+.notice-del:hover{color:#ef4444}
+.notices-empty{font-size:.85rem;color:#94a3b8;text-align:center;padding:18px 0;font-style:italic}
+
+.notice-form{background:var(--light);border-radius:10px;padding:14px;margin-bottom:16px;border:1px solid #bee3f8}
+.notice-form h4{font-size:.85rem;color:var(--navy);margin:0 0 10px;font-weight:700}
+.nf-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.nf-row select,.nf-row input,.nf-row textarea{font-size:.82rem;padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;flex:1;min-width:120px;background:#fff}
+.nf-row textarea{width:100%;min-width:100%;min-height:56px;resize:vertical;line-height:1.4}
+.forfeit-winner-row{display:none;align-items:center;gap:8px;flex-wrap:wrap}
+
+/* ── Scoresheet page ─────────────────────────────────── */
+.ss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px}
+.ss-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px 10px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.ss-card .ss-icon{font-size:2rem;margin-bottom:6px;display:block}
+.ss-card .ss-sport{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:8px}
+.ss-card a.btn-dl{display:block;font-size:.75rem;background:var(--navy);color:#fff;border-radius:6px;padding:5px 0;text-decoration:none;margin-bottom:6px}
+.ss-card a.btn-dl:hover{background:var(--gold)}
+.ss-upload-btn{display:block;width:100%;font-size:.72rem;background:#f0f4f8;color:#475569;border:1px dashed #cbd5e1;border-radius:6px;padding:5px 0;cursor:pointer;margin-top:4px;transition:.2s}
+.ss-upload-btn:hover{background:#e2e8f0}
+.ss-uploaded{font-size:.7rem;color:#15803d;margin-top:4px;font-weight:600}
+
+.ss-history{margin-top:20px}
+.ss-history h4{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:10px}
+.ss-history-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.ss-record{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:center}
+.ss-record img{width:56px;height:56px;object-fit:cover;border-radius:6px;border:1px solid #e2e8f0;cursor:pointer}
+.ss-record-info{flex:1;min-width:0}
+.ss-record-info strong{font-size:.8rem;color:var(--navy);display:block}
+.ss-record-info span{font-size:.72rem;color:#94a3b8}
+.ss-del{background:none;border:none;cursor:pointer;color:#cbd5e1;font-size:.8rem;padding:0}
+.ss-del:hover{color:#ef4444}
+
+/* Alert banner on home page */
+.notice-alert{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:.83rem;color:#7c5700;cursor:pointer;display:flex;align-items:center;gap:8px}
+.notice-alert:hover{background:#ffe69c}
+
 </style>
 </head>
 <body>
@@ -358,6 +408,8 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 <a data-page="ladders"><span class="live-dot"></span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Standings</a>
 <a data-page="enter"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Enter Scores</a>
 <a data-page="venues"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Venues</a>
+<a data-page="notices"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> <span id="notices-nav-label">Notices</span></a>
+<a data-page="scoresheets"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Scoresheets</a>
 <a data-page="guidelines"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg> Guidelines</a>
 <a data-page="contacts" class="coach-only"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.62 4.38 2 2 0 0 1 3.62 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contacts</a>
 <a data-page="history"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 3 4 3 4 11"/><polyline points="16 3 20 3 20 11"/><path d="M4 11a8 8 0 0 0 16 0"/><path d="M12 19v3"/><path d="M8 22h8"/></svg> History</a>
@@ -367,6 +419,8 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 <div class="container">
 <div class="page active" id="pg-home">
 <div id="games-today-banner" style="display:none"></div>
+<div id="notice-alerts"></div>
+
 <div class="coach-banner" id="coach-banner">
   <div class="cb-label">Coach Mode</div>
   <div class="cb-row">
@@ -462,6 +516,73 @@ select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;f
 </div>
 </div>
 <div class="page" id="pg-venues"><div class="card"><div class="card-header">Venue Directory</div><div class="card-body"><div class="venue-grid" id="venue-grid"></div></div></div></div>
+
+
+<div class="page" id="pg-scoresheets">
+<div class="card" style="margin-bottom:14px">
+  <div class="card-header">📋 Scoresheets</div>
+  <div class="card-body">
+    <p style="font-size:.85rem;color:var(--gray);margin-bottom:4px">
+      Download and print the official scoresheet for each sport. After the game, coaches can upload a photo of the completed sheet for the historical record.
+    </p>
+    <div class="ss-grid" id="ss-grid"></div>
+    <div class="ss-history" id="ss-history" style="display:none">
+      <h4>Uploaded Sheets This Season</h4>
+      <div class="ss-history-grid" id="ss-history-grid"></div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="page" id="pg-notices">
+<div class="card" style="margin-bottom:14px">
+  <div class="card-header">📢 Notices &amp; Alerts</div>
+  <div class="card-body">
+    <p style="font-size:.85rem;color:var(--gray);margin-bottom:10px">
+      Venue changes, forfeits and important updates are posted here. Check before heading to a game.
+    </p>
+    <div id="coach-notice-form" style="display:none">
+      <div class="notice-form">
+        <h4>Post a New Notice</h4>
+        <div class="nf-row">
+          <select id="nf-type" onchange="toggleForfeitRow()">
+            <option value="general">📣 General</option>
+            <option value="venue">📍 Venue Change</option>
+            <option value="date">📅 Date/Time Change</option>
+            <option value="forfeit">🚫 Forfeit</option>
+          </select>
+          <select id="nf-sport">
+            <option value="">All sports</option>
+            <option>AFL</option><option>Soccer</option><option>Netball</option>
+            <option>Hockey</option><option>Softball</option><option>Basketball</option>
+            <option>Volleyball</option><option>Hot Shots</option><option>Tee Ball</option>
+            <option>Cricket T20</option>
+          </select>
+          <select id="nf-round">
+            <option value="">All rounds</option>
+            <option>Round 1</option><option>Round 2</option><option>Round 3</option>
+            <option>Round 4</option><option>Round 5</option><option>Round 6</option>
+            <option>Round 7</option><option>Grand Final</option>
+          </select>
+        </div>
+        <div class="nf-row" id="forfeit-winner-row" style="display:none">
+          <label style="font-size:.82rem;color:var(--navy);align-self:center;flex-shrink:0">Winner:</label>
+          <select id="nf-forfeit-winner">
+            <option value="">Select winner...</option>
+            <option>Altona PS</option><option>Newport Gardens PS</option><option>Newport Lakes PS</option>
+            <option>St Mary's</option><option>Seaholme PS</option>
+            <option>Williamstown North PS</option><option>Williamstown Primary</option><option>Sacred Heart</option>
+          </select>
+        </div>
+        <div class="nf-row">
+          <textarea id="nf-message" placeholder="Describe the notice — e.g. 'Girls AFL vs Newport Lakes moved to WPS Oval due to wet grounds'" rows="2"></textarea>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="postNotice()">Post Notice</button>
+      </div>
+    </div>
+    <div id="notices-list"><div class="notices-empty">Loading notices…</div></div>
+  </div>
+</div>
+</div>
 <div class="page" id="pg-guidelines"><div class="card"><div class="card-header" id="guidelines-title">Winter Sport 2026 Guidelines</div><div class="card-body" id="guidelines-body"></div></div></div>
 <div class="page" id="pg-contacts"><div class="card"><div class="card-header">District Contacts</div><div class="card-body">
 <h3 style="color:var(--navy);font-size:.95rem;margin-bottom:12px;font-weight:700">District Coordinator</h3>
@@ -836,6 +957,254 @@ const _goToOrig=goTo;
 function goTo(page){_goToOrig(page);document.querySelector('nav').classList.remove('mob-open');}
 // Show onboarding on first login
 function updateAuthUI(){const b=document.getElementById('auth-btn'),bg=document.getElementById('user-badge'),an=document.getElementById('admin-nav');if(currentUser){b.textContent='Logout';b.classList.add('gold');bg.textContent=currentUser.email||'';document.body.classList.add('logged-in');if(userRole==='admin'){document.body.classList.add('admin-on');an.style.display='block'}else{document.body.classList.remove('admin-on');an.style.display='none'}if(!localStorage.getItem('ssp_onboarded'))setTimeout(showOnboarding,400);}else{b.textContent='Login';b.classList.remove('gold');bg.textContent='';document.body.classList.remove('logged-in','admin-on');an.style.display='none';const ap=document.querySelector('.page.active');if(ap&&(ap.id==='pg-enter'||ap.id==='pg-admin'))goTo('home');}}
+
+
+// ══════════════════════════════════════════════════════════
+// NOTICES BOARD
+// ══════════════════════════════════════════════════════════
+var noticesRef = null;
+
+function initNotices(){
+  if(!db) return;
+  noticesRef = db.ref('notices');
+  noticesRef.orderByChild('timestamp').limitToLast(50).on('value', function(snap){
+    var items = [];
+    snap.forEach(function(c){ items.push(Object.assign({id:c.key}, c.val())); });
+    items.reverse();
+    renderNoticesList(items);
+    renderHomeAlerts(items.slice(0,3));
+    updateNoticesNavBadge(items.length);
+  });
+}
+
+function renderNoticesList(items){
+  var el = document.getElementById('notices-list');
+  if(!el) return;
+  if(!items.length){ el.innerHTML='<div class="notices-empty">No notices posted yet.</div>'; return; }
+  el.innerHTML = items.map(function(n){
+    var typeMap = {venue:'badge-venue',forfeit:'badge-forfeit',date:'badge-date',general:'badge-general'};
+    var labelMap = {venue:'Venue Change',forfeit:'Forfeit',date:'Date/Time Change',general:'General'};
+    var cls = typeMap[n.type] || 'badge-general';
+    var lbl = labelMap[n.type] || 'General';
+    var meta = [n.sport, n.round, n.postedBy, n.timestamp ? new Date(n.timestamp).toLocaleDateString('en-AU',{day:'numeric',month:'short'}) : ''].filter(Boolean).join(' · ');
+    var delBtn = (userRole==='admin'||currentUser) ? '<button class="notice-del" onclick="deleteNotice(\''+n.id+'\')" title="Delete">✕</button>' : '';
+    return '<div class="notice-card"><span class="notice-badge '+cls+'">'+lbl+'</span>'
+      +'<div class="notice-body"><strong>'+escHtml(n.message||'')+'</strong>'
+      +(n.forfeitWinner ? '<p>Winner: <strong>'+escHtml(n.forfeitWinner)+'</strong></p>' : '')
+      +'<div class="notice-meta">'+escHtml(meta)+'</div></div>'+delBtn+'</div>';
+  }).join('');
+}
+
+function renderHomeAlerts(items){
+  var el = document.getElementById('notice-alerts');
+  if(!el) return;
+  var urgent = items.filter(function(n){ return n.type==='forfeit'||n.type==='venue'||n.type==='date'; });
+  if(!urgent.length){ el.innerHTML=''; return; }
+  el.innerHTML = urgent.map(function(n){
+    var icons = {venue:'📍',forfeit:'🚫',date:'📅',general:'📣'};
+    var icon = icons[n.type]||'📣';
+    return '<div class="notice-alert" onclick="goTo(\'notices\')">'
+      +icon+' <strong>'+escHtml(n.message||'')+'</strong>'
+      +(n.sport?' <span style="opacity:.7">— '+escHtml(n.sport)+'</span>':'')+'</div>';
+  }).join('');
+}
+
+function updateNoticesNavBadge(count){
+  var el = document.getElementById('notices-nav-label');
+  if(!el) return;
+  el.textContent = count > 0 ? 'Notices ('+count+')' : 'Notices';
+}
+
+function toggleForfeitRow(){
+  var t = document.getElementById('nf-type');
+  var row = document.getElementById('forfeit-winner-row');
+  if(row) row.style.display = (t&&t.value==='forfeit') ? 'flex' : 'none';
+}
+
+function postNotice(){
+  if(!currentUser){ toast('You need to be logged in to post a notice.','error'); return; }
+  var type = document.getElementById('nf-type').value;
+  var sport = document.getElementById('nf-sport').value;
+  var round = document.getElementById('nf-round').value;
+  var msg = (document.getElementById('nf-message').value||'').trim();
+  var winner = (document.getElementById('nf-forfeit-winner')&&document.getElementById('nf-forfeit-winner').value)||'';
+  if(!msg){ toast('Please enter a message.','error'); return; }
+  var notice = {
+    type: type,
+    message: msg,
+    sport: sport||null,
+    round: round||null,
+    postedBy: currentUser.displayName||currentUser.email,
+    timestamp: Date.now()
+  };
+  if(type==='forfeit'&&winner) notice.forfeitWinner = winner;
+  db.ref('notices').push(notice).then(function(){
+    toast('Notice posted.','success');
+    document.getElementById('nf-message').value='';
+    document.getElementById('nf-type').value='general';
+    document.getElementById('nf-sport').value='';
+    document.getElementById('nf-round').value='';
+    if(document.getElementById('forfeit-winner-row')) document.getElementById('forfeit-winner-row').style.display='none';
+  }).catch(function(e){ toast('Error: '+e.message,'error'); });
+}
+
+function deleteNotice(id){
+  if(!confirm('Delete this notice?')) return;
+  db.ref('notices/'+id).remove().then(function(){ toast('Notice deleted.','success'); });
+}
+
+function showNoticeForm(){
+  var f = document.getElementById('coach-notice-form');
+  if(f) f.style.display = (currentUser&&(userRole==='admin'||userRole==='coach')) ? 'block' : 'none';
+}
+
+function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ══════════════════════════════════════════════════════════
+// SCORESHEETS PAGE
+// ══════════════════════════════════════════════════════════
+var SPORT_SHEETS = [
+  {sport:'AFL', icon:'🏉', file:'AFL'},
+  {sport:'Soccer', icon:'⚽', file:'Soccer'},
+  {sport:'Netball', icon:'🏀', file:'Netball'},
+  {sport:'Hockey', icon:'🏑', file:'Hockey'},
+  {sport:'Softball', icon:'🥎', file:'Softball'},
+  {sport:'Basketball', icon:'🏀', file:'Basketball'},
+  {sport:'Volleyball', icon:'🏐', file:'Volleyball'},
+  {sport:'Hot Shots', icon:'🎾', file:'Hot Shots'},
+  {sport:'Tee Ball', icon:'⚾', file:'Tee Ball'},
+  {sport:'Cricket T20', icon:'🏏', file:'Cricket T20'},
+];
+
+// Google Drive PDF IDs (existing sheets for download)
+var SHEET_DRIVE_IDS = {
+  'Basketball':  '1_O13OFMr40Ab8MXPXolE4_Tww_p4CsRa',
+  'Volleyball':  '1_UMtdsYVxnf6urouVXPmYAEEZ_I6LiaU',
+  'Hot Shots':   '1_Yj5HqRkyyuQEtTh778W3TbGdegrUdA9',
+  'Cricket T20': '1_iF7RmHHTHHS8VM6Ur9BKZcy1BgwHS6P',
+  'Softball':    '1_mWrBSzv88wRz6g8Gi6Izspi38Yhyf_g',
+  'Soccer':      '1aKOacFqcm5mTchE6t-V72MthD63zOcqA',
+  'Netball':     '1aI9FNjE8wiee184l6Oa2aiboUbx758rF',
+  'Hockey':      '1aabC1OA9BGvVk56SRdM9j1WDikyxtccy',
+  'AFL':         '1aKhh8ggU56TsN8-eEV2CnD4aqtA1i9GM',
+  'Tee Ball':    '1_O1NIrKGlaCDLBZZIbQOAMQ4Yrt4FeK9',
+};
+
+function renderScoresheetsGrid(){
+  var grid = document.getElementById('ss-grid');
+  if(!grid) return;
+  grid.innerHTML = SPORT_SHEETS.map(function(s){
+    var driveId = SHEET_DRIVE_IDS[s.sport];
+    var dlLink = driveId
+      ? '<a class="btn-dl" href="https://drive.google.com/uc?export=download&id='+driveId+'" target="_blank">⬇ Download PDF</a>'
+      : '';
+    var uploadBtn = currentUser
+      ? '<label class="ss-upload-btn" onclick="void(0)"><input type="file" accept="image/*,application/pdf" style="display:none" onchange="uploadSheet(this,\''+s.sport+'\')" />📷 Upload completed sheet</label>'
+      : '';
+    var uploaded = document.getElementById('ss-done-'+s.sport.replace(/\s/g,'-'));
+    return '<div class="ss-card">'
+      +'<span class="ss-icon">'+s.icon+'</span>'
+      +'<div class="ss-sport">'+s.sport+'</div>'
+      +dlLink
+      +uploadBtn
+      +'<div class="ss-uploaded" id="ss-done-'+s.sport.replace(/\s/g,'-')+'"></div>'
+      +'</div>';
+  }).join('');
+  loadUploadedSheets();
+}
+
+function uploadSheet(input, sport){
+  if(!input.files||!input.files[0]) return;
+  var file = input.files[0];
+  if(file.size > 5*1024*1024){ toast('File too large — please use a photo under 5MB.','error'); return; }
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var data = e.target.result;
+    var season = currentSeason + '_2026';
+    var key = sport.replace(/\s/g,'-');
+    var record = {
+      sport: sport,
+      season: season,
+      uploadedBy: currentUser.displayName||currentUser.email,
+      timestamp: Date.now(),
+      data: data.substring(0, 300000) // cap at ~300KB base64
+    };
+    db.ref('scoresheets/'+season+'/'+key).push(record).then(function(){
+      toast('Sheet uploaded! ✓','success');
+      var done = document.getElementById('ss-done-'+key);
+      if(done) done.textContent = '✓ Uploaded';
+      loadUploadedSheets();
+    }).catch(function(e){ toast('Upload error: '+e.message,'error'); });
+  };
+  reader.readAsDataURL(file);
+}
+
+function loadUploadedSheets(){
+  if(!db) return;
+  var season = currentSeason + '_2026';
+  db.ref('scoresheets/'+season).once('value').then(function(snap){
+    var records = [];
+    snap.forEach(function(sportSnap){
+      sportSnap.forEach(function(r){
+        records.push(Object.assign({id:r.key}, r.val()));
+      });
+    });
+    records.sort(function(a,b){ return b.timestamp-a.timestamp; });
+    renderUploadedSheets(records);
+  });
+}
+
+function renderUploadedSheets(records){
+  var hist = document.getElementById('ss-history');
+  var grid = document.getElementById('ss-history-grid');
+  if(!hist||!grid) return;
+  if(!records.length){ hist.style.display='none'; return; }
+  hist.style.display='block';
+  grid.innerHTML = records.map(function(r){
+    var isImg = r.data&&r.data.startsWith('data:image');
+    var preview = isImg
+      ? '<img src="'+r.data+'" onclick="window.open(this.src)" title="Click to enlarge" />'
+      : '<div style="width:56px;height:56px;background:#f0f4f8;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.4rem">📄</div>';
+    var del = (currentUser&&(userRole==='admin'||currentUser.email===r.uploadedBy))
+      ? '<button class="ss-del" onclick="deleteSheet(\''+r.season+'\',\''+r.sport.replace(/\s/g,'-')+'\',\''+r.id+'\')" title="Delete">✕</button>'
+      : '';
+    var d = new Date(r.timestamp).toLocaleDateString('en-AU',{day:'numeric',month:'short'});
+    return '<div class="ss-record">'+preview+'<div class="ss-record-info">'
+      +'<strong>'+escHtml(r.sport)+'</strong>'
+      +'<span>'+escHtml(r.uploadedBy)+' · '+d+'</span>'
+      +'</div>'+del+'</div>';
+  }).join('');
+}
+
+function deleteSheet(season, sportKey, id){
+  if(!confirm('Delete this uploaded sheet?')) return;
+  db.ref('scoresheets/'+season+'/'+sportKey+'/'+id).remove().then(function(){
+    toast('Deleted.','success'); loadUploadedSheets();
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// OVERRIDE goTo to handle new pages
+// ══════════════════════════════════════════════════════════
+(function(){
+  var _origGoTo = window.goTo;
+  window.goTo = function(page){
+    _origGoTo(page);
+    if(page==='notices'){ showNoticeForm(); if(db&&!noticesRef) initNotices(); }
+    if(page==='scoresheets'){ renderScoresheetsGrid(); }
+  };
+})();
+
+// ══════════════════════════════════════════════════════════
+// OVERRIDE initFirebase to also init notices
+// ══════════════════════════════════════════════════════════
+(function(){
+  var _orig = window.initFirebase;
+  window.initFirebase = function(){
+    _orig();
+    setTimeout(function(){ if(db) initNotices(); }, 800);
+  };
+})();
 
 </script>
 </body>
