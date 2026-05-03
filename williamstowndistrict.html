@@ -937,7 +937,7 @@ function exportData(){const data={scores:allScores,history:allHistory,exportedAt
 function resetSeason(){if(!confirm('RESET ALL SCORES? This cannot be undone.'))return;const c=prompt('Type RESET to confirm:');if(c!=='RESET'){toast('Reset cancelled','info');return;}if(!fbReady){toast('Firebase not connected','error');return;}db.ref('scores').remove().then(()=>{allScores={};renderAll();toast('All scores reset!','success');}).catch(err=>toast(err.message,'error'));}
 }
 (function(){
-  document.querySelectorAll('.nav-inner a[data-page]').forEach(function(a){a.addEventListener('click',function(){goTo(this.dataset.page);});});
+  document.querySelectorAll('.nav-inner a[data-page]').forEach(function(a){a.addEventListener('click',function(){document.querySelector('nav').classList.remove('mob-open');goTo(this.dataset.page);});});
   var sel=document.getElementById('fixture-school-filter');
   if(sel){TEAMS.forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;sel.appendChild(o);});}
   var ml=document.getElementById('pwa-manifest');
@@ -952,9 +952,7 @@ function showOnboarding(){if(!localStorage.getItem('ssp_onboarded')){const m=doc
 function dismissOnboarding(){localStorage.setItem('ssp_onboarded','1');const m=document.getElementById('onboard-modal');if(m)m.classList.remove('show');goTo('enter');}
 function toggleHowTo(){const b=document.getElementById('how-to-body'),c=document.getElementById('how-to-chevron');const open=b.style.display!=='none';b.style.display=open?'none':'block';c.textContent=open?'▼ show':'▲ hide';}
 function toggleMobileNav(){document.querySelector('nav').classList.toggle('mob-open');}
-// Close mobile nav on page change
-const _goToOrig=goTo;
-function goTo(page){_goToOrig(page);document.querySelector('nav').classList.remove('mob-open');}
+// Mobile nav closes via event listener (see nav IIFE below)
 // Show onboarding on first login
 function updateAuthUI(){const b=document.getElementById('auth-btn'),bg=document.getElementById('user-badge'),an=document.getElementById('admin-nav');if(currentUser){b.textContent='Logout';b.classList.add('gold');bg.textContent=currentUser.email||'';document.body.classList.add('logged-in');if(userRole==='admin'){document.body.classList.add('admin-on');an.style.display='block'}else{document.body.classList.remove('admin-on');an.style.display='none'}if(!localStorage.getItem('ssp_onboarded'))setTimeout(showOnboarding,400);}else{b.textContent='Login';b.classList.remove('gold');bg.textContent='';document.body.classList.remove('logged-in','admin-on');an.style.display='none';const ap=document.querySelector('.page.active');if(ap&&(ap.id==='pg-enter'||ap.id==='pg-admin'))goTo('home');}}
 
