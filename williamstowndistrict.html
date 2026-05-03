@@ -880,6 +880,7 @@ if(currentUser){
     document.getElementById('coach-banner-info').textContent=info;
   }else if(school){document.getElementById('coach-banner-info').textContent=school+' — select a round to enter scores';}
 }
+}
 function renderVenues(){const venues=currentSeason==="summer"?SUMMER_VENUES:WINTER_VENUES;const SPORTS=currentSeason==="summer"?SUMMER_SPORTS:WINTER_SPORTS;document.getElementById('venue-grid').innerHTML=Object.entries(venues).map(([s,sv])=>`<div class="venue-card"><h4>${s}</h4>${SPORTS.map(sp=>`<div class="venue-row"><span class="venue-sport">${sp}</span><span class="venue-loc${sv[sp]==='N/A'?' na':''}">${sv[sp]}</span></div>`).join('')}</div>`).join('')}
 function renderGuidelines(){
   const titleEl=document.getElementById('guidelines-title');
@@ -925,7 +926,6 @@ function renderTodayBanner(){const el=document.getElementById('games-today-banne
 function shareResults(){const text='Williamstown District Sport — Live Results & Ladders\n'+window.location.href;if(navigator.share){navigator.share({title:'Williamstown District Sport',text:'Live results and ladders',url:window.location.href});}else{navigator.clipboard.writeText(window.location.href).then(()=>toast('Link copied!','success')).catch(()=>toast('Could not copy link','error'));}}
 function clearSchoolFilter(){const sel=document.getElementById('fixture-school-filter');if(sel)sel.value='';const btn=document.getElementById('school-filter-clear');if(btn)btn.style.display='none';renderFixtures();}
 function toast(msg,type){const el=document.getElementById('toast');if(!el)return;el.textContent=msg;el.className='toast show '+(type||'success');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),3000);}
-}
 var pendingPage=null;
 function goTo(page){if((page==='enter'||page==='admin')&&!currentUser){pendingPage=page;handleAuth();return;}document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-inner a').forEach(a=>a.classList.toggle('active',a.dataset.page===page));const el=document.getElementById('pg-'+page);if(el){el.classList.add('active');}else{document.getElementById('pg-home').classList.add('active');}window.scrollTo({top:0,behavior:'smooth'});if(page==='admin')loadCoachList();}
 function doLogin(){const e=document.getElementById('login-email').value.trim(),p=document.getElementById('login-pass').value;if(!e||!p){showLoginErr('Enter email and password');return;}if(fbReady){firebase.auth().signInWithEmailAndPassword(e,p).then(()=>{closeLogin();if(pendingPage){var pp=pendingPage;pendingPage=null;setTimeout(()=>goTo(pp),300);}}).catch(er=>showLoginErr(er.code==='auth/invalid-credential'?'Invalid email or password':er.message));}else{currentUser={email:e,uid:'demo'};userRole='admin';closeLogin();updateAuthUI();renderAll();toast('Logged in (demo mode)','info');if(pendingPage){var pp=pendingPage;pendingPage=null;setTimeout(()=>goTo(pp),300);}}}
