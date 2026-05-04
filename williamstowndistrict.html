@@ -1,1200 +1,308 @@
 <!DOCTYPE html>
-<!-- v:20260503-104501 -->
-<html lang="en">
+<html lang="en-AU">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Williamstown District Primary School Sport - Live results, ladders, fixtures and history.">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Willy District Sport">
-<meta name="theme-color" content="#1a365d">
-<meta property="og:title" content="Williamstown District Sport">
-<meta property="og:description" content="Live scores, ladders and fixtures for AFL, Soccer, Netball, Hockey and Softball across the Williamstown District primary schools.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://schoolsportportal.com.au/williamstowndistrict">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Williamstown District Sport">
-<meta name="twitter:description" content="Live scores and ladders for Williamstown District primary school sport.">
-<link rel="manifest" id="pwa-manifest">
-<title>Williamstown District Sport</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<title>Williamstown District — School Sport Portal</title>
+<meta name="description" content="Williamstown District school sport hub. Carnivals, results, teams and student pathways.">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--navy:#1a365d;--blue:#2b6cb0;--light-blue:#ebf4ff;--gold:#d69e2e;--gold-light:#fefcbf;--green:#38a169;--green-light:#c6f6d5;--red:#e53e3e;--red-light:#fed7d7;--gray:#718096;--gray-light:#a0aec0;--white:#fff;--dark:#1a202c;--shadow:0 4px 6px rgba(0,0,0,.07);--shadow-lg:0 10px 25px rgba(0,0,0,.1);--radius:12px}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f4f8;color:var(--dark);min-height:100vh}
-a{color:var(--blue);text-decoration:none}input,select,button,textarea{font-family:inherit}
-.site-header{background:linear-gradient(135deg,var(--navy) 0%,#2c5282 50%,var(--blue) 100%);color:var(--white);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.2)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:1200px;margin:0 auto}
-.header-brand h1{font-size:1.3rem;font-weight:800;letter-spacing:-.5px;cursor:pointer}
-.header-brand h1 .accent{color:var(--gold)}
-.header-brand .subtitle{font-size:.68rem;opacity:.7;letter-spacing:.5px;text-transform:uppercase}
-.header-right{display:flex;align-items:center;gap:8px}
-.hdr-btn{padding:6px 14px;border-radius:20px;font-size:.75rem;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,.3);transition:all .2s;background:rgba(255,255,255,.1);color:var(--white)}
-.hdr-btn:hover{background:rgba(255,255,255,.2)}
-.hdr-btn.gold{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-.user-badge{font-size:.7rem;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.8}
-.season-toggle{display:flex;gap:4px;margin-right:8px}
-.mobile-season-toggle{display:none;justify-content:center;gap:6px;margin-bottom:14px}
-.mobile-season-toggle .season-btn{padding:8px 20px;border-radius:20px;font-size:.82rem;font-weight:600;border:2px solid var(--navy);background:transparent;color:var(--navy);cursor:pointer;transition:all .2s}
-.mobile-season-toggle .season-btn.active{background:var(--navy);color:#fff}
-.season-btn{padding:5px 12px;border-radius:16px;font-size:.72rem;font-weight:600;cursor:pointer;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);transition:all .2s}
-.season-btn.active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
-nav{background:rgba(0,0,0,.2);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-nav::-webkit-scrollbar{display:none}
-.nav-inner{display:flex;list-style:none;max-width:1200px;margin:0 auto;padding:0 8px}
-.nav-inner a{display:block;padding:11px 15px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.65);white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;cursor:pointer}
-.nav-inner a:hover,.nav-inner a.active{color:var(--white);border-bottom-color:var(--gold)}
-.nav-inner a.coach-only{display:none}
-.logged-in .nav-inner a.coach-only{display:block}
-.container{max-width:1200px;margin:0 auto;padding:16px}
-.page{display:none}.page.active{display:block}
-.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px;transition:box-shadow .2s}
-.card:hover{box-shadow:var(--shadow-lg)}
-.card-header{padding:14px 20px;font-weight:700;font-size:.95rem;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.card-body{padding:16px 20px}
-.badge{font-size:.7rem;padding:3px 10px;border-radius:12px;font-weight:600}
-.badge-live{background:var(--green-light);color:var(--green)}.badge-upcoming{background:var(--light-blue);color:var(--blue)}
-.hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:var(--white);border-radius:var(--radius);padding:32px 28px;margin-bottom:20px;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;right:-40px;top:-40px;width:220px;height:220px;background:rgba(255,255,255,.03);border-radius:50%}
-.hero h2{font-size:1.5rem;font-weight:800;margin-bottom:6px}
-.hero p{opacity:.8;font-size:.88rem;line-height:1.5}
-.hero .season-badge{display:inline-block;background:var(--gold);color:var(--navy);padding:4px 14px;border-radius:20px;font-size:.75rem;font-weight:700;margin-bottom:12px}
-.quick-links{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-.quick-link{padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:600;background:rgba(255,255,255,.12);color:var(--white);cursor:pointer;transition:all .2s;border:1px solid rgba(255,255,255,.15)}
-.quick-link:hover{background:rgba(255,255,255,.22)}
-.tab-row{display:flex;gap:8px;overflow-x:auto;padding:12px 0;scrollbar-width:none}
-.tab-row::-webkit-scrollbar{display:none}
-.tab-pill{padding:7px 16px;border-radius:20px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap;border:2px solid #e2e8f0;background:var(--white);transition:all .2s;user-select:none}
-.tab-pill.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
-.tab-pill:hover:not(.active){border-color:var(--blue);color:var(--blue)}
-.gender-toggle{display:inline-flex;border-radius:8px;overflow:hidden;border:2px solid var(--navy)}
-.gender-btn{padding:7px 18px;font-size:.8rem;font-weight:600;cursor:pointer;background:var(--white);color:var(--navy);transition:all .2s;border:none}
-.gender-btn.active{background:var(--navy);color:var(--white)}
-.ladder-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.ladder-table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:480px}
-.ladder-table th{background:var(--navy);color:var(--white);padding:10px 8px;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
-.ladder-table th:first-child{text-align:left;padding-left:40px;border-radius:8px 0 0 0}
-.ladder-table th:last-child{border-radius:0 8px 0 0}
-.ladder-table td{padding:10px 8px;text-align:center;border-bottom:1px solid #edf2f7}
-.ladder-table td:first-child{text-align:left;padding-left:16px;font-weight:600}
-.ladder-table tr:nth-child(even){background:#f7fafc}
-.ladder-table tr:hover{background:var(--light-blue)}
-.pos-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:.7rem;font-weight:700;margin-right:6px}
-.pos-1{background:var(--gold);color:var(--white)}.pos-2{background:#a0aec0;color:var(--white)}.pos-other{background:#edf2f7;color:var(--gray)}
-.pts-col{font-weight:800;color:var(--navy);font-size:.95rem}
-.round-block{margin-bottom:16px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.round-head{background:linear-gradient(135deg,var(--navy),var(--blue));color:var(--white);padding:12px 20px;display:flex;justify-content:space-between;align-items:center}
-.round-head h3{font-size:.95rem;font-weight:700}.round-head .date-tag{font-size:.78rem;opacity:.85;background:rgba(255,255,255,.12);padding:3px 10px;border-radius:12px}
-.match-row{display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid #edf2f7;background:var(--white)}
-.match-row:last-child{border-bottom:none}
-.match-team{flex:1;font-weight:500;font-size:.88rem}
-.match-team.home{text-align:right;padding-right:10px}
-.match-team.away{text-align:left;padding-left:10px}
-.match-center{display:flex;align-items:center;gap:5px;min-width:90px;justify-content:center}
-.score-box{background:var(--light-blue);padding:4px 10px;border-radius:6px;font-weight:700;font-size:.95rem;min-width:32px;text-align:center;color:var(--navy)}
-.score-box.win{background:var(--green-light);color:var(--green)}
-.score-box.loss{background:var(--red-light);color:var(--red)}
-.match-vs{color:var(--gray-light);font-size:.7rem;font-weight:700}
-.score-row{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid #edf2f7;flex-wrap:wrap}
-.score-row .team-label{flex:1;min-width:70px;font-weight:600;font-size:.88rem}
-.score-row .team-label.home{text-align:right}.score-row .team-label.away{text-align:left}
-.score-input{width:56px;padding:8px 4px;text-align:center;border:2px solid #e2e8f0;border-radius:8px;font-size:1.1rem;font-weight:700;color:var(--navy);transition:all .2s;-moz-appearance:textfield}
-.score-input::-webkit-inner-spin-button,.score-input::-webkit-outer-spin-button{-webkit-appearance:none}
-.home-sport-group{border-bottom:2px solid #e2e8f0;padding:12px 16px}
-.home-sport-group:last-child{border-bottom:none}
-.home-sport-label{font-weight:700;color:var(--navy);font-size:.9rem;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.home-sport-label .sport-icon{font-size:1rem}
-.home-gender-row{display:flex;align-items:center;gap:8px;padding:6px 0}
-.home-gender-row .gender-label{width:70px;font-size:.78rem;color:var(--gray);font-weight:600;text-transform:uppercase;flex-shrink:0}
-.home-gender-row .team-names{flex:1;font-size:.84rem;display:flex;align-items:center;gap:6px}
-.home-gender-row .team-names .vs{color:var(--gray);font-size:.75rem}
-.home-gender-row .score-input{width:50px;padding:6px 4px;font-size:1rem}
-.home-saved-tick{color:var(--green);font-weight:700;font-size:.8rem;margin-left:4px;display:none}
-.score-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(43,108,176,.15)}
-.score-sep{color:var(--gray-light);font-weight:700;font-size:.8rem}
-.btn{padding:10px 24px;border:none;border-radius:8px;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .15s}
-.btn-primary{background:var(--navy);color:var(--white)}.btn-primary:hover{background:var(--blue)}
-.btn-success{background:var(--green);color:var(--white)}
-.btn-danger{background:var(--red);color:var(--white);font-size:.8rem;padding:8px 16px}
-.btn-outline{background:transparent;border:2px solid #e2e8f0;color:var(--dark)}.btn-outline:hover{border-color:var(--blue);color:var(--blue)}
-.btn-sm{padding:6px 14px;font-size:.78rem}
-.btn-row{display:flex;gap:8px;padding:16px 20px;justify-content:flex-end;flex-wrap:wrap}
-select.form-select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;font-size:.88rem;font-weight:500;background:var(--white)}
-.venue-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
-.venue-card{background:var(--white);border-radius:10px;padding:16px;box-shadow:var(--shadow);border-left:4px solid var(--navy)}
-.venue-card h4{font-size:.92rem;color:var(--navy);margin-bottom:10px}
-.venue-row{display:flex;justify-content:space-between;padding:4px 0;font-size:.83rem;border-bottom:1px solid #f0f4f8}
-.venue-row:last-child{border-bottom:none}
-.venue-sport{color:var(--gray);font-weight:500}.venue-loc{font-weight:600}.venue-loc.na{color:var(--gray-light);font-style:italic}
-.guideline-item{padding:12px 0;border-bottom:1px solid #edf2f7;font-size:.9rem;line-height:1.6;display:flex;gap:10px}
-.guideline-item:last-child{border-bottom:none}
-.guideline-num{background:var(--navy);color:var(--white);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0;margin-top:2px}
-.doc-section-title{font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid #e2e8f0}
-.doc-links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:4px}
-.doc-link-card{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;text-decoration:none;color:var(--dark);font-size:.82rem;font-weight:600;transition:all .2s}
-.doc-link-card:hover{background:var(--light-blue);border-color:var(--blue);color:var(--blue)}
-.doc-link-card .doc-icon{font-size:1.2rem;flex-shrink:0}
-.doc-link-card .doc-label{font-size:.68rem;color:var(--gray);font-weight:500;margin-top:1px}
-.season-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:20px}
-.season-card{background:var(--white);border-radius:10px;padding:20px;box-shadow:var(--shadow);text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent}
-.season-card:hover{border-color:var(--blue);transform:translateY(-2px)}
-.season-card .icon{font-size:2rem;margin-bottom:8px}
-.season-card h4{font-size:.92rem;color:var(--navy);margin-bottom:4px}
-.season-card p{font-size:.78rem;color:var(--gray)}
-.history-table{width:100%;border-collapse:collapse;font-size:.83rem}
-.history-table th{background:var(--navy);color:var(--white);padding:8px 10px;text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px}
-.history-table td{padding:8px 10px;border-bottom:1px solid #edf2f7}
-.history-table tr:nth-child(even){background:#f7fafc}
-.medal-1{color:var(--gold);font-weight:700}.medal-2{color:#a0aec0;font-weight:700}
-.contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
-.contact-card{background:var(--white);border-radius:10px;padding:20px;box-shadow:var(--shadow);border-top:4px solid var(--navy)}
-.contact-card h4{font-size:.95rem;color:var(--navy);margin-bottom:8px;font-weight:700}
-.contact-card p{font-size:.83rem;color:var(--gray);margin-bottom:4px;line-height:1.5}
-.contact-card .label{font-size:.7rem;text-transform:uppercase;color:var(--gray-light);font-weight:600;margin-top:8px}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
-.modal-overlay.show{display:flex}
-.modal{background:var(--white);border-radius:var(--radius);padding:28px;max-width:380px;width:100%;box-shadow:var(--shadow-lg)}
-.modal h2{font-size:1.15rem;color:var(--navy);margin-bottom:4px}
-.modal p{font-size:.83rem;color:var(--gray);margin-bottom:16px}
-.modal .field{margin-bottom:12px}
-.modal .field label{display:block;font-size:.78rem;font-weight:600;color:var(--navy);margin-bottom:4px}
-.modal .field input{width:100%;padding:10px 12px;border:2px solid #e2e8f0;border-radius:8px;font-size:.9rem}
-.modal .field input:focus{outline:none;border-color:var(--blue)}
-.modal-error{color:var(--red);font-size:.8rem;margin-bottom:10px;display:none}
-.modal-btns{display:flex;gap:8px}.modal-btns .btn{flex:1}
-.admin-section{background:var(--gold-light);border:2px solid var(--gold);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;display:none}
-.admin-on .admin-section{display:block}
-.admin-section h3{color:var(--navy);font-size:.92rem;margin-bottom:6px}
-.admin-section p{font-size:.82rem;color:var(--gray);margin-bottom:12px}
-.admin-field{margin-bottom:10px}
-.admin-field label{display:block;font-size:.78rem;font-weight:600;color:var(--navy);margin-bottom:4px}
-.admin-field input,.admin-field select{width:100%;padding:8px 12px;border:2px solid #e2e8f0;border-radius:8px;font-size:.88rem}
-.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.coach-list-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid #edf2f7;font-size:.85rem}
-.coach-list-item:last-child{border-bottom:none}
-.role-badge{font-size:.68rem;padding:2px 8px;border-radius:10px;font-weight:600}
-.role-admin{background:var(--gold-light);color:var(--gold)}.role-coach{background:var(--light-blue);color:var(--blue)}
-.live-dot{width:8px;height:8px;background:var(--green);border-radius:50%;display:inline-block;margin-right:4px;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.loading{text-align:center;padding:40px;color:var(--gray)}
-.spinner{width:32px;height:32px;border:3px solid #e2e8f0;border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);padding:12px 28px;border-radius:10px;font-weight:600;font-size:.88rem;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:transform .3s ease;z-index:300;color:var(--white)}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.toast.success{background:var(--green)}.toast.error{background:var(--red)}.toast.info{background:var(--blue)}
-@media(max-width:768px){
-.header-brand h1{font-size:1.05rem}.nav-inner a{padding:9px 11px;font-size:.76rem}
-.hero{padding:22px 18px}.hero h2{font-size:1.25rem}
-.ladder-table{font-size:.76rem}.ladder-table th,.ladder-table td{padding:7px 5px}
-.ladder-table th:first-child,.ladder-table td:first-child{padding-left:10px}
-.match-row{padding:10px 12px}.match-team{font-size:.82rem}
-.venue-grid,.season-grid,.contact-grid{grid-template-columns:1fr}
-.score-row .team-label{font-size:.82rem;min-width:50px}
-.score-input{width:48px;font-size:1rem}
-.gender-toggle{width:100%}.gender-btn{flex:1}
-.container{padding:12px}.admin-grid{grid-template-columns:1fr}.user-badge{display:none}
-.season-toggle{display:none}
-.mobile-season-toggle{display:flex!important}
-.countdown-banner{flex-direction:column;text-align:center;padding:14px 16px}
-.countdown-banner .cd-units{justify-content:center}
-.tally-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
-.tally-item{padding:10px 6px}
-.tally-count{font-size:1.4rem}
-.stats-bar{flex-direction:column;gap:8px}
-.footer-links{flex-wrap:wrap;justify-content:center}
-}
-@media(max-width:480px){.header-inner{padding:10px 14px}.nav-inner a{padding:8px 9px;font-size:.72rem}.pos-badge{width:18px;height:18px;font-size:.6rem;margin-right:3px}.countdown-banner .cd-unit{min-width:46px;padding:6px 8px}.countdown-banner .cd-num{font-size:1.1rem}.hero h2{font-size:1.1rem}.hero p{font-size:.82rem}.quick-links{gap:6px}.quick-link{padding:6px 12px;font-size:.75rem}.contact-card{padding:14px}}
-@media print{.site-header{position:static}nav,.btn-row,.admin-section,.hdr-btn,.score-input,.quick-links,.gender-toggle,.tab-row,.modal-overlay{display:none!important}.page{display:block!important;page-break-before:always}.card,.round-block{box-shadow:none;border:1px solid #ccc;break-inside:avoid}}
-.tally-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:12px}
-.parent-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
-.parent-btn{padding:13px 16px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;border:none;display:flex;align-items:center;gap:8px;justify-content:center;transition:all .2s;text-align:center}
-.parent-btn.gold{background:var(--gold);color:var(--navy)}.parent-btn.gold:hover{background:#b7811f;transform:translateY(-1px)}
-.parent-btn.ghost{background:rgba(255,255,255,.14);color:var(--white);border:1px solid rgba(255,255,255,.3)}.parent-btn.ghost:hover{background:rgba(255,255,255,.24)}
-.coach-banner{background:linear-gradient(135deg,#1a4731,#276749);border-radius:12px;padding:16px 20px;margin-bottom:16px;display:none;border-left:4px solid #48bb78}
-.logged-in .coach-banner{display:block}
-.coach-banner .cb-label{color:#9ae6b4;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
-.coach-banner .cb-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.coach-banner .cb-info{color:#fff;font-size:.9rem;font-weight:600}
-.coach-banner .cb-btn{background:#48bb78;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;transition:background .2s}
-.coach-banner .cb-btn:hover{background:#38a169}
-.results-sport-block{margin-bottom:14px}
-.results-sport-name{font-size:.72rem;font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.06em;padding:4px 0;border-bottom:2px solid var(--light-blue);margin-bottom:6px}
-.results-match{display:flex;align-items:center;padding:5px 2px;border-bottom:1px solid #f0f4f8;font-size:.85rem}
-.results-match:last-child{border-bottom:none}
-.results-school{flex:1;color:var(--gray)}
-.results-school.winner{font-weight:800;color:var(--navy)}
-.results-score{min-width:22px;text-align:center;font-weight:700;font-size:.9rem;background:var(--light-blue);border-radius:4px;padding:1px 4px}
-.results-score.win{background:var(--green-light);color:var(--green)}
-.results-score.loss{background:var(--red-light);color:var(--red)}
-.results-vs{color:var(--gray-light);font-size:.72rem;padding:0 5px}
-.tally-item{background:var(--white);border-radius:10px;padding:14px 10px;text-align:center;box-shadow:var(--shadow);border-top:3px solid var(--navy);transition:transform .2s}
-.tally-item:hover{transform:translateY(-2px)}
-.tally-item .tally-count{font-size:1.8rem;font-weight:800;color:var(--navy);line-height:1}
-.tally-item .tally-school{font-size:.72rem;color:var(--gray);font-weight:600;margin-top:4px;line-height:1.2}
-.tally-item:first-child{border-top-color:var(--gold)}
-.tally-item:first-child .tally-count{color:var(--gold)}
-.tally-item:nth-child(2){border-top-color:#a0aec0}
-.tally-item:nth-child(3){border-top-color:#cd7f32}
-.tally-item:nth-child(3) .tally-count{color:#cd7f32}
-.history-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
-.history-filters select{padding:6px 12px;border:2px solid #e2e8f0;border-radius:8px;font-size:.82rem;font-weight:500;background:var(--white)}
-.countdown-banner{background:linear-gradient(135deg,#2b6cb0 0%,#2c5282 50%,#1a365d 100%);border-radius:12px;padding:16px 20px;margin-bottom:16px;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 4px 12px rgba(26,54,93,.25)}
-.countdown-banner .cd-label{font-size:.82rem;opacity:.85}
-.countdown-banner .cd-title{font-size:1.05rem;font-weight:700}
-.countdown-banner .cd-units{display:flex;gap:10px}
-.countdown-banner .cd-unit{text-align:center;background:rgba(255,255,255,.15);border-radius:8px;padding:8px 12px;min-width:56px}
-.countdown-banner .cd-num{font-size:1.4rem;font-weight:800;display:block}
-.countdown-banner .cd-lbl{font-size:.65rem;text-transform:uppercase;opacity:.8}
-.stats-bar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-.stat-chip{background:var(--white);border-radius:8px;padding:10px 16px;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px;font-size:.82rem}
-.stat-chip .stat-num{font-size:1.2rem;font-weight:800;color:var(--navy)}
-.stat-chip .stat-label{color:var(--gray);font-weight:500}
-.site-footer{background:linear-gradient(135deg,var(--navy) 0%,#2c5282 100%);color:rgba(255,255,255,.7);padding:28px 20px;text-align:center;font-size:.75rem;margin-top:20px}
-.site-footer a{color:var(--gold);text-decoration:none;font-weight:600}
-.site-footer a:hover{text-decoration:underline}
-.footer-inner{max-width:1200px;margin:0 auto}
-.footer-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:10px}
-.footer-tagline{opacity:.5;margin-top:8px;font-size:.68rem}
-/* ---- v2 enhancements ---- */
-.today-banner{background:linear-gradient(135deg,#c53030,#9b2c2c);border-radius:12px;padding:14px 20px;margin-bottom:16px;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;box-shadow:0 4px 12px rgba(197,48,48,.3);animation:pulse-red 2s infinite}
-@keyframes pulse-red{0%,100%{box-shadow:0 4px 12px rgba(197,48,48,.3)}50%{box-shadow:0 4px 22px rgba(197,48,48,.65)}}
-.today-banner .td-text{font-weight:700;font-size:.95rem}.today-banner .td-sub{font-size:.78rem;opacity:.85;margin-top:2px}
-.today-btn{background:#fff;color:#c53030;border:none;padding:8px 16px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .2s;flex-shrink:0}
-.today-btn:hover{background:#fff5f5;transform:translateY(-1px)}
-.round-block.future{opacity:.5}
-.accordion-group .accordion-body{overflow:hidden;transition:max-height .3s ease;max-height:0}
-.accordion-group.open .accordion-body{max-height:700px}
-.home-sport-label{cursor:pointer;user-select:none;display:flex;align-items:center;gap:6px}
-.acc-chevron{margin-left:auto;font-size:.78rem;transition:transform .25s;color:var(--gray-light);flex-shrink:0}
-.accordion-group.open .acc-chevron{transform:rotate(180deg)}
-.share-strip{display:flex;justify-content:flex-end;margin-top:10px}
-.share-btn-hero{background:rgba(255,255,255,.14);color:var(--white);border:1px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
-.share-btn-hero:hover{background:rgba(255,255,255,.24)}
-.school-filter-bar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
-.school-filter-bar label{font-size:.8rem;color:var(--gray);font-weight:600;flex-shrink:0}
-
-/* Onboarding modal */
-.onboard-modal-inner{max-width:480px}
-.onboard-header{text-align:center;margin-bottom:20px}
-.onboard-header h2{font-size:1.1rem;color:var(--navy);margin-bottom:4px}
-.onboard-header p{font-size:.82rem;color:var(--gray)}
-.onboard-step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
-.onboard-num{width:28px;height:28px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;margin-top:1px}
-.onboard-step strong{font-size:.88rem;color:var(--navy);display:block}
-.onboard-step p{font-size:.8rem;color:var(--gray);margin:3px 0 0;line-height:1.4}
-/* How-to card */
-.how-to-card{background:var(--light-blue);border:1px solid #bee3f8;border-radius:var(--radius);margin-bottom:14px;overflow:hidden}
-.how-to-header{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;cursor:pointer;font-size:.88rem;font-weight:600;color:var(--blue);user-select:none}
-.how-to-body{padding:0 16px 14px}
-.how-to-steps{padding-left:18px;margin:0}
-.how-to-steps li{font-size:.84rem;color:var(--dark);margin-bottom:8px;line-height:1.4}
-/* Hamburger */
-.hamburger-btn{display:none;background:none;border:none;color:#fff;cursor:pointer;padding:6px;margin-left:6px;border-radius:6px;transition:background .2s}
-.hamburger-btn:hover{background:rgba(255,255,255,.15)}
-.hamburger-btn svg{display:block}
-@media(max-width:640px){
-  .hamburger-btn{display:flex;align-items:center;justify-content:center}
-  nav{max-height:0;overflow:hidden;transition:max-height .3s ease}
-  nav.mob-open{max-height:500px}
-  .nav-inner{flex-direction:column;padding:4px 0}
-  .nav-inner a{padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.08);border-left:3px solid transparent;font-size:.84rem}
-  .nav-inner a.active{border-left-color:var(--gold);background:rgba(255,255,255,.06)}
-}
-/* Score entry polish */
-.entry-note{background:var(--gold-light);border:1px solid var(--gold);border-radius:8px;padding:10px 14px;font-size:.82rem;color:#744210;margin-bottom:12px;display:none}
-.logged-in .entry-note{display:block}
-/* Footer polish */
-.site-footer{background:var(--navy);color:rgba(255,255,255,.7);padding:28px 16px;margin-top:32px}
-.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
-.footer-brand h3{color:#fff;font-size:1rem;margin-bottom:4px}
-.footer-brand p{font-size:.78rem;line-height:1.6}
-.footer-links-col a{display:block;color:rgba(255,255,255,.7);font-size:.82rem;padding:3px 0;transition:color .2s}
-.footer-links-col a:hover{color:#fff}
-.footer-bottom{max-width:1200px;margin:16px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.75rem;color:rgba(255,255,255,.45)}
-@media(max-width:600px){.footer-inner{grid-template-columns:1fr}.footer-bottom{flex-direction:column}}
-
-
-/* ── Notices board ───────────────────────────────────── */
-.notices-feed{margin:0 0 16px;display:flex;flex-direction:column;gap:8px}
-.notice-card{border-radius:10px;padding:10px 14px;display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid #e2e8f0;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.notice-badge{flex-shrink:0;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 8px;border-radius:20px;margin-top:1px}
-.badge-venue{background:#dbeafe;color:#1d4ed8}
-.badge-forfeit{background:#fee2e2;color:#b91c1c}
-.badge-date{background:#fef9c3;color:#92400e}
-.badge-general{background:#dcfce7;color:#15803d}
-.notice-body{flex:1;min-width:0}
-.notice-body strong{font-size:.85rem;color:var(--navy);display:block;margin-bottom:2px}
-.notice-body p{font-size:.82rem;color:#475569;margin:0;line-height:1.45}
-.notice-meta{font-size:.72rem;color:#94a3b8;margin-top:3px}
-.notice-del{background:none;border:none;cursor:pointer;color:#cbd5e1;font-size:1rem;padding:0 2px;line-height:1}
-.notice-del:hover{color:#ef4444}
-.notices-empty{font-size:.85rem;color:#94a3b8;text-align:center;padding:18px 0;font-style:italic}
-
-.notice-form{background:var(--light);border-radius:10px;padding:14px;margin-bottom:16px;border:1px solid #bee3f8}
-.notice-form h4{font-size:.85rem;color:var(--navy);margin:0 0 10px;font-weight:700}
-.nf-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-.nf-row select,.nf-row input,.nf-row textarea{font-size:.82rem;padding:6px 10px;border:1px solid #cbd5e1;border-radius:6px;flex:1;min-width:120px;background:#fff}
-.nf-row textarea{width:100%;min-width:100%;min-height:56px;resize:vertical;line-height:1.4}
-.forfeit-winner-row{display:none;align-items:center;gap:8px;flex-wrap:wrap}
-
-/* ── Scoresheet page ─────────────────────────────────── */
-.ss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px}
-.ss-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px 10px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.ss-card .ss-icon{font-size:2rem;margin-bottom:6px;display:block}
-.ss-card .ss-sport{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:8px}
-.ss-card a.btn-dl{display:block;font-size:.75rem;background:var(--navy);color:#fff;border-radius:6px;padding:5px 0;text-decoration:none;margin-bottom:6px}
-.ss-card a.btn-dl:hover{background:var(--gold)}
-.ss-upload-btn{display:block;width:100%;font-size:.72rem;background:#f0f4f8;color:#475569;border:1px dashed #cbd5e1;border-radius:6px;padding:5px 0;cursor:pointer;margin-top:4px;transition:.2s}
-.ss-upload-btn:hover{background:#e2e8f0}
-.ss-uploaded{font-size:.7rem;color:#15803d;margin-top:4px;font-weight:600}
-
-.ss-history{margin-top:20px}
-.ss-history h4{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:10px}
-.ss-history-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
-.ss-record{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:center}
-.ss-record img{width:56px;height:56px;object-fit:cover;border-radius:6px;border:1px solid #e2e8f0;cursor:pointer}
-.ss-record-info{flex:1;min-width:0}
-.ss-record-info strong{font-size:.8rem;color:var(--navy);display:block}
-.ss-record-info span{font-size:.72rem;color:#94a3b8}
-.ss-del{background:none;border:none;cursor:pointer;color:#cbd5e1;font-size:.8rem;padding:0}
-.ss-del:hover{color:#ef4444}
-
-/* Alert banner on home page */
-.notice-alert{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:.83rem;color:#7c5700;cursor:pointer;display:flex;align-items:center;gap:8px}
-.notice-alert:hover{background:#ffe69c}
-
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f4f8;color:#0f172a}a{color:inherit;text-decoration:none}
+.hdr{background:linear-gradient(135deg,#0d1b3e 0%,#1a3a6e 60%,#1a56db 100%);color:#fff;padding:48px 24px 64px;text-align:center;position:relative;overflow:hidden}
+.hdr::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:28px;background:#f0f4f8;clip-path:ellipse(55% 100% at 50% 100%)}
+.badge{display:inline-block;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);color:#f59e0b;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:12px}
+.hdr h1{font-size:clamp(24px,5vw,38px);font-weight:900;letter-spacing:-.02em;margin-bottom:8px}
+.hdr p{font-size:14px;opacity:.8;max-width:480px;margin:0 auto}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:-28px auto 0;position:relative;z-index:2;max-width:620px;padding:0 20px}
+.stat{background:#fff;border-radius:12px;padding:16px 12px;text-align:center;box-shadow:0 4px 16px rgba(0,0,0,.1)}
+.stat-n{font-size:28px;font-weight:900;color:#1a56db}
+.stat-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-top:2px}
+section{margin:32px 0}
+.sec-title{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#64748b;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between}
+.card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.06);border:1px solid #e2e8f0}
+.school-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f1f5f9}
+.school-row:last-child{border-bottom:none}
+.school-name{font-size:.9rem;font-weight:700}
+.school-meta{font-size:.72rem;color:#64748b}
+.chip{display:inline-block;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px}
+.chip-g{background:#dcfce7;color:#16a34a}
+.chip-r{background:#fee2e2;color:#b91c1c}
+.cal-table,.score-table{width:100%;border-collapse:collapse}
+.cal-table th,.score-table th{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;padding:8px 12px;text-align:left;border-bottom:2px solid #e2e8f0}
+.cal-table td,.score-table td{padding:12px;font-size:.85rem;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+.score-table tr:hover td{background:#f8fafc}
+.status-done{background:#dcfce7;color:#16a34a;font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:20px;text-transform:uppercase}
+.status-up{background:#eff6ff;color:#1d4ed8;font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:20px;text-transform:uppercase}
+.status-soon{background:#fef9c3;color:#ca8a04;font-size:.65rem;font-weight:800;padding:3px 10px;border-radius:20px;text-transform:uppercase}
+.conn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.conn-card{background:#fff;border-radius:12px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;transition:.15s}
+.conn-card:hover{border-color:#1a56db;transform:translateY(-1px)}
+.conn-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:3px}
+.conn-name{font-size:.9rem;font-weight:800;color:#0d1b3e}
+.arr{font-size:18px;color:#94a3b8}
+.notice{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px 18px;font-size:.85rem;line-height:1.7;color:#92400e;margin-bottom:16px}
+.auth-bar{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;font-size:13px;position:sticky;top:0;z-index:10}
+.auth-bar .who{color:#475569}
+.auth-bar .who strong{color:#0d1b3e}
+.btn{display:inline-block;padding:8px 14px;border-radius:8px;border:0;background:#1a56db;color:#fff;font-weight:700;cursor:pointer;font-size:13px;text-decoration:none}
+.btn:hover{background:#1e40af}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-ghost{background:transparent;color:#1a56db;border:1px solid #1a56db}
+.btn-danger{background:#dc2626}
+.btn-danger:hover{background:#b91c1c}
+.login-card{max-width:420px;margin:60px auto;background:#fff;padding:32px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.login-card h2{margin-bottom:8px;font-size:22px}
+.login-card p{color:#64748b;font-size:14px;margin-bottom:20px}
+.login-card input{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:10px;font-size:15px;margin-bottom:12px}
+.login-card .err{color:#b91c1c;font-size:13px;margin-top:8px;min-height:18px}
+.login-card .ok{color:#16a34a;font-size:13px;margin-top:8px}
+.score-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr)) auto;gap:8px;margin-bottom:14px;padding:12px;background:#f8fafc;border-radius:10px;align-items:end}
+.score-form label{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:3px}
+.score-form input,.score-form select{width:100%;padding:7px 9px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px}
+.users-list{display:grid;grid-template-columns:1fr;gap:6px}
+.user-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#f8fafc;border-radius:8px;font-size:13px}
+.role-tag{font-size:10px;font-weight:800;text-transform:uppercase;padding:3px 8px;border-radius:20px}
+.role-admin{background:#fee2e2;color:#b91c1c}
+.role-coach{background:#dbeafe;color:#1d4ed8}
+.hidden{display:none!important}
+footer{text-align:center;padding:40px 20px 28px;font-size:12px;color:#94a3b8}
+footer a{color:#1a56db}
+@media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
-<div class="modal-overlay" id="login-modal"><div class="modal">
-<h2>Coach Login</h2><p>Sign in to enter scores and manage results.</p>
-<div class="modal-error" id="login-error"></div>
-<div class="field"><label>Email</label><input type="email" id="login-email" placeholder="your@school.vic.edu.au"></div>
-<div class="field"><label>Password</label><input type="password" id="login-pass" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()"></div>
-<div class="modal-btns" style="margin-top:16px"><button class="btn btn-outline" onclick="closeLogin()">Cancel</button><button class="btn btn-primary" onclick="doLogin()">Sign In</button></div>
-</div></div>
+<div id="auth-bar" class="auth-bar hidden">
+  <div class="who">Signed in as <strong id="who-email"></strong> <span id="who-role" class="role-tag"></span></div>
+  <button class="btn btn-ghost btn-sm" onclick="logout()">Sign out</button>
+</div>
 
-<div class="modal-overlay" id="onboard-modal">
-<div class="modal onboard-modal-inner">
-<div class="onboard-header">
-<h2>👋 Welcome to Williamstown District Sport!</h2>
-<p>You're all set. Here's how to enter scores after game day.</p>
-</div>
-<div class="onboard-step"><span class="onboard-num">1</span><div><strong>After each round</strong><p>Tap <strong>Enter Scores</strong> in the nav. Only the <em>home team</em> enters scores each round.</p></div></div>
-<div class="onboard-step"><span class="onboard-num">2</span><div><strong>Select your school + round</strong><p>Pick your school from the dropdown, then the current round. All sports appear automatically.</p></div></div>
-<div class="onboard-step"><span class="onboard-num">3</span><div><strong>Enter scores for all sports</strong><p>Fill in Girls and Boys/Mixed scores for each sport, then tap <strong>Save All Scores</strong>.</p></div></div>
-<div class="onboard-step"><span class="onboard-num">4</span><div><strong>Results update instantly</strong><p>Ladders update live and your results are automatically sent to the Hobsons Bay Division page.</p></div></div>
-<div class="onboard-step"><span class="onboard-num">5</span><div><strong>Need help?</strong><p>Contact Paddy Gallivan: <a href="mailto:paddy.gallivan@education.vic.gov.au">paddy.gallivan@education.vic.gov.au</a> or <a href="tel:0413990217">0413 990 217</a>.</p></div></div>
-<div class="modal-btns" style="margin-top:20px">
-<button class="btn btn-primary" style="width:100%" onclick="dismissOnboarding()">Got it — let's go! 🏆</button>
-</div>
-</div></div>
-
-<header class="site-header">
-<div class="header-inner">
-<div class="header-brand" onclick="goTo('home')"><h1><span class="accent">Williamstown</span> District Sport</h1><div class="subtitle">Primary Schools Sporting Association</div></div>
-<div class="header-right">
-<div class="season-toggle" id="season-toggle">
-<button class="season-btn active" data-season="summer" onclick="setSeason('summer')">Summer</button>
-<button class="season-btn" data-season="winter" onclick="setSeason('winter')">Winter</button>
-</div>
-<button class="hamburger-btn" onclick="toggleMobileNav()" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><span class="user-badge" id="user-badge"></span><button class="hdr-btn" id="auth-btn" onclick="handleAuth()">Login</button></div>
-</div>
-<nav><div class="nav-inner" id="main-nav">
-<a class="active" data-page="home"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Home</a>
-<a data-page="fixtures"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Scores</a>
-<a data-page="ladders"><span class="live-dot"></span><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Standings</a>
-<a data-page="enter"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> Enter Scores</a>
-<a data-page="venues"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Venues</a>
-<a data-page="notices"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> <span id="notices-nav-label">Notices</span></a>
-<a data-page="scoresheets"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Scoresheets</a>
-<a data-page="guidelines"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg> Guidelines</a>
-<a data-page="contacts" class="coach-only"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.62 4.38 2 2 0 0 1 3.62 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Contacts</a>
-<a data-page="history"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 3 4 3 4 11"/><polyline points="16 3 20 3 20 11"/><path d="M4 11a8 8 0 0 0 16 0"/><path d="M12 19v3"/><path d="M8 22h8"/></svg> History</a>
-<a data-page="admin" class="coach-only" id="admin-nav" style="display:none"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Admin</a>
-</div></nav>
-</header>
-<div class="container">
-<div class="page active" id="pg-home">
-<div id="games-today-banner" style="display:none"></div>
-<div id="notice-alerts"></div>
-
-<div class="coach-banner" id="coach-banner">
-  <div class="cb-label">Coach Mode</div>
-  <div class="cb-row">
-    <div class="cb-info" id="coach-banner-info">Select your school below to enter scores</div>
-    <button class="cb-btn" onclick="goTo('enter')">✏️ Enter Scores →</button>
+<div class="hdr">
+  <div class="wrap">
+    <div class="badge">District</div>
+    <h1>Williamstown District</h1>
+    <p>Hobsons Bay Division &nbsp;·&nbsp; Coordinator: Paddy Gallivan</p>
   </div>
 </div>
-<div class="hero"><span class="season-badge" id="home-season-badge">2026 Season</span><h2 id="home-title">Winter Sport</h2>
-<p id="home-desc">Live results, ladders and fixtures for AFL, Soccer, Netball, Hockey and Softball across the Williamstown District.</p>
-<div class="parent-actions">
-  <button class="parent-btn gold" onclick="goTo('fixtures')"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> See Latest Scores</button>
-  <button class="parent-btn ghost" onclick="goTo('ladders')"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> View Standings</button>
-</div>
-<div class="share-strip"><button class="share-btn-hero" onclick="shareResults()"> Share Results</button></div>
-</div>
-<div class="mobile-season-toggle" id="mobile-season-toggle">
-<button class="season-btn active" data-season="summer" onclick="setSeason('summer')">Summer Sport</button>
-<button class="season-btn" data-season="winter" onclick="setSeason('winter')">Winter Sport</button>
-</div>
-<div id="home-countdown" class="countdown-banner" style="display:none"></div>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px">
-<div class="card"><div class="card-header"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Latest Results <span class="badge badge-live" id="latest-results-badge" style="display:none"><span class="live-dot"></span>Live</span></div><div class="card-body" id="home-latest-results"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
-<div class="card"><div class="card-header"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Current Leaders <span class="badge badge-live"><span class="live-dot"></span>Live</span></div><div class="card-body" id="home-leaders"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
-<div class="card"><div class="card-header">⏭️ Next Round <span class="badge badge-upcoming" id="home-next-badge"></span></div><div class="card-body" id="home-next-round"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
-</div>
-<div class="card"><div class="card-header">2026 Calendar</div><div class="card-body">
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">
-<div style="padding:12px;background:var(--light-blue);border-radius:8px;text-align:center"><div style="font-size:.72rem;color:var(--gray);font-weight:600;text-transform:uppercase">Summer Sport</div><div style="font-weight:700;color:var(--navy);margin-top:2px;font-size:.9rem">6 Feb - 20 Mar</div></div>
-<div style="padding:12px;background:var(--green-light);border-radius:8px;text-align:center"><div style="font-size:.72rem;color:var(--green);font-weight:600;text-transform:uppercase">Winter Sport</div><div style="font-weight:700;color:var(--navy);margin-top:2px;font-size:.9rem">1 May - 12 Jun</div></div>
-<div style="padding:12px;background:var(--light-blue);border-radius:8px;text-align:center"><div style="font-size:.72rem;color:var(--gray);font-weight:600;text-transform:uppercase">Swimming</div><div style="font-weight:700;color:var(--navy);margin-top:2px;font-size:.9rem">TBC</div></div>
-<div style="padding:12px;background:var(--light-blue);border-radius:8px;text-align:center"><div style="font-size:.72rem;color:var(--gray);font-weight:600;text-transform:uppercase">Athletics</div><div style="font-weight:700;color:var(--navy);margin-top:2px;font-size:.9rem">TBC</div></div>
-<div style="padding:12px;background:var(--light-blue);border-radius:8px;text-align:center"><div style="font-size:.72rem;color:var(--gray);font-weight:600;text-transform:uppercase">Cross Country</div><div style="font-weight:700;color:var(--navy);margin-top:2px;font-size:.9rem">TBC</div></div>
-</div></div></div>
-<div class="card"><div class="card-header">Championship Tally <span style="font-size:.75rem;color:var(--gray);font-weight:400">All-time titles across all sports</span></div><div class="card-body"><div class="tally-grid" id="home-tally"></div></div></div>
-</div>
-<div class="page" id="pg-ladders">
-<div class="tab-row" id="ladder-tabs"></div>
-<div style="display:flex;justify-content:center;margin-bottom:14px"><div class="gender-toggle"><button class="gender-btn active" onclick="setGender('Girls')">Girls</button><button class="gender-btn" onclick="setGender('Boys/Mixed')">Boys/Mixed</button></div></div>
-<div class="card"><div class="card-header"><span id="ladder-title">Loading...</span><span class="badge badge-live" id="ladder-badge"><span class="live-dot"></span>Live</span></div>
-<div class="card-body" style="padding:0"><div class="ladder-wrap"><table class="ladder-table"><thead><tr><th>School</th><th>GP</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>PTS</th></tr></thead><tbody id="ladder-body"></tbody></table></div></div></div>
-</div>
-<div class="page" id="pg-fixtures">
-<div class="tab-row" id="fixture-tabs"></div>
-<div style="display:flex;justify-content:center;margin-bottom:14px"><div class="gender-toggle"><button class="gender-btn active" onclick="setGender('Girls')">Girls</button><button class="gender-btn" onclick="setGender('Boys/Mixed')">Boys/Mixed</button></div></div>
-<div class="school-filter-bar">
-  <label>Filter by school:</label>
-  <select id="fixture-school-filter" class="form-select" style="font-size:.82rem;padding:6px 10px" onchange="renderFixtures()">
-    <option value="">All Schools</option>
-  </select>
-  <button class="btn btn-outline btn-sm" onclick="clearSchoolFilter()" id="school-filter-clear" style="display:none">✕ Clear</button>
-</div>
-<div id="fixture-rounds"></div>
-</div>
-<div class="page" id="pg-enter">
-<div class="how-to-card" id="how-to-card">
-<div class="how-to-header" onclick="toggleHowTo()">
-<span>ℹ️ How to enter scores</span><span id="how-to-chevron" style="font-size:.75rem">▼ show</span>
-</div>
-<div class="how-to-body" id="how-to-body" style="display:none">
-<ol class="how-to-steps">
-<li>Select <strong>your school</strong> from the dropdown above</li>
-<li>Select the <strong>current round</strong> — game dates are shown in the Scores tab</li>
-<li>If your school is the <strong>home team</strong> this round, all match scores appear below</li>
-<li>If you are <strong>away</strong> this round, the home school enters scores — nothing for you to do!</li>
-<li>Fill in scores for <strong>Girls</strong> and <strong>Boys/Mixed</strong> in each sport</li>
-<li>Tap <strong>Save All Scores</strong> — results appear live instantly on ladders and the division page</li>
-</ol>
-<p style="font-size:.78rem;color:var(--gray);margin-top:10px;padding-top:10px;border-top:1px solid #bee3f8">
-📞 <strong>Questions?</strong> Contact Paddy: <a href="tel:0413990217">0413 990 217</a> · <a href="mailto:paddy.gallivan@education.vic.gov.au">paddy.gallivan@education.vic.gov.au</a></p>
-</div></div>
-<div class="card" style="margin-bottom:14px"><div class="card-header">Score Entry <span style="font-size:.75rem;color:var(--gray);font-weight:400">Home team enters all scores</span></div><div class="card-body">
-<p style="font-size:.85rem;color:var(--gray);margin-bottom:12px">Select your school and the round. Enter scores for all sports in one go.</p>
-<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-<select class="form-select" id="sc-school" onchange="buildHomeForm()" style="font-weight:600"></select>
-<select class="form-select" id="sc-round" onchange="buildHomeForm()"></select>
-</div>
-<div style="margin-top:8px"><a href="#" onclick="toggleOldScoreEntry();return false" style="font-size:.75rem;color:var(--gray)">Switch to single-sport entry</a></div>
-</div></div>
-<div id="home-entry-panel">
-<div class="card"><div class="card-header" id="sc-title">Select your school</div>
-<div class="card-body" style="padding:0" id="sc-home-matches"></div>
-<div class="btn-row"><button class="btn btn-outline btn-sm" onclick="clearHomeInputs()">Clear All</button><button class="btn btn-primary" onclick="saveAllHomeScores()">Save All Scores</button></div></div>
-</div>
-<div id="old-entry-panel" style="display:none">
-<div class="card" style="margin-bottom:14px"><div class="card-body">
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<select class="form-select" id="sc-sport" onchange="buildScoreForm()"><option>AFL</option><option>Soccer</option><option>Netball</option><option>Hockey</option><option>Softball</option></select>
-<select class="form-select" id="sc-gender" onchange="buildScoreForm()"><option>Girls</option><option>Boys/Mixed</option></select>
-</div></div></div>
-<div class="card"><div class="card-header" id="sc-title-old">Select a round</div>
-<div class="card-body" style="padding:0" id="sc-matches"></div>
-<div class="btn-row"><button class="btn btn-outline btn-sm" onclick="clearScoreInputs()">Clear</button><button class="btn btn-primary" onclick="saveScores()">Save Scores</button></div></div>
-</div>
-</div>
-<div class="page" id="pg-venues"><div class="card"><div class="card-header">Venue Directory</div><div class="card-body"><div class="venue-grid" id="venue-grid"></div></div></div></div>
 
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l">Schools</div></div>
+    <div class="stat"><div class="stat-n">~1,800</div><div class="stat-l">Students</div></div>
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">Carnivals/yr</div></div>
+    <div class="stat"><div class="stat-n">2026</div><div class="stat-l">Season</div></div>
+  </div>
 
-<div class="page" id="pg-scoresheets">
-<div class="card" style="margin-bottom:14px">
-  <div class="card-header">📋 Scoresheets</div>
-  <div class="card-body">
-    <p style="font-size:.85rem;color:var(--gray);margin-bottom:4px">
-      Download and print the official scoresheet for each sport. After the game, coaches can upload a photo of the completed sheet for the historical record.
-    </p>
-    <div class="ss-grid" id="ss-grid"></div>
-    <div class="ss-history" id="ss-history" style="display:none">
-      <h4>Uploaded Sheets This Season</h4>
-      <div class="ss-history-grid" id="ss-history-grid"></div>
+  <section style="margin-top:44px">
+    <div class="sec-title">Member Schools</div>
+    <div class="card">
+      <div class="school-row"><div><div class="school-name">Williamstown Primary School</div><div class="school-meta">~340 students · Williamstown</div></div><span class="chip">Live on WPS Hub</span></div>
+      <div class="school-row"><div><div class="school-name">Williamstown North Primary School</div><div class="school-meta">~280 students · Williamstown North</div></div></div>
+      <div class="school-row"><div><div class="school-name">Nelson Place Primary School</div><div class="school-meta">~260 students · Williamstown</div></div></div>
+      <div class="school-row"><div><div class="school-name">Seabrook Primary School</div><div class="school-meta">~310 students · Seabrook</div></div></div>
+      <div class="school-row"><div><div class="school-name">Altona Green Primary School</div><div class="school-meta">~290 students · Altona Meadows</div></div></div>
+      <div class="school-row"><div><div class="school-name">Laverton P-12 College</div><div class="school-meta">~320 students (primary) · Laverton</div></div></div>
     </div>
-  </div>
-</div>
-</div>
-<div class="page" id="pg-notices">
-<div class="card" style="margin-bottom:14px">
-  <div class="card-header">📢 Notices &amp; Alerts</div>
-  <div class="card-body">
-    <p style="font-size:.85rem;color:var(--gray);margin-bottom:10px">
-      Venue changes, forfeits and important updates are posted here. Check before heading to a game.
-    </p>
-    <div id="coach-notice-form" style="display:none">
-      <div class="notice-form">
-        <h4>Post a New Notice</h4>
-        <div class="nf-row">
-          <select id="nf-type" onchange="toggleForfeitRow()">
-            <option value="general">📣 General</option>
-            <option value="venue">📍 Venue Change</option>
-            <option value="date">📅 Date/Time Change</option>
-            <option value="forfeit">🚫 Forfeit</option>
-          </select>
-          <select id="nf-sport">
-            <option value="">All sports</option>
-            <option>AFL</option><option>Soccer</option><option>Netball</option>
-            <option>Hockey</option><option>Softball</option><option>Basketball</option>
-            <option>Volleyball</option><option>Hot Shots</option><option>Tee Ball</option>
-            <option>Cricket T20</option>
-          </select>
-          <select id="nf-round">
-            <option value="">All rounds</option>
-            <option>Round 1</option><option>Round 2</option><option>Round 3</option>
-            <option>Round 4</option><option>Round 5</option><option>Round 6</option>
-            <option>Round 7</option><option>Grand Final</option>
-          </select>
-        </div>
-        <div class="nf-row" id="forfeit-winner-row" style="display:none">
-          <label style="font-size:.82rem;color:var(--navy);align-self:center;flex-shrink:0">Winner:</label>
-          <select id="nf-forfeit-winner">
-            <option value="">Select winner...</option>
-            <option>Altona PS</option><option>Newport Gardens PS</option><option>Newport Lakes PS</option>
-            <option>St Mary's</option><option>Seaholme PS</option>
-            <option>Williamstown North PS</option><option>Williamstown Primary</option><option>Sacred Heart</option>
-          </select>
-        </div>
-        <div class="nf-row">
-          <textarea id="nf-message" placeholder="Describe the notice — e.g. 'Girls AFL vs Newport Lakes moved to WPS Oval due to wet grounds'" rows="2"></textarea>
-        </div>
-        <button class="btn btn-primary btn-sm" onclick="postNotice()">Post Notice</button>
+  </section>
+
+  <section>
+    <div class="sec-title">2026 District Carnival Calendar</div>
+    <div class="card" style="padding:0 20px">
+      <table class="cal-table">
+        <thead><tr><th>Carnival</th><th>Date</th><th>Venue</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>District Swimming</td><td>Fri 27 Feb 2026</td><td>WynActive Aquatic Centre</td><td><span class="status-done">Completed</span></td></tr>
+          <tr><td>District Cross Country</td><td>Thu 7 May 2026 (WD26)</td><td>McIvor Reserve, Yarraville</td><td><span class="status-soon">This week</span></td></tr>
+          <tr><td>District Athletics</td><td>Wed 19 Aug 2026</td><td>Williamstown Athletics Track</td><td><span class="status-up">Upcoming</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="scores-section" class="hidden">
+    <div class="sec-title">District Scores 2026 <span style="font-size:10px;color:#16a34a;font-weight:700">LIVE · D1</span></div>
+    <div class="card">
+      <div id="score-form-wrap" class="hidden">
+        <form class="score-form" onsubmit="addScore(event)">
+          <div><label>Sport</label><select id="sf-sport" required>
+            <option value="">—</option>
+            <option>Swimming</option><option>Cross Country</option><option>Athletics</option>
+            <option>AFL</option><option>Soccer</option><option>Netball</option><option>Hockey</option>
+          </select></div>
+          <div><label>Gender</label><select id="sf-gender" required><option value="">—</option><option>Girls</option><option>Boys/Mixed</option></select></div>
+          <div><label>School</label><select id="sf-school" required>
+            <option value="">—</option>
+            <option>Williamstown Primary School</option>
+            <option>Williamstown North Primary School</option>
+            <option>Nelson Place Primary School</option>
+            <option>Seabrook Primary School</option>
+            <option>Altona Green Primary School</option>
+            <option>Laverton P-12 College</option>
+          </select></div>
+          <div><label>Place</label><input id="sf-place" type="number" min="1" max="20" placeholder="1"></div>
+          <div><label>Points</label><input id="sf-points" type="number" min="0" placeholder="10"></div>
+          <button class="btn btn-sm" type="submit">Add</button>
+        </form>
       </div>
+      <table class="score-table" id="score-table">
+        <thead><tr><th>Sport</th><th>Gender</th><th>School</th><th>Place</th><th>Points</th><th></th></tr></thead>
+        <tbody><tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:20px">Loading…</td></tr></tbody>
+      </table>
     </div>
-    <div id="notices-list"><div class="notices-empty">Loading notices…</div></div>
-  </div>
+  </section>
+
+  <section id="admin-section" class="hidden">
+    <div class="sec-title">Coordinator Access <span style="font-size:10px;color:#b91c1c;font-weight:700">ADMIN ONLY</span></div>
+    <div class="card">
+      <form class="score-form" onsubmit="addUser(event)" style="grid-template-columns:2fr 2fr 1fr auto">
+        <div><label>Email</label><input id="uf-email" type="email" placeholder="coordinator@example.com" required></div>
+        <div><label>Display name</label><input id="uf-name" type="text" placeholder="Jane Smith"></div>
+        <div><label>Role</label><select id="uf-role"><option value="coach">coach</option><option value="admin">admin</option></select></div>
+        <button class="btn btn-sm" type="submit">Add</button>
+      </form>
+      <div id="users-list" class="users-list">Loading…</div>
+    </div>
+  </section>
+
+  <section id="login-section">
+    <div class="login-card">
+      <h2>Coordinator Sign-in</h2>
+      <p>Enter your email and we'll send you a one-time sign-in link.</p>
+      <form onsubmit="login(event)">
+        <input id="login-email" type="email" placeholder="you@school.vic.edu.au" required>
+        <button class="btn" type="submit" style="width:100%">Send sign-in link</button>
+      </form>
+      <div id="login-msg" class="err"></div>
+      <p style="margin-top:18px;font-size:12px;color:#94a3b8">Public read access available without login. Sign in to see + edit district scores.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">Connected Sites</div>
+    <div class="conn-grid">
+      <a href="/hobsonsbay" class="conn-card"><div><div class="conn-label">Division (parent)</div><div class="conn-name">Hobsons Bay Division</div></div><div class="arr">→</div></a>
+      <a href="/williamstownprimary" class="conn-card"><div><div class="conn-label">Member school</div><div class="conn-name">Williamstown PS</div></div><div class="arr">→</div></a>
+      <a href="https://sportcarnival.com.au/wd26" class="conn-card"><div><div class="conn-label">Live race day</div><div class="conn-name">WD26 — XC 2026</div></div><div class="arr">→</div></a>
+      <a href="https://carnivaltiming.com" class="conn-card"><div><div class="conn-label">Carnival tool</div><div class="conn-name">Carnival Timing</div></div><div class="arr">→</div></a>
+    </div>
+  </section>
 </div>
-</div>
-<div class="page" id="pg-guidelines"><div class="card"><div class="card-header" id="guidelines-title">Winter Sport 2026 Guidelines</div><div class="card-body" id="guidelines-body"></div></div></div>
-<div class="page" id="pg-contacts"><div class="card"><div class="card-header">District Contacts</div><div class="card-body">
-<h3 style="color:var(--navy);font-size:.95rem;margin-bottom:12px;font-weight:700">District Coordinator</h3>
-<div class="contact-grid" id="district-contacts" style="margin-bottom:24px"></div>
-<h3 style="color:var(--navy);font-size:.95rem;margin-bottom:12px;font-weight:700">School Coordinators</h3>
-<div class="contact-grid" id="school-contacts"></div>
-</div></div></div>
-<div class="page" id="pg-history">
-<div class="admin-section"><h3>Add Historical Result</h3><p>Enter past results to build up the district's historical record.</p>
-<div class="admin-grid">
-<div class="admin-field"><label>Year</label><input type="number" id="hist-year" value="2025" min="2000" max="2026"></div>
-<div class="admin-field"><label>Season</label><select id="hist-season"><option>Winter Sport</option><option>Summer Sport</option><option>Swimming</option><option>Athletics</option><option>Cross Country</option></select></div>
-<div class="admin-field"><label>Sport / Event</label><input type="text" id="hist-event" placeholder="e.g. AFL - Girls"></div>
-<div class="admin-field"><label>Winner</label><input type="text" id="hist-winner" placeholder="School name"></div>
-<div class="admin-field"><label>Runner Up</label><input type="text" id="hist-runner" placeholder="School name"></div>
-<div class="admin-field"><label>Notes</label><input type="text" id="hist-notes" placeholder="e.g. Grand Final 45-32"></div>
-</div><div style="display:flex;gap:8px;margin-top:10px"><button class="btn btn-primary btn-sm" onclick="addHistoryRecord()">Add Record</button></div></div>
-<div class="season-grid">
-<div class="season-card" onclick="showHistory('Winter Sport')"><div class="icon">&#9917;</div><h4>Winter Sport</h4><p>AFL, Soccer, Netball, Hockey, Softball</p></div>
-<div class="season-card" onclick="showHistory('Summer Sport')"><div class="icon">&#127934;</div><h4>Summer Sport</h4><p>Basketball, Volleyball, Hot Shots, Tee Ball, Cricket</p></div>
-<div class="season-card" onclick="showHistory('Swimming')"><div class="icon">&#127946;</div><h4>Swimming</h4><p>District Swimming Carnival</p></div>
-<div class="season-card" onclick="showHistory('Athletics')"><div class="icon">&#127939;</div><h4>Athletics</h4><p>District Athletics Carnival</p></div>
-<div class="season-card" onclick="showHistory('Cross Country')"><div class="icon">&#127797;</div><h4>Cross Country</h4><p>District Cross Country</p></div>
-</div>
-<div class="stats-bar" id="history-stats"></div>
-<div class="card" id="history-detail" style="display:none"><div class="card-header"><span id="history-detail-title"></span><div style="display:flex;gap:8px;align-items:center"><select class="form-select" id="history-year-filter" onchange="filterHistoryYear()" style="padding:4px 10px;font-size:.78rem"><option value="all">All Years</option></select><button class="btn btn-outline btn-sm" onclick="document.getElementById('history-detail').style.display='none'">Close</button></div></div>
-<div class="card-body" style="padding:0;overflow-x:auto"><table class="history-table"><thead><tr><th>Year</th><th>Event</th><th>Winner</th><th>Runner Up</th><th>Notes</th><th class="admin-col"></th></tr></thead><tbody id="history-tbody"></tbody></table></div></div>
-</div>
-<div class="page" id="pg-admin">
-<div class="card"><div class="card-header">Manage Coaches</div><div class="card-body">
-<p style="font-size:.85rem;color:var(--gray);margin-bottom:16px">Create accounts for coaches. They log in to enter scores. Create one per school or per sport.</p>
-<div class="admin-grid" style="margin-bottom:16px">
-<div class="admin-field"><label>Email</label><input type="email" id="new-coach-email" placeholder="coach@school.vic.edu.au"></div>
-<div class="admin-field"><label>Password</label><input type="text" id="new-coach-pass" placeholder="Min 6 characters"></div>
-<div class="admin-field"><label>Display Name</label><input type="text" id="new-coach-name" placeholder="e.g. Seaholme - Mr Smith"></div>
-<div class="admin-field"><label>Role</label><select id="new-coach-role"><option value="coach">Coach</option><option value="admin">Admin</option></select></div>
-</div><button class="btn btn-primary btn-sm" onclick="createCoach()">Create Account</button>
-</div></div>
-<div class="card"><div class="card-header">Registered Users</div><div class="card-body" style="padding:0" id="coach-list"><div class="loading"><div class="spinner"></div>Loading...</div></div></div>
-<div class="card"><div class="card-header">Data Management</div><div class="card-body">
-<p style="font-size:.85rem;color:var(--gray);margin-bottom:12px">Export or reset season data.</p>
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<button class="btn btn-outline btn-sm" onclick="exportData()">Export All Data (JSON)</button>
-<button class="btn btn-danger" onclick="resetSeason()">Reset All Scores</button>
-</div></div></div>
-</div>
-</div>
-<footer class="site-footer">
-<div class="footer-inner">
-<div class="footer-brand">
-<h3>Williamstown District Sport</h3>
-<p>Primary Schools Sporting Association<br>Proudly supporting district sport since 2021.<br>AFL · Soccer · Netball · Hockey · Softball</p>
-</div>
-<div class="footer-links-col">
-<a href="#" onclick="goTo('home');return false">Home</a>
-<a href="#" onclick="goTo('fixtures');return false">Scores &amp; Fixtures</a>
-<a href="#" onclick="goTo('ladders');return false">Standings</a>
-<a href="#" onclick="goTo('history');return false">History</a>
-<a href="#" onclick="goTo('guidelines');return false">Guidelines</a>
-<a href="#" onclick="goTo('contacts');return false">Contacts</a>
-<a href="https://schoolsportportal.com.au/privacy" target="_blank">Privacy Policy</a>
-<a href="https://schoolsportportal.com.au/terms" target="_blank">Terms of Service</a>
-</div>
-</div>
-<div class="footer-bottom">
-<span>Convenor: Paddy Gallivan · Williamstown PS · <a href="mailto:paddy.gallivan@education.vic.gov.au" style="color:rgba(255,255,255,.6)">paddy.gallivan@education.vic.gov.au</a> · <a href="tel:0413990217" style="color:rgba(255,255,255,.6)">0413 990 217</a></span>
-<span>Powered by <a href="https://schoolsportportal.com.au" style="color:rgba(255,255,255,.6)">SchoolSportPortal</a></span>
-</div>
+
+<footer>
+  <a href="/">School Sport Portal</a> &nbsp;·&nbsp; Williamstown District &nbsp;·&nbsp; Hobsons Bay Division &nbsp;·&nbsp; <a href="https://sportportal.com.au">Get your school set up →</a>
 </footer>
-<div class="toast" id="toast"></div>
+
 <script>
-const FIREBASE_CONFIG={apiKey:"AIzaSyA-bNl8XqvZ7DQ6YftL9teXbqxYICBlPF8",authDomain:"willy-district-sport.firebaseapp.com",databaseURL:"https://willy-district-sport-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"willy-district-sport",storageBucket:"willy-district-sport.firebasestorage.app",messagingSenderId:"212867741935",appId:"1:212867741935:web:68e67c7c96dd474fe2831a"};
-const TEAMS=["Altona","Newport Gardens","Newport Lakes","St Mary's","Seaholme","Williamstown North","Williamstown Primary","Sacred Heart"];
-const SUMMER_SPORTS=["Basketball","Cricket","Hot Shots","Tee Ball","Volleyball"];
-const WINTER_SPORTS=["AFL","Soccer","Netball","Hockey","Softball"];
-const SUMMER_ROUND_DATES={"Round 1":"6 Feb","Round 2":"13 Feb","Round 3":"20 Feb","Round 4":"27 Feb","Round 5":"6 Mar","Round 6":"13 Mar","Round 7":"20 Mar","Grand Final":"27 Mar"};
-const WINTER_ROUND_DATES={"Round 1":"1 May","Round 2":"8 May","Round 3":"15 May","Round 4":"22 May","Round 5":"29 May","Round 6":"5 Jun","Round 7":"12 Jun"};
-const SUMMER_FIX={"Round 1":[{h:"Altona",a:"Sacred Heart"},{h:"Williamstown Primary",a:"Newport Gardens"},{h:"Newport Lakes",a:"Williamstown North"},{h:"Seaholme",a:"St Mary's"}],"Round 2":[{h:"Williamstown Primary",a:"Altona"},{h:"Sacred Heart",a:"Williamstown North"},{h:"Newport Gardens",a:"Seaholme"},{h:"Newport Lakes",a:"St Mary's"}],"Round 3":[{h:"Williamstown North",a:"Altona"},{h:"Williamstown Primary",a:"Seaholme"},{h:"Sacred Heart",a:"St Mary's"},{h:"Newport Gardens",a:"Newport Lakes"}],"Round 4":[{h:"Altona",a:"Seaholme"},{h:"Williamstown North",a:"St Mary's"},{h:"Williamstown Primary",a:"Newport Lakes"},{h:"Newport Gardens",a:"Sacred Heart"}],"Round 5":[{h:"Newport Lakes",a:"Altona"},{h:"St Mary's",a:"Newport Gardens"},{h:"Seaholme",a:"Sacred Heart"},{h:"Williamstown North",a:"Williamstown Primary"}],"Round 6":[{h:"Altona",a:"Newport Gardens"},{h:"Newport Lakes",a:"Sacred Heart"},{h:"St Mary's",a:"Williamstown Primary"},{h:"Seaholme",a:"Williamstown North"}],"Round 7":[{h:"St Mary's",a:"Altona"},{h:"Seaholme",a:"Newport Lakes"},{h:"Williamstown North",a:"Newport Gardens"},{h:"Sacred Heart",a:"Williamstown Primary"}],"Grand Final":[]};
-const SUMMER_GF={"Basketball__Girls":{h:"Newport Gardens",a:"Williamstown North"},"Basketball__Boys/Mixed":{h:"Newport Gardens",a:"Altona"},"Cricket__Girls":{h:"Newport Gardens",a:"Williamstown Primary"},"Cricket__Boys/Mixed":{h:"Williamstown Primary",a:"Sacred Heart"},"Hot Shots__Girls":{h:"Altona",a:"Seaholme"},"Hot Shots__Boys/Mixed":{h:"Altona",a:"Williamstown Primary"},"Tee Ball__Girls":{h:"Newport Gardens",a:"Williamstown North"},"Tee Ball__Boys/Mixed":{h:"Williamstown Primary",a:"Newport Gardens"},"Volleyball__Girls":{h:"Altona",a:"Newport Gardens"},"Volleyball__Boys/Mixed":{h:"St Mary's",a:"Seaholme"}};
-const WINTER_FIX={"Round 1":[{h:"Seaholme",a:"Altona"},{h:"St Mary's",a:"Williamstown North"},{h:"Newport Lakes",a:"Williamstown Primary"},{h:"Sacred Heart",a:"Newport Gardens"}],"Round 2":[{h:"Altona",a:"Newport Lakes"},{h:"Newport Gardens",a:"St Mary's"},{h:"Sacred Heart",a:"Seaholme"},{h:"Williamstown Primary",a:"Williamstown North"}],"Round 3":[{h:"Newport Gardens",a:"Altona"},{h:"Sacred Heart",a:"Newport Lakes"},{h:"Williamstown Primary",a:"St Mary's"},{h:"Williamstown North",a:"Seaholme"}],"Round 4":[{h:"Altona",a:"St Mary's"},{h:"Newport Lakes",a:"Seaholme"},{h:"Newport Gardens",a:"Williamstown North"},{h:"Williamstown Primary",a:"Sacred Heart"}],"Round 5":[{h:"Sacred Heart",a:"Altona"},{h:"Newport Gardens",a:"Williamstown Primary"},{h:"Williamstown North",a:"Newport Lakes"},{h:"St Mary's",a:"Seaholme"}],"Round 6":[{h:"Altona",a:"Williamstown Primary"},{h:"Williamstown North",a:"Sacred Heart"},{h:"Seaholme",a:"Newport Gardens"},{h:"St Mary's",a:"Newport Lakes"}],"Round 7":[{h:"Seaholme",a:"Williamstown Primary"},{h:"St Mary's",a:"Sacred Heart"},{h:"Newport Lakes",a:"Newport Gardens"},{h:"Altona",a:"Williamstown North"}]};
-const SUMMER_SCORES={
-"Basketball__Girls__Round 1":[{home:29,away:23},{home:5,away:30},{home:2,away:36},{home:16,away:4}],
-"Basketball__Girls__Round 2":[{home:10,away:26},{home:18,away:20},{home:26,away:8},{home:22,away:4}],
-"Basketball__Girls__Round 3":[{home:15,away:14},{home:16,away:18},{home:70,away:0},{home:54,away:2}],
-"Basketball__Girls__Round 4":[{home:33,away:4},{home:49,away:0},{home:30,away:0},{home:27,away:5}],
-"Basketball__Girls__Round 5":[{home:0,away:44},{home:0,away:39},{home:6,away:14},{home:36,away:10}],
-"Basketball__Girls__Round 6":[{home:12,away:17},{home:2,away:40},{home:4,away:34},{home:9,away:17}],
-"Basketball__Girls__Round 7":[{home:2,away:40},{home:13,away:11},{home:12,away:26},{home:35,away:12}],
-"Basketball__Boys/Mixed__Round 1":[{home:28,away:8},{home:7,away:21},{home:10,away:21},{home:16,away:19}],
-"Basketball__Boys/Mixed__Round 2":[{home:21,away:38},{home:29,away:30},{home:43,away:13},{home:22,away:7}],
-"Basketball__Boys/Mixed__Round 3":[{home:8,away:38},{home:28,away:12},{home:43,away:10},{home:46,away:11}],
-"Basketball__Boys/Mixed__Round 4":[{home:48,away:16},{home:38,away:17},{home:30,away:0},{home:48,away:5}],
-"Basketball__Boys/Mixed__Round 5":[{home:23,away:37},{home:6,away:64},{home:8,away:33},{home:19,away:32}],
-"Basketball__Boys/Mixed__Round 6":[{home:26,away:27},{home:29,away:23},{home:14,away:52},{home:18,away:32}],
-"Basketball__Boys/Mixed__Round 7":[{home:6,away:48},{home:22,away:32},{home:9,away:38},{home:18,away:28}],
-"Cricket__Girls__Round 1":[{home:0,away:60},{home:84,away:98},{home:60,away:0},{home:60,away:0}],
-"Cricket__Girls__Round 2":[{home:60,away:0},{home:60,away:0},{home:103,away:78},{home:60,away:0}],
-"Cricket__Girls__Round 3":[{home:0,away:0},{home:154,away:82},{home:60,away:0},{home:151,away:135}],
-"Cricket__Girls__Round 4":[{home:0,away:60},{home:0,away:0},{home:60,away:0},{home:105,away:63}],
-"Cricket__Girls__Round 5":[{home:60,away:0},{home:0,away:60},{home:81,away:110},{home:0,away:60}],
-"Cricket__Girls__Round 6":[{home:0,away:60},{home:38,away:78},{home:0,away:60},{home:60,away:0}],
-"Cricket__Girls__Round 7":[{home:0,away:0},{home:76,away:68},{home:0,away:60},{home:98,away:100}],
-"Cricket__Boys/Mixed__Round 1":[{home:0,away:60},{home:116,away:116},{home:46,away:61},{home:60,away:0}],
-"Cricket__Boys/Mixed__Round 2":[{home:60,away:0},{home:104,away:53},{home:200,away:75},{home:60,away:0}],
-"Cricket__Boys/Mixed__Round 3":[{home:60,away:0},{home:199,away:59},{home:60,away:0},{home:138,away:97}],
-"Cricket__Boys/Mixed__Round 4":[{home:0,away:60},{home:60,away:0},{home:60,away:0},{home:93,away:192}],
-"Cricket__Boys/Mixed__Round 5":[{home:60,away:0},{home:0,away:60},{home:53,away:199},{home:65,away:100}],
-"Cricket__Boys/Mixed__Round 6":[{home:0,away:60},{home:79,away:199},{home:0,away:60},{home:85,away:130}],
-"Cricket__Boys/Mixed__Round 7":[{home:0,away:0},{home:120,away:117},{home:84,away:101},{home:117,away:185}],
-"Hot Shots__Girls__Round 1":[{home:11,away:1},{home:7,away:5},{home:4,away:8},{home:10,away:2}],
-"Hot Shots__Girls__Round 2":[{home:5,away:7},{home:6,away:4},{home:7,away:5},{home:6,away:6}],
-"Hot Shots__Girls__Round 3":[{home:5,away:6},{home:4,away:8},{home:7,away:0},{home:8,away:4}],
-"Hot Shots__Girls__Round 4":[{home:6,away:6},{home:9,away:3},{home:12,away:0},{home:8,away:4}],
-"Hot Shots__Girls__Round 5":[{home:1,away:10},{home:3,away:9},{home:9,away:3},{home:5,away:6}],
-"Hot Shots__Girls__Round 6":[{home:8,away:4},{home:3,away:8},{home:4,away:7},{home:7,away:5}],
-"Hot Shots__Girls__Round 7":[{home:3,away:9},{home:10,away:2},{home:5,away:7},{home:2,away:10}],
-"Hot Shots__Boys/Mixed__Round 1":[{home:11,away:1},{home:7,away:5},{home:3,away:9},{home:8,away:4}],
-"Hot Shots__Boys/Mixed__Round 2":[{home:4,away:8},{home:4,away:9},{home:10,away:2},{home:8,away:4}],
-"Hot Shots__Boys/Mixed__Round 3":[{home:2,away:10},{home:8,away:4},{home:7,away:5},{home:11,away:1}],
-"Hot Shots__Boys/Mixed__Round 4":[{home:11,away:1},{home:9,away:2},{home:12,away:0},{home:10,away:2}],
-"Hot Shots__Boys/Mixed__Round 5":[{home:4,away:8},{home:4,away:8},{home:11,away:1},{home:5,away:7}],
-"Hot Shots__Boys/Mixed__Round 6":[{home:8,away:4},{home:8,away:4},{home:2,away:10},{home:5,away:7}],
-"Hot Shots__Boys/Mixed__Round 7":[{home:1,away:11},{home:11,away:1},{home:5,away:7},{home:0,away:12}],
-"Tee Ball__Girls__Round 1":[{home:7,away:6},{home:2,away:16},{home:0,away:10},{home:14,away:10}],
-"Tee Ball__Girls__Round 2":[{home:16,away:13},{home:14,away:16},{home:14,away:9},{home:0,away:10}],
-"Tee Ball__Girls__Round 3":[{home:11,away:12},{home:16,away:16},{home:19,away:5},{home:10,away:0}],
-"Tee Ball__Girls__Round 4":[{home:14,away:9},{home:16,away:11},{home:10,away:0},{home:13,away:1}],
-"Tee Ball__Girls__Round 5":[{home:0,away:10},{home:4,away:20},{home:13,away:14},{home:20,away:19}],
-"Tee Ball__Girls__Round 6":[{home:13,away:21},{home:0,away:10},{home:14,away:21},{home:13,away:16}],
-"Tee Ball__Girls__Round 7":[{home:10,away:21},{home:10,away:0},{home:18,away:12},{home:8,away:6}],
-"Tee Ball__Boys/Mixed__Round 1":[{home:14,away:7},{home:18,away:17},{home:0,away:10},{home:15,away:8}],
-"Tee Ball__Boys/Mixed__Round 2":[{home:16,away:14},{home:13,away:4},{home:21,away:0},{home:0,away:10}],
-"Tee Ball__Boys/Mixed__Round 3":[{home:9,away:13},{home:20,away:6},{home:24,away:7},{home:10,away:0}],
-"Tee Ball__Boys/Mixed__Round 4":[{home:13,away:13},{home:7,away:4},{home:10,away:0},{home:14,away:12}],
-"Tee Ball__Boys/Mixed__Round 5":[{home:0,away:10},{home:0,away:20},{home:11,away:12},{home:5,away:15}],
-"Tee Ball__Boys/Mixed__Round 6":[{home:4,away:18},{home:0,away:10},{home:13,away:17},{home:3,away:11}],
-"Tee Ball__Boys/Mixed__Round 7":[{home:11,away:17},{home:10,away:0},{home:1,away:18},{home:5,away:17}],
-"Volleyball__Girls__Ladder":{Altona:{gp:7,w:7,d:0,l:0,gf:14,ga:2,gd:12,pts:21},"Newport Gardens":{gp:7,w:5,d:0,l:2,gf:11,ga:4,gd:7,pts:15},"St Mary's":{gp:7,w:4,d:0,l:3,gf:10,ga:8,gd:2,pts:12},"Williamstown North":{gp:7,w:4,d:0,l:3,gf:9,ga:7,gd:2,pts:12},Seaholme:{gp:7,w:4,d:0,l:3,gf:8,ga:6,gd:2,pts:12},"Williamstown Primary":{gp:7,w:3,d:0,l:4,gf:6,ga:8,gd:-2,pts:9},"Newport Lakes":{gp:7,w:1,d:0,l:6,gf:3,ga:12,gd:-9,pts:3},"Sacred Heart":{gp:7,w:0,d:0,l:7,gf:0,ga:14,gd:-14,pts:0}},
-"Volleyball__Boys/Mixed__Ladder":{"St Mary's":{gp:7,w:7,d:0,l:0,gf:14,ga:1,gd:13,pts:21},Seaholme:{gp:7,w:5,d:0,l:2,gf:11,ga:4,gd:7,pts:15},Altona:{gp:7,w:5,d:0,l:2,gf:10,ga:4,gd:6,pts:15},"Williamstown Primary":{gp:7,w:5,d:0,l:2,gf:9,ga:4,gd:5,pts:15},"Newport Gardens":{gp:7,w:2,d:0,l:5,gf:5,ga:10,gd:-5,pts:6},"Newport Lakes":{gp:7,w:2,d:0,l:5,gf:5,ga:10,gd:-5,pts:6},"Williamstown North":{gp:7,w:2,d:0,l:5,gf:4,ga:11,gd:-7,pts:6},"Sacred Heart":{gp:7,w:0,d:0,l:7,gf:0,ga:14,gd:-14,pts:0}}
-};
-const SUMMER_VENUES={"Altona PS":{Basketball:"School",Volleyball:"School","Hot Shots":"School","Tee Ball":"School",Cricket:"N/A"},"Newport Gardens PS":{Basketball:"School",Volleyball:"School","Hot Shots":"School","Tee Ball":"School",Cricket:"School"},"Newport Lakes PS":{Basketball:"School",Volleyball:"School","Hot Shots":"School","Tee Ball":"Digman Reserve",Cricket:"Digman Reserve"},"St Mary's":{Basketball:"School",Volleyball:"School","Hot Shots":"School","Tee Ball":"Willy PS Oval",Cricket:"N/A"},Seaholme:{Basketball:"School",Volleyball:"School","Hot Shots":"School","Tee Ball":"SG McIntosh Reserve",Cricket:"School"},"Williamstown North":{Basketball:"School",Volleyball:"School","Hot Shots":"School","Tee Ball":"Bayside Willy",Cricket:"Bayside Willy"},"Williamstown Primary":{Basketball:"Cnr Pascoe & Melb Rd",Volleyball:"School","Hot Shots":"School","Tee Ball":"Willy PS Oval",Cricket:"Willy PS Oval"},"Sacred Heart":{Basketball:"School",Volleyball:"N/A","Hot Shots":"School","Tee Ball":"Bryan Martyn Oval",Cricket:"Bryan Martyn Oval"}};
-const WINTER_VENUES={"Altona PS":{AFL:"Civic Parade Ovals",Soccer:"School",Netball:"School",Softball:"School",Hockey:"N/A"},"Newport Gardens PS":{AFL:"School",Soccer:"School",Netball:"School",Softball:"School",Hockey:"School"},"Newport Lakes PS":{AFL:"Bryan Martyn Oval",Soccer:"Digman Reserve",Netball:"School",Softball:"Digman Reserve",Hockey:"School"},Seaholme:{AFL:"J.K Grant Reserve",Soccer:"School",Netball:"School",Softball:"J.K Grant Reserve",Hockey:"N/A"},"St Mary's":{AFL:"Fearon Reserve",Soccer:"Fearon Reserve",Netball:"School",Softball:"Willy PS Oval",Hockey:"N/A"},"Williamstown North":{AFL:"Bayside Willy",Soccer:"School",Netball:"School",Softball:"Bayside Willy",Hockey:"N/A"},"Williamstown Primary":{AFL:"Fearon Reserve",Soccer:"Fearon Reserve",Netball:"School",Softball:"Willy PS Oval",Hockey:"School"},"Sacred Heart":{AFL:"Bryan Martyn Oval",Soccer:"Digman Reserve",Netball:"Bryan Martyn Oval",Softball:"Digman Reserve",Hockey:"N/A"}};
-const SUMMER_GUIDELINES=["Games are to commence at 9:30am and to conclude by 10:30am.","Games at Bayside need to conclude at 10:25am due to Bayside College Requirement.","Home teams are to have fields and/or courts set up prior to the arrival of the away teams.","Home team to have students ready to greet the arrival of the away teams and to direct away teams to appropriate playing areas.","It is a suggestion to have the away team contact the home team prior to the game to inform them of any coaches who are not teaching staff. A reminder that at all times the responsibility of running and managing the games is with the teacher assigned to that sport.","Dates are set and if a school is unable to play on a set date that they may have to forfeit if the opposition school is unable to reschedule.","It is a requirement of all coaches to have a thorough understanding of the rules of their sport and it is suggested that all coaches carry a copy of the rules at all games.","The top 2 at the conclusion of the season will play off in Division finals."];
-const WINTER_GUIDELINES=["Games are to commence at 9:30am and to conclude by 10:30am.","Games at Bayside need to conclude at 10:25am due to Bayside College requirement.","Home teams are to have fields and/or courts set up prior to the arrival of the away teams.","Home team to have students ready to greet the arrival of the away teams and direct them to playing areas.","It is suggested that the away team contact the home team prior to the game to inform them of any coaches who are not teaching staff. The responsibility of running and managing games is with the teacher assigned to that sport.","Dates are set. If a school is unable to play on a set date they may have to forfeit if the opposition cannot reschedule.","All coaches must have a thorough understanding of the rules of their sport. It is suggested coaches carry a copy of the rules at all games.","The top 2 teams at the conclusion of the season will play off in Division finals."];
-const CONTACTS_DATA={district:[{name:"Paddy Gallivan",school:"Williamstown Primary",email:"paddy.gallivan@education.vic.gov.au",phone:"0413 990 217"}],schools:[{name:"Altona",contact:"Stephen Fava",email:"stephen.fava@education.vic.gov.au",phone:"0466 231 300"},{name:"Newport Gardens",contact:"Wes Coles",email:"wesley.coles@education.vic.gov.au",phone:"0414 320 040"},{name:"Newport Lakes",contact:"Terry Antoniadis",email:"terry.antoniadis@education.vic.gov.au",phone:"0402 730 429"},{name:"Sacred Heart",contact:"Nick Rouse",email:"nrouse@shnewport.catholic.edu.au",phone:"0413 609 976"},{name:"Seaholme",contact:"Nick Reese",email:"nicholas.reese@education.vic.gov.au",phone:"0435 578 525"},{name:"St Mary's",contact:"Kieran Condon",email:"kcondon@smwilliamstown.catholic.edu.au",phone:"0439 651 775"},{name:"Williamstown North",contact:"Shannon Carroll",email:"Shannon.Carroll@education.vic.gov.au",phone:"0477 814 605"},{name:"Williamstown Primary",contact:"Paddy Gallivan",email:"paddy.gallivan@education.vic.gov.au",phone:"0413 990 217"}]};
-const BUILTIN_HISTORY=[
-{year:2025,season:"Summer Sport",event:"Basketball - Girls",winner:"Newport Gardens",runner:"Sacred Heart"},
-{year:2025,season:"Summer Sport",event:"Basketball - Boys/Mixed",winner:"Williamstown Primary",runner:"Altona"},
-{year:2025,season:"Summer Sport",event:"Cricket - Girls",winner:"Newport Gardens",runner:"Williamstown Primary"},
-{year:2025,season:"Summer Sport",event:"Cricket - Boys/Mixed",winner:"Williamstown Primary",runner:"Williamstown North"},
-{year:2025,season:"Summer Sport",event:"Hot Shots - Girls",winner:"Williamstown North",runner:"Newport Gardens"},
-{year:2025,season:"Summer Sport",event:"Hot Shots - Boys/Mixed",winner:"Newport Gardens",runner:"Williamstown Primary"},
-{year:2025,season:"Summer Sport",event:"Tee Ball - Girls",winner:"Newport Gardens",runner:"Williamstown Primary"},
-{year:2025,season:"Summer Sport",event:"Tee Ball - Boys/Mixed",winner:"Newport Gardens",runner:"Williamstown North"},
-{year:2025,season:"Summer Sport",event:"Volleyball - Girls",winner:"Altona",runner:"St Mary's"},
-{year:2025,season:"Summer Sport",event:"Volleyball - Boys/Mixed",winner:"Altona",runner:"St Mary's"},
-{year:2024,season:"Summer Sport",event:"Basketball - Girls",winner:"Newport Gardens",runner:"Sacred Heart"},
-{year:2024,season:"Summer Sport",event:"Basketball - Boys/Mixed",winner:"Williamstown North",runner:"St Mary's"},
-{year:2024,season:"Summer Sport",event:"Cricket - Girls",winner:"Newport Gardens",runner:"Williamstown Primary"},
-{year:2024,season:"Summer Sport",event:"Cricket - Boys/Mixed",winner:"Seaholme",runner:"Williamstown North"},
-{year:2024,season:"Summer Sport",event:"Hot Shots - Girls",winner:"Newport Gardens",runner:"Altona"},
-{year:2024,season:"Summer Sport",event:"Hot Shots - Boys/Mixed",winner:"Williamstown Primary",runner:"Altona"},
-{year:2024,season:"Summer Sport",event:"Tee Ball - Girls",winner:"Newport Gardens",runner:"Williamstown North"},
-{year:2024,season:"Summer Sport",event:"Tee Ball - Boys/Mixed",winner:"Sacred Heart",runner:"Newport Gardens"},
-{year:2024,season:"Summer Sport",event:"Volleyball - Girls",winner:"St Mary's",runner:"Altona"},
-{year:2024,season:"Summer Sport",event:"Volleyball - Boys/Mixed",winner:"Altona",runner:"Williamstown Primary"},
-{year:2022,season:"Summer Sport",event:"Basketball - Mixed",winner:"Newport Gardens",runner:"Williamstown Gold"},
-{year:2022,season:"Summer Sport",event:"Basketball - Girls",winner:"Altona",runner:"Williamstown North Gold"},
-{year:2022,season:"Summer Sport",event:"Volleyball - Mixed",winner:"Williamstown North Green",runner:"Altona"},
-{year:2022,season:"Summer Sport",event:"Volleyball - Girls",winner:"Newport Gardens",runner:"St Mary's"},
-{year:2022,season:"Summer Sport",event:"Hot Shots - Mixed",winner:"Williamstown Gold",runner:"Newport Gardens"},
-{year:2022,season:"Summer Sport",event:"Hot Shots - Girls",winner:"Williamstown Gold",runner:"Newport Gardens"},
-{year:2022,season:"Summer Sport",event:"Tee Ball - Mixed",winner:"Williamstown Gold",runner:"Newport Gardens"},
-{year:2022,season:"Summer Sport",event:"Tee Ball - Girls",winner:"Newport Gardens",runner:"Williamstown Gold"},
-{year:2021,season:"Summer Sport",event:"Basketball - Mixed",winner:"Williamstown North Gold",runner:"Williamstown Gold"},
-{year:2021,season:"Summer Sport",event:"Basketball - Girls",winner:"Altona",runner:"Williamstown North Green"},
-{year:2021,season:"Summer Sport",event:"Volleyball - Mixed",winner:"Williamstown North Gold",runner:"Newport Lakes"},
-{year:2021,season:"Summer Sport",event:"Volleyball - Girls",winner:"Williamstown Gold",runner:"Williamstown North Green"},
-{year:2021,season:"Summer Sport",event:"Hot Shots - Mixed",winner:"Newport Gardens",runner:"Williamstown Gold"},
-{year:2021,season:"Summer Sport",event:"Hot Shots - Girls",winner:"Williamstown Gold",runner:"Newport Gardens"},
-{year:2021,season:"Summer Sport",event:"Tee Ball - Mixed",winner:"Newport Gardens",runner:"Williamstown Gold"},
-{year:2021,season:"Summer Sport",event:"Tee Ball - Girls",winner:"Newport Gardens",runner:"Altona"},
-{year:2025,season:"Winter Sport",event:"AFL - Girls",winner:"Altona",runner:"Williamstown North"},
-{year:2025,season:"Winter Sport",event:"AFL - Boys/Mixed",winner:"Newport Gardens",runner:"Williamstown Primary"},
-{year:2025,season:"Winter Sport",event:"Soccer - Girls",winner:"Williamstown North",runner:"Newport Gardens"},
-{year:2025,season:"Winter Sport",event:"Soccer - Boys/Mixed",winner:"Newport Gardens",runner:"Altona"},
-{year:2025,season:"Winter Sport",event:"Netball - Girls",winner:"Newport Gardens",runner:"Williamstown Primary"},
-{year:2025,season:"Winter Sport",event:"Netball - Boys/Mixed",winner:"Newport Gardens",runner:"St Mary's"},
-{year:2025,season:"Winter Sport",event:"Softball - Girls",winner:"Newport Gardens",runner:"Altona"},
-{year:2025,season:"Winter Sport",event:"Softball - Boys/Mixed",winner:"Williamstown Primary",runner:"Newport Gardens"},
-{year:2024,season:"Winter Sport",event:"AFL - Girls",winner:"Newport Gardens",runner:"Williamstown North"},
-{year:2024,season:"Winter Sport",event:"AFL - Boys/Mixed",winner:"Seaholme",runner:"Newport Gardens"},
-{year:2024,season:"Winter Sport",event:"Soccer - Girls",winner:"Newport Gardens",runner:"Sacred Heart"},
-{year:2024,season:"Winter Sport",event:"Soccer - Boys/Mixed",winner:"Williamstown Primary",runner:"Altona"},
-{year:2024,season:"Winter Sport",event:"Netball - Girls",winner:"Williamstown Primary",runner:"Altona"},
-{year:2024,season:"Winter Sport",event:"Netball - Boys/Mixed",winner:"Williamstown Primary",runner:"Sacred Heart"},
-{year:2024,season:"Winter Sport",event:"Softball - Girls",winner:"Newport Gardens",runner:"Altona"},
-{year:2024,season:"Winter Sport",event:"Softball - Boys/Mixed",winner:"Newport Gardens",runner:"Williamstown Primary"},
-{year:2023,season:"Winter Sport",event:"AFL - Mixed",winner:"Newport Gardens",runner:"Williamstown North Green"},
-{year:2023,season:"Winter Sport",event:"AFL - Girls",winner:"Williamstown North Green",runner:"Altona"},
-{year:2023,season:"Winter Sport",event:"Soccer - Mixed",winner:"Altona",runner:"Williamstown North Green"},
-{year:2023,season:"Winter Sport",event:"Soccer - Girls",winner:"Newport Gardens",runner:"Williamstown North Green"},
-{year:2023,season:"Winter Sport",event:"Netball - Mixed",winner:"Altona",runner:"Newport Gardens"},
-{year:2023,season:"Winter Sport",event:"Netball - Girls",winner:"Newport Gardens",runner:"Williamstown Gold"},
-{year:2023,season:"Winter Sport",event:"Softball - Mixed",winner:"St Mary's",runner:"Newport Gardens"},
-{year:2023,season:"Winter Sport",event:"Softball - Girls",winner:"Newport Gardens",runner:"Williamstown Gold"},
-{year:2022,season:"Winter Sport",event:"AFL - Mixed",winner:"Newport Gardens",runner:"Williamstown North Green"},
-{year:2022,season:"Winter Sport",event:"AFL - Girls",winner:"Williamstown North Green",runner:"Altona"},
-{year:2022,season:"Winter Sport",event:"Soccer - Mixed",winner:"Altona",runner:"Williamstown North Green"},
-{year:2022,season:"Winter Sport",event:"Soccer - Girls",winner:"Newport Gardens",runner:"Williamstown North Green"},
-{year:2022,season:"Winter Sport",event:"Netball - Mixed",winner:"Altona",runner:"Newport Gardens"},
-{year:2022,season:"Winter Sport",event:"Netball - Girls",winner:"Newport Gardens",runner:"Williamstown Gold"},
-{year:2022,season:"Winter Sport",event:"Softball - Mixed",winner:"St Mary's",runner:"Newport Gardens"},
-{year:2022,season:"Winter Sport",event:"Softball - Girls",winner:"Newport Gardens",runner:"Williamstown Gold"},
-{year:2021,season:"Winter Sport",event:"AFL - Mixed",winner:"Williamstown North Gold",runner:"Williamstown Gold"},
-{year:2021,season:"Winter Sport",event:"AFL - Girls",winner:"Williamstown North Gold",runner:"Altona"},
-{year:2021,season:"Winter Sport",event:"Soccer - Mixed",winner:"Williamstown North Gold",runner:"Newport Lakes"},
-{year:2021,season:"Winter Sport",event:"Soccer - Girls",winner:"Newport Gardens",runner:"Williamstown North Gold"},
-{year:2021,season:"Winter Sport",event:"Netball - Mixed",winner:"Williamstown North Gold",runner:"St Mary's"},
-{year:2021,season:"Winter Sport",event:"Netball - Girls",winner:"Williamstown Gold",runner:"Newport Gardens"},
-{year:2021,season:"Winter Sport",event:"Softball - Mixed",winner:"Newport Gardens",runner:"Williamstown Gold"},
-{year:2021,season:"Winter Sport",event:"Softball - Girls",winner:"Newport Gardens",runner:"Altona"},
-{year:2026,season:"Summer Sport",event:"Basketball - Boys/Mixed",winner:"Newport Gardens",runner:"Altona",notes:"Grand Final: 14-8"},
-{year:2026,season:"Summer Sport",event:"Basketball - Girls",winner:"Newport Gardens",runner:"Williamstown North",notes:"Grand Final: 18-8"},
-{year:2026,season:"Summer Sport",event:"Cricket - Girls",winner:"Williamstown Primary",runner:"Newport Gardens",notes:"Grand Final: 133-128"},
-{year:2026,season:"Summer Sport",event:"Cricket - Boys/Mixed",winner:"Sacred Heart",runner:"Williamstown Primary",notes:"Grand Final: 114-80"},
-{year:2026,season:"Summer Sport",event:"Tee Ball - Boys/Mixed",winner:"Newport Gardens",runner:"-",notes:"Grand Final"},
-{year:2026,season:"Summer Sport",event:"Tee Ball - Girls",winner:"Newport Gardens",runner:"-",notes:"Grand Final"},
-{year:2026,season:"Summer Sport",event:"Hot Shots - Girls",winner:"Seaholme",runner:"Altona",notes:"Grand Final: 7-5 sets"},
-{year:2026,season:"Summer Sport",event:"Hot Shots - Boys/Mixed",winner:"Altona",runner:"Williamstown Primary",notes:"Grand Final: 8-4 sets"},
-{year:2026,season:"Summer Sport",event:"Volleyball - Boys/Mixed",winner:"St Mary's",runner:"Seaholme",notes:"Grand Final: 2-0"},
-{year:2026,season:"Summer Sport",event:"Volleyball - Girls",winner:"Altona",runner:"-",notes:"Grand Final"},
-{year:2026,season:"Swimming",event:"District Swimming Carnival",winner:"Altona",runner:"Williamstown Primary",notes:"95-89 points"}
-];
-let currentSeason="summer",sport="Basketball",gender="Girls",currentUser=null,userRole=null,db=null,allScores={},allHistory=[],fbReady=false;
-function detectSeason(){const now=new Date();const isAfterMay1=now.getFullYear()>2026||(now.getFullYear()===2026&&now.getMonth()>=4);return isAfterMay1?"winter":"summer"}
-function setSeason(season){currentSeason=season;document.querySelectorAll('.season-btn').forEach(b=>b.classList.toggle('active',b.dataset.season===season));sport=currentSeason==="summer"?SUMMER_SPORTS[0]:WINTER_SPORTS[0];gender="Girls";renderAll()}
-function initFirebase(){if(FIREBASE_CONFIG.apiKey==="YOUR_API_KEY"){fbReady=false;loadLocal();renderAll();return}try{firebase.initializeApp(FIREBASE_CONFIG);db=firebase.database();fbReady=true;firebase.auth().onAuthStateChanged(u=>{currentUser=u;if(u){db.ref('users/'+u.uid).once('value').then(s=>{const d=s.val();userRole=d?d.role:'coach';updateAuthUI();renderAll()})}else{userRole=null;updateAuthUI();renderAll()}});db.ref('scores').on('value',s=>{allScores=s.val()||{};renderAll()});db.ref('history').on('value',s=>{const r=s.val()||{};allHistory=[...BUILTIN_HISTORY.map((h,i)=>({id:'b_'+i,...h})),...Object.entries(r).map(([k,v])=>({id:k,...v}))];})}catch(e){fbReady=false;loadLocal();renderAll()}}
-function loadLocal(){try{allScores=JSON.parse(localStorage.getItem('wds_scores')||'{}')}catch(e){allScores={}}try{const local=JSON.parse(localStorage.getItem('wds_history')||'[]');allHistory=[...BUILTIN_HISTORY.map((h,i)=>({id:'b_'+i,...h})),...local]}catch(e){allHistory=[...BUILTIN_HISTORY.map((h,i)=>({id:'b_'+i,...h}))]}}
-function saveLocal(){localStorage.setItem('wds_scores',JSON.stringify(allScores));localStorage.setItem('wds_history',JSON.stringify(allHistory))}
-function getScore(sp,g,r){if(currentSeason==="summer"){const key=sp+'__'+g+'__'+r;if(SUMMER_SCORES[key])return SUMMER_SCORES[key];if(SUMMER_SCORES[sp+'__'+g+'__Ladder'])return SUMMER_SCORES[sp+'__'+g+'__Ladder'];return null}return allScores[sp+'__'+g+'__'+r]||null}
-function setScore(sp,g,r,d){allScores[sp+'__'+g+'__'+r]=d;if(fbReady){db.ref('scores/'+sp+'__'+g+'__'+r).set(d);checkAndPropagateWinner(sp,g);}else{saveLocal();renderAll()}}function checkAndPropagateWinner(sp,g){if(!fbReady)return;const FIX=currentSeason==='summer'?SUMMER_FIX:WINTER_FIX;const rounds=Object.keys(FIX).filter(r=>r!=='Grand Final');for(const r of rounds){const sc=getScore(sp,g,r);if(!sc)return;const matches=FIX[r];for(let i=0;i<matches.length;i++){const s=sc[i];if(!s||s.home===''||s.away===''||s.home==null||s.away==null)return;if(isNaN(+s.home)||isNaN(+s.away))return;}}const ladder=calcLadder(sp,g);if(!ladder||!ladder.length)return;const winner=ladder[0].name;const runnerUp=ladder.length>1?ladder[1].name:'';const season=currentSeason||'winter';const safeG=g.replace(/\//g,'_');const path='division_hub/hobsonsbay/2026/'+sp+'__'+safeG+'/districts/williamstown';db.ref(path).set({winner:winner,runnerUp:runnerUp,sport:sp,gender:g,district:'Williamstown',season:season,confirmedAt:Date.now(),auto:true});toast(sp+' ('+g+') complete! '+winner+' wins — auto-sent to division!','success');}
-function handleAuth(){if(currentUser){if(fbReady)firebase.auth().signOut();else{currentUser=null;userRole=null;updateAuthUI();renderAll()}}else{document.getElementById('login-modal').classList.add('show');document.getElementById('login-email').focus()}}
-function closeLogin(){document.getElementById('login-modal').classList.remove('show');document.getElementById('login-error').style.display='none'}
-function doLogin(){const e=document.getElementById('login-email').value.trim(),p=document.getElementById('login-pass').value;if(!e||!p){showLoginErr('Enter email and password');return}if(fbReady){firebase.auth().signInWithEmailAndPassword(e,p).then(()=>closeLogin()).catch(er=>showLoginErr(er.code==='auth/invalid-credential'?'Invalid email or password':er.message))}else{currentUser={email:e,uid:'demo'};userRole='admin';closeLogin();updateAuthUI();renderAll();toast('Logged in (demo mode)','info')}}
-function showLoginErr(m){const el=document.getElementById('login-error');el.textContent=m;el.style.display='block'}
-function updateAuthUI(){const b=document.getElementById('auth-btn'),bg=document.getElementById('user-badge'),an=document.getElementById('admin-nav');if(currentUser){b.textContent='Logout';b.classList.add('gold');bg.textContent=currentUser.email||'';document.body.classList.add('logged-in');if(userRole==='admin'){document.body.classList.add('admin-on');an.style.display='block'}else{document.body.classList.remove('admin-on');an.style.display='none'}}else{b.textContent='Login';b.classList.remove('gold');bg.textContent='';document.body.classList.remove('logged-in','admin-on');an.style.display='none';const ap=document.querySelector('.page.active');if(ap&&(ap.id==='pg-enter'||ap.id==='pg-admin'))goTo('home')}}
-function calcLadder(sp,g){const L={};TEAMS.forEach(t=>L[t]={gp:0,w:0,d:0,l:0,gf:0,ga:0,gd:0,pts:0});const ROUNDS=currentSeason==="summer"?Object.keys(SUMMER_FIX):Object.keys(WINTER_FIX);const FIX=currentSeason==="summer"?SUMMER_FIX:WINTER_FIX;ROUNDS.forEach(r=>{const sc=getScore(sp,g,r);if(!sc)return;if(typeof sc.gp==="number"){Object.assign(L,sc);return}const firstVal=Object.values(sc)[0];if(firstVal&&typeof firstVal==="object"&&typeof firstVal.gp==="number"){Object.keys(sc).forEach(t=>{if(L[t])Object.assign(L[t],sc[t])});return}if(r==="Grand Final")return;FIX[r].forEach((m,i)=>{const s=sc[i];if(!s||s.home===''||s.away==='')return;const hs=+s.home,as=+s.away;if(isNaN(hs)||isNaN(as)||!L[m.h]||!L[m.a])return;L[m.h].gp++;L[m.a].gp++;L[m.h].gf+=hs;L[m.h].ga+=as;L[m.a].gf+=as;L[m.a].ga+=hs;L[m.h].gd=L[m.h].gf-L[m.h].ga;L[m.a].gd=L[m.a].gf-L[m.a].ga;if(hs>as){L[m.h].w++;L[m.h].pts+=3;L[m.a].l++}else if(as>hs){L[m.a].w++;L[m.a].pts+=3;L[m.h].l++}else{L[m.h].d++;L[m.a].d++;L[m.h].pts++;L[m.a].pts++}})});return Object.entries(L).sort((a,b)=>b[1].pts-a[1].pts||b[1].gd-a[1].gd||b[1].gf-a[1].gf).map(([n,s],i)=>({pos:i+1,name:n,...s}))}
-function renderAll(){renderTabs();renderLadder();renderFixtures();renderHome();renderCountdown();renderTally();renderHistoryStats();if(document.getElementById('old-entry-panel').style.display!=='none')buildScoreForm();else buildHomeForm();renderVenues();renderGuidelines();renderContacts();if(userRole==='admin')renderCoachList()}
-function renderTabs(){const SPORTS=currentSeason==="summer"?SUMMER_SPORTS:WINTER_SPORTS;['ladder-tabs','fixture-tabs'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=SPORTS.map(s=>`<span class="tab-pill${s===sport?' active':''}" onclick="setSport('${s}')">${s}</span>`).join('')})}
-function setSport(s){sport=s;renderTabs();renderLadder();renderFixtures()}
-function setGender(g){gender=g;document.querySelectorAll('.gender-btn').forEach(b=>b.classList.toggle('active',b.textContent.trim()===g));renderLadder();renderFixtures()}
-function renderLadder(){document.getElementById('ladder-title').textContent=sport+' - '+gender+' Ladder';const rows=calcLadder(sport,gender);document.getElementById('ladder-body').innerHTML=rows.map(r=>`<tr><td><span class="pos-badge ${r.pos===1?'pos-1':r.pos===2?'pos-2':'pos-other'}">${r.pos}</span>${r.name}</td><td>${r.gp}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td>${r.gd}</td><td class="pts-col">${r.pts}</td></tr>`).join('')}
-function renderFixtures(){const c=document.getElementById('fixture-rounds');c.innerHTML='';const ROUNDS=currentSeason==="summer"?Object.keys(SUMMER_FIX):Object.keys(WINTER_FIX);const ROUND_DATES=currentSeason==="summer"?SUMMER_ROUND_DATES:WINTER_ROUND_DATES;const FIX=currentSeason==="summer"?SUMMER_FIX:WINTER_FIX;ROUNDS.forEach(r=>{if(r==="Grand Final"&&currentSeason==="summer"&&typeof SUMMER_GF!=="undefined"){const gf=SUMMER_GF[sport+'__'+gender];if(gf){c.innerHTML+=`<div class="round-block" style="border:2px solid var(--gold);background:var(--gold-light)"><div class="round-head" style="background:var(--gold);color:var(--navy)"><h3>Grand Final</h3><span class="date-tag" style="background:var(--navy);color:var(--gold)">27 Mar 2026</span></div><div style="text-align:center;padding:4px 0;font-size:.78rem;color:var(--navy);font-weight:600">All games at Newport Gardens PS</div><div class="match-row"><div class="match-team home" style="font-weight:700">${gf.h} <span style="font-size:.7rem;color:var(--gold)">(1st)</span></div><div class="match-center"><span class="score-box">-</span><span class="match-vs">vs</span><span class="score-box">-</span></div><div class="match-team away" style="font-weight:700"><span style="font-size:.7rem;color:var(--gold)">(2nd)</span> ${gf.a}</div></div></div>`}return}const sc=getScore(sport,gender,r);c.innerHTML+=`<div class="round-block"><div class="round-head"><h3>${r}</h3><span class="date-tag">${ROUND_DATES[r]} 2026</span></div>${FIX[r].map((m,i)=>{const s=sc&&sc[i];if(!s){return`<div class="match-row"><div class="match-team home">${m.h}</div><div class="match-center"><span class="score-box">-</span><span class="match-vs">vs</span><span class="score-box">-</span></div><div class="match-team away">${m.a}</div></div>`}const hs=s.home!==''?s.home:'-',as=s.away!==''?s.away:'-';let hc='',ac='';if(s&&s.home!==''&&s.away!==''){const h=+s.home,a=+s.away;if(h>a){hc=' win';ac=' loss'}else if(a>h){ac=' win';hc=' loss'}}return`<div class="match-row"><div class="match-team home">${m.h}</div><div class="match-center"><span class="score-box${hc}">${hs}</span><span class="match-vs">vs</span><span class="score-box${ac}">${as}</span></div><div class="match-team away">${m.a}</div></div>`}).join('')}</div>`})}
-function toggleOldScoreEntry(){const hp=document.getElementById('home-entry-panel'),op=document.getElementById('old-entry-panel');if(op.style.display==='none'){op.style.display='block';hp.style.display='none';buildScoreForm()}else{op.style.display='none';hp.style.display='block';buildHomeForm()}}
-function buildHomeForm(){if(currentSeason==="summer"){document.getElementById('sc-home-matches').innerHTML='<div style="padding:16px;text-align:center;color:var(--gray);font-size:.85rem">Summer Sport is completed. Scores are read-only.</div>';document.getElementById('sc-title').textContent='Summer Sport - Completed';return}const school=document.getElementById('sc-school').value;const round=document.getElementById('sc-round').value;if(!school||!round){document.getElementById('sc-home-matches').innerHTML='<div style="padding:16px;text-align:center;color:var(--gray);font-size:.85rem">Select your school and round above.</div>';return}const FIX=WINTER_FIX;const matchIdx=FIX[round].findIndex(m=>m.h===school);if(matchIdx===-1){document.getElementById('sc-title').textContent=school+' is away in '+round;document.getElementById('sc-home-matches').innerHTML='<div style="padding:20px;text-align:center;color:var(--gray);font-size:.85rem"><strong>'+school+'</strong> is the <strong>away</strong> team in '+round+'.<br>The home team enters all scores for this round.</div>';return}const opponent=FIX[round][matchIdx].a;document.getElementById('sc-title').textContent=school+' vs '+opponent+' — '+round;const SPORTS=WINTER_SPORTS;const GENDERS=['Girls','Boys/Mixed'];const SPORT_ICONS={'AFL':'\u26BD','Soccer':'\u26BD','Netball':'\uD83C\uDFC0','Hockey':'\uD83C\uDFD1','Softball':'\u26BE'};let html='';SPORTS.forEach((sp,si)=>{html+='<div class="home-sport-group"><div class="home-sport-label">'+(SPORT_ICONS[sp]||'')+' '+sp+'</div>';GENDERS.forEach((g,gi)=>{const key='he_'+si+'_'+gi;const ex=getScore(sp,g,round);const homeVal=(ex&&ex[matchIdx])?ex[matchIdx].home:'';const awayVal=(ex&&ex[matchIdx])?ex[matchIdx].away:'';html+=`<div class="home-gender-row"><span class="gender-label">${g}</span><div class="team-names"><strong>${school}</strong></div><input type="number" class="score-input" id="${key}_h" min="0" max="999" value="${homeVal}" inputmode="numeric" placeholder="0"><span style="color:var(--gray);font-size:.8rem">vs</span><input type="number" class="score-input" id="${key}_a" min="0" max="999" value="${awayVal}" inputmode="numeric" placeholder="0"><div class="team-names"><span>${opponent}</span></div></div>`});html+='</div>'});document.getElementById('sc-home-matches').innerHTML=html}
-function saveAllHomeScores(){if(!currentUser){toast('Please log in first','error');return}const school=document.getElementById('sc-school').value;const round=document.getElementById('sc-round').value;const FIX=WINTER_FIX;const matchIdx=FIX[round].findIndex(m=>m.h===school);if(matchIdx===-1){toast('Your school is away this round','error');return}const SPORTS=WINTER_SPORTS;const GENDERS=['Girls','Boys/Mixed'];let saved=0;SPORTS.forEach((sp,si)=>{GENDERS.forEach((g,gi)=>{const key='he_'+si+'_'+gi;const hv=document.getElementById(key+'_h').value;const av=document.getElementById(key+'_a').value;if(hv!==''||av!==''){const ex=getScore(sp,g,round)||FIX[round].map(()=>({home:'',away:''}));ex[matchIdx]={home:hv,away:av};setScore(sp,g,round,ex);saved++}})});toast(saved+' score'+(saved!==1?'s':'')+' saved!','success')}
-function clearHomeInputs(){document.querySelectorAll('#sc-home-matches .score-input').forEach(i=>i.value='')}
-function buildScoreForm(){if(currentSeason==="summer"){document.getElementById('sc-matches').innerHTML='<div style="padding:16px;text-align:center;color:var(--gray);font-size:.85rem">Summer Sport is completed. Scores are read-only.</div>';document.getElementById('sc-title-old').textContent='Summer Sport - Completed';return}const sp=document.getElementById('sc-sport').value,g=document.getElementById('sc-gender').value,r=document.getElementById('sc-round').value;if(!r)return;document.getElementById('sc-title-old').textContent=sp+' - '+g+' - '+r;const ROUNDS=Object.keys(WINTER_FIX);const FIX=WINTER_FIX;const ex=getScore(sp,g,r);document.getElementById('sc-matches').innerHTML=FIX[r].map((m,i)=>{const s=ex&&ex[i];return`<div class="score-row"><div class="team-label home">${m.h}</div><input type="number" class="score-input" id="sh${i}" min="0" max="200" value="${s?s.home:''}" inputmode="numeric"><span class="score-sep">vs</span><input type="number" class="score-input" id="sa${i}" min="0" max="200" value="${s?s.away:''}" inputmode="numeric"><div class="team-label away">${m.a}</div></div>`}).join('')}
-function saveScores(){if(!currentUser){toast('Please log in first','error');return}const sp=document.getElementById('sc-sport').value,g=document.getElementById('sc-gender').value,r=document.getElementById('sc-round').value;const FIX=WINTER_FIX;const scores=FIX[r].map((_,i)=>({home:document.getElementById('sh'+i).value,away:document.getElementById('sa'+i).value}));setScore(sp,g,r,scores);toast('Scores saved!','success')}
-function clearScoreInputs(){document.querySelectorAll('#sc-matches .score-input').forEach(i=>i.value='')}
-function renderHome(){const ROUNDS=currentSeason==="summer"?Object.keys(SUMMER_FIX):Object.keys(WINTER_FIX);const ROUND_DATES=currentSeason==="summer"?SUMMER_ROUND_DATES:WINTER_ROUND_DATES;const FIX=currentSeason==="summer"?SUMMER_FIX:WINTER_FIX;const SPORTS=currentSeason==="summer"?SUMMER_SPORTS:WINTER_SPORTS;const titleEl=document.getElementById('home-title'),descEl=document.getElementById('home-desc'),badgeEl=document.getElementById('home-season-badge');if(currentSeason==="summer"){titleEl.textContent="Summer Sport";descEl.textContent="Complete results for Basketball, Volleyball, Cricket, Hot Shots and Tee Ball across the Williamstown District.";badgeEl.textContent="2026 Season"}else{titleEl.textContent="Winter Sport";descEl.textContent="Live results, ladders and fixtures for AFL, Soccer, Netball, Hockey and Softball across the Williamstown District.";badgeEl.textContent="2026 Live"}let nr=null;for(const r of ROUNDS){if(r==="Grand Final"){nr=r;break}const sc=getScore(SPORTS[0],gender,r);if(!sc||(!Array.isArray(sc))||(sc.some(s=>!s||s.home===''||s.away===''))){nr=r;break}}if(!nr)nr=ROUNDS[ROUNDS.length-1];document.getElementById('home-next-badge').textContent=ROUND_DATES[nr]+' 2026';if(nr==="Grand Final"&&currentSeason==="summer"){const gfResults=(allHistory||[]).filter(r=>r.year===2026&&r.season==='Summer Sport');if(gfResults.length>0){document.getElementById('home-next-badge').textContent='Complete';let html='<p style="font-weight:700;color:var(--navy);margin-bottom:10px;font-size:1.1rem">Season Complete</p><p style="font-size:.82rem;color:var(--gold);font-weight:600;margin-bottom:8px">Grand Final Results</p>';SPORTS.forEach(sp=>{const g=gfResults.find(r=>r.event===sp+' - Girls'),b=gfResults.find(r=>r.event===sp+' - Boys/Mixed');if(g||b){html+=`<div style="margin-bottom:6px"><span style="font-weight:700;color:var(--navy);font-size:.82rem">${sp}</span>`;if(g)html+=`<div style="display:flex;align-items:center;padding:3px 0;font-size:.82rem"><span style="color:var(--gray);width:50px">Girls</span><span style="flex:1;font-weight:600;color:var(--navy)">${g.winner}</span><span style="font-size:.72rem;color:var(--gray)">${g.notes||''}</span></div>`;if(b)html+=`<div style="display:flex;align-items:center;padding:3px 0;font-size:.82rem"><span style="color:var(--gray);width:50px">B/M</span><span style="flex:1;font-weight:600;color:var(--navy)">${b.winner}</span><span style="font-size:.72rem;color:var(--gray)">${b.notes||''}</span></div>`;html+='</div>'}});document.getElementById('home-next-round').innerHTML=html}else if(typeof SUMMER_GF!=="undefined"){let gfHtml='<p style="font-weight:700;color:var(--navy);margin-bottom:10px;font-size:1.1rem">Grand Final</p><p style="font-size:.82rem;color:var(--gold);font-weight:600;margin-bottom:8px">All games at Newport Gardens PS</p>';SPORTS.forEach(sp=>{const gf_g=SUMMER_GF[sp+'__Girls'],gf_b=SUMMER_GF[sp+'__Boys/Mixed'];if(gf_g||gf_b){gfHtml+=`<div style="margin-bottom:6px"><span style="font-weight:700;color:var(--navy);font-size:.82rem">${sp}</span>`;if(gf_g)gfHtml+=`<div style="display:flex;align-items:center;padding:3px 0;font-size:.82rem"><span style="color:var(--gray);width:50px">Girls</span><span style="flex:1;text-align:right;padding-right:8px">${gf_g.h}</span><span style="color:var(--gray)">vs</span><span style="flex:1;padding-left:8px">${gf_g.a}</span></div>`;if(gf_b)gfHtml+=`<div style="display:flex;align-items:center;padding:3px 0;font-size:.82rem"><span style="color:var(--gray);width:50px">B/M</span><span style="flex:1;text-align:right;padding-right:8px">${gf_b.h}</span><span style="color:var(--gray)">vs</span><span style="flex:1;padding-left:8px">${gf_b.a}</span></div>`;gfHtml+='</div>'}});document.getElementById('home-next-round').innerHTML=gfHtml}}else{document.getElementById('home-next-round').innerHTML=`<p style="font-weight:700;color:var(--navy);margin-bottom:10px">${nr}</p>`+FIX[nr].map(m=>`<div style="display:flex;align-items:center;padding:6px 0;font-size:.88rem;border-bottom:1px solid #edf2f7"><span style="flex:1;text-align:right;padding-right:10px">${m.h}</span><span style="color:var(--gray);flex-shrink:0">vs</span><span style="flex:1;text-align:left;padding-left:10px">${m.a}</span></div>`).join('')}let html='';SPORTS.forEach(sp=>{const gR=calcLadder(sp,'Girls'),bR=calcLadder(sp,'Boys/Mixed'),gL=gR[0],bL=bR[0];if(gL.gp>0||bL.gp>0){html+=`<div style="margin-bottom:10px"><span style="font-weight:700;color:var(--navy);font-size:.88rem">${sp}</span>`;if(gL.gp>0)html+=`<div style="font-size:.83rem;padding:2px 0">Girls: <strong>${gL.name}</strong> (${gL.pts} pts)</div>`;if(bL.gp>0)html+=`<div style="font-size:.83rem;padding:2px 0">Boys/Mixed: <strong>${bL.name}</strong> (${bL.pts} pts)</div>`;html+='</div>'}});document.getElementById('home-leaders').innerHTML=html||`<p style="font-size:.88rem;color:var(--gray)">No results entered yet. ${currentUser?'Head to <a href="#" onclick="goTo(\'enter\');return false">Enter Scores</a> to get started.':'Coaches can log in to start entering scores.'}</p>`;
-// Latest Results card — find most recent round with any scores
-let latestRound=null;
-const roundKeys=currentSeason==="summer"?Object.keys(SUMMER_FIX).filter(r=>r!=="Grand Final"):Object.keys(WINTER_FIX);
-for(let i=roundKeys.length-1;i>=0;i--){const r=roundKeys[i];const sc=getScore(SPORTS[0],'Girls',r);if(sc&&Array.isArray(sc)&&sc.some(s=>s&&s.home!=='')){latestRound=r;break}}
-const lrEl=document.getElementById('home-latest-results');
-const lrBadge=document.getElementById('latest-results-badge');
-if(!latestRound){lrEl.innerHTML=`<p style="font-size:.88rem;color:var(--gray);text-align:center;padding:12px 0">⏳ No scores entered yet — check back after Round 1!</p>`;lrBadge.style.display='none';}
-else{
-  lrBadge.style.display='';
-  lrBadge.innerHTML=`<span class="live-dot"></span>${latestRound}`;
-  const FIX2=currentSeason==="summer"?SUMMER_FIX:WINTER_FIX;
-  let lrHtml='';
-  SPORTS.forEach(sp=>{
-    const sc_g=getScore(sp,'Girls',latestRound),sc_b=getScore(sp,'Boys/Mixed',latestRound);
-    const hasG=sc_g&&sc_g.some(s=>s&&s.home!==''),hasB=sc_b&&sc_b.some(s=>s&&s.home!=='');
-    if(!hasG&&!hasB)return;
-    lrHtml+=`<div class="results-sport-block"><div class="results-sport-name">${sp}</div>`;
-    if(hasG)FIX2[latestRound].forEach((m,i)=>{const s=sc_g&&sc_g[i];if(!s||s.home==='')return;const hw=+s.home,aw=+s.away;lrHtml+=`<div class="results-match"><span class="results-school${hw>aw?' winner':''}">${m.h}</span><span class="results-score${hw>aw?' win':aw>hw?' loss':''}">${s.home}</span><span class="results-vs">–</span><span class="results-score${aw>hw?' win':hw>aw?' loss':''}">${s.away}</span><span class="results-school${aw>hw?' winner':''}" style="text-align:right">${m.a}</span></div>`});
-    if(hasB)FIX2[latestRound].forEach((m,i)=>{const s=sc_b&&sc_b[i];if(!s||s.home==='')return;const hw=+s.home,aw=+s.away;lrHtml+=`<div class="results-match"><span class="results-school${hw>aw?' winner':''}">${m.h}</span><span class="results-score${hw>aw?' win':aw>hw?' loss':''}">${s.home}</span><span class="results-vs">–</span><span class="results-score${aw>hw?' win':hw>aw?' loss':''}">${s.away}</span><span class="results-school${aw>hw?' winner':''}" style="text-align:right">${m.a}</span></div>`});
-    lrHtml+='</div>';
-  });
-  lrEl.innerHTML=lrHtml||`<p style="font-size:.88rem;color:var(--gray)">Scores are being entered…</p>`;
+const API = 'https://carnival-results.pgallivan.workers.dev';
+const DISTRICT = 'williamstown';
+function tok(){return localStorage.getItem('ssp_session')||''}
+function authHdr(){const t=tok();return t?{'Authorization':'Bearer '+t}:{}}
+
+async function login(e){
+  e.preventDefault();
+  const email=document.getElementById('login-email').value.trim();
+  const msg=document.getElementById('login-msg');
+  msg.textContent='Sending…';msg.className='err';
+  try{
+    const r=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
+    const j=await r.json();
+    if(r.ok){msg.textContent='Sign-in link sent to '+j.email+'. Check your inbox.';msg.className='ok';}
+    else{msg.textContent=j.error||'Login failed';}
+  }catch(e2){msg.textContent='Network error';}
 }
-// Coach banner — update info with their school + next game
-if(currentUser){
-  const school=localStorage.getItem('ssp_school');
-  if(school&&nr&&FIX){
-    const match=FIX[nr]&&FIX[nr].find(m=>m.h===school||m.a===school);
-    const isHome=match&&match.h===school;
-    const opp=match?(isHome?match.a:match.h):null;
-    const info=opp?`${school} vs ${opp} — ${nr} (${ROUND_DATES[nr]})${isHome?' · You\'re home':''}`:school;
-    document.getElementById('coach-banner-info').textContent=info;
-  }else if(school){document.getElementById('coach-banner-info').textContent=school+' — select a round to enter scores';}
+
+async function loadMe(){
+  if(!tok())return null;
+  try{const r=await fetch(API+'/auth/me',{headers:authHdr()});const j=await r.json();if(j.anonymous){localStorage.removeItem('ssp_session');return null;}return j;}catch(e){return null;}
 }
+
+async function logout(){
+  localStorage.removeItem('ssp_session');
+  location.reload();
 }
-function renderVenues(){const venues=currentSeason==="summer"?SUMMER_VENUES:WINTER_VENUES;const SPORTS=currentSeason==="summer"?SUMMER_SPORTS:WINTER_SPORTS;document.getElementById('venue-grid').innerHTML=Object.entries(venues).map(([s,sv])=>`<div class="venue-card"><h4>${s}</h4>${SPORTS.map(sp=>`<div class="venue-row"><span class="venue-sport">${sp}</span><span class="venue-loc${sv[sp]==='N/A'?' na':''}">${sv[sp]}</span></div>`).join('')}</div>`).join('')}
-function renderGuidelines(){
-  const titleEl=document.getElementById('guidelines-title');
-  const G=currentSeason==="summer"?SUMMER_GUIDELINES:WINTER_GUIDELINES;
-  titleEl.textContent=(currentSeason==="summer"?"Summer":"Winter")+" Sport 2026 Guidelines";
-  const SPORT_RULES=[
-    {sport:'AFL',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/SSVAustralianFootball-PrimaryQuickFacts.pdf'},
-    {sport:'Soccer',emoji:'',url:'http://www.ssv.vic.edu.au/state/Documents/RulesFootball(Soccer)Primary.pdf'},
-    {sport:'Netball',emoji:'',url:'http://www.ssv.vic.edu.au/state/Documents/RulesNetballPrimary.pdf'},
-    {sport:'Hockey',emoji:'',url:'http://www.ssv.vic.edu.au/state/Documents/RulesHockey7sPrimary.pdf'},
-    {sport:'Softball',emoji:'',url:'https://www.ssv.vic.edu.au/state/Documents/RulesSoftballPrimary.pdf'}
-  ];
-  const SSV_DOCS=[
-    {label:'2026 SSV Info — Teachers',desc:'SSV PDF',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/2026SchoolSportVictoriaInformation-Teachers.pdf'},
-    {label:'2026 SSV Info — Parents & Guardians',desc:'SSV PDF',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/2026SchoolSportVictoriaInformation-ParentsandGuardians.pdf'},
-    {label:'2026 Coordinator Reference Guide',desc:'SSV PDF',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/2026SchoolSportCoordinatorReferenceGuide.pdf'},
-    {label:'Accident & Incident Report Procedure',desc:'SSV PDF',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/AccidentandIncidentReportProcedure.pdf'},
-    {label:'Accident & Incident Report Form',desc:'SSV Form',emoji:'',url:'https://www.ssv.vic.edu.au/Downloads%20Library/AccidentIncidentReportForm.pdf'}
-  ];
-  const rulesHTML=currentSeason==="winter"?`
-    <p class="doc-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> SSV Sport Rules — Primary</p>
-    <div class="doc-links-grid">${SPORT_RULES.map(r=>`<a class="doc-link-card" href="${r.url}" target="_blank" rel="noopener"><span class="doc-icon">${r.emoji}</span><div><div>${r.sport} Rules</div><div class="doc-label">SSV PDF ↗</div></div></a>`).join('')}</div>`:'';
-  const docsHTML=`
-    <p class="doc-section-title"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> SSV Resources &amp; Safety</p>
-    <div class="doc-links-grid">${SSV_DOCS.map(d=>`<a class="doc-link-card" href="${d.url}" target="_blank" rel="noopener"><span class="doc-icon">${d.emoji}</span><div><div>${d.label}</div><div class="doc-label">${d.desc} ↗</div></div></a>`).join('')}</div>`;
-  document.getElementById('guidelines-body').innerHTML=
-    G.map((g,i)=>`<div class="guideline-item"><span class="guideline-num">${i+1}</span><span>${g}</span></div>`).join('')+
-    rulesHTML+docsHTML;
+
+async function loadScores(){
+  try{
+    const r=await fetch(API+'/api/scores?district='+encodeURIComponent(DISTRICT));
+    const rows=await r.json();
+    const tb=document.querySelector('#score-table tbody');
+    if(!rows.length){tb.innerHTML='<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:20px">No scores yet.</td></tr>';return;}
+    const me=window._me;
+    tb.innerHTML=rows.map(r=>`<tr><td>${escHtml(r.sport)}</td><td>${escHtml(r.gender)}</td><td>${escHtml(r.school)}</td><td>${r.place||'—'}</td><td>${r.points||'—'}</td><td>${me&&me.role==='admin'?'<button class="btn btn-sm btn-danger" onclick="delScore('+JSON.stringify(r.id).replace(/"/g,'&quot;')+')">×</button>':''}</td></tr>`).join('');
+  }catch(e){console.error(e);}
 }
-function renderContacts(){document.getElementById('district-contacts').innerHTML=CONTACTS_DATA.district.map(c=>`<div class="contact-card"><h4>${c.school}</h4><p style="font-weight:600;color:var(--navy)">${c.name}</p><p><div class="label">Email</div><a href="mailto:${c.email}">${c.email}</a></p><p><div class="label">Phone</div><a href="tel:${c.phone.replace(/\s/g,'')}">${c.phone}</a></p></div>`).join('');document.getElementById('school-contacts').innerHTML=CONTACTS_DATA.schools.map(c=>`<div class="contact-card"><h4>${c.name}</h4><p style="font-weight:600;color:var(--navy)">${c.contact}</p><p><div class="label">Email</div><a href="mailto:${c.email}">${c.email}</a></p><p><div class="label">Phone</div><a href="tel:${c.phone.replace(/\s/g,'')}">${c.phone}</a></p></div>`).join('')}
-let _historySeason=null;
-function showHistory(season){_historySeason=season;const records=(allHistory||[]).filter(r=>r.season===season).sort((a,b)=>b.year-a.year);const years=[...new Set(records.map(r=>r.year))].sort((a,b)=>b-a);const sel=document.getElementById('history-year-filter');sel.innerHTML='<option value="all">All Years</option>'+years.map(y=>`<option value="${y}">${y}</option>`).join('');document.getElementById('history-detail').style.display='block';document.getElementById('history-detail-title').textContent=season+' - Historical Results';renderHistoryTable(records,season);document.getElementById('history-detail').scrollIntoView({behavior:'smooth'})}
-function filterHistoryYear(){if(!_historySeason)return;const yr=document.getElementById('history-year-filter').value;let records=(allHistory||[]).filter(r=>r.season===_historySeason);if(yr!=='all')records=records.filter(r=>String(r.year)===yr);records.sort((a,b)=>b.year-a.year);renderHistoryTable(records,_historySeason);}
-function renderHistoryTable(records,season){document.getElementById('history-tbody').innerHTML=records.map(r=>'<tr><td>'+r.year+'</td><td>'+(r.event||'')+'</td><td><strong>'+(r.winner||'')+'</strong></td><td>'+(r.runner||'')+'</td><td style="font-size:.78rem;color:var(--gray)">'+(r.notes||'')+'</td><td class="admin-col">'+(userRole==='admin'&&!String(r.id).startsWith('b_')?'<button class="btn btn-danger" style="padding:2px 8px;font-size:.72rem" onclick="deleteHistoryRecord(\''+r.id+'\')">×</button>':'')+'</td></tr>').join('');}
-function addHistoryRecord(){if(!currentUser||userRole!=='admin'){toast('Admin access required','error');return;}const yr=+document.getElementById('hist-year').value,season=document.getElementById('hist-season').value,event=document.getElementById('hist-event').value.trim(),winner=document.getElementById('hist-winner').value.trim(),runner=document.getElementById('hist-runner').value.trim(),notes=document.getElementById('hist-notes').value.trim();if(!event||!winner){toast('Event and winner required','error');return;}const record={year:yr,season,event,winner,runner,notes,addedAt:Date.now()};if(fbReady){db.ref('history').push(record).then(()=>{toast('Record added!','success');document.getElementById('hist-event').value='';document.getElementById('hist-winner').value='';document.getElementById('hist-runner').value='';document.getElementById('hist-notes').value='';});}else{const local=JSON.parse(localStorage.getItem('wds_history')||'[]');local.push(record);localStorage.setItem('wds_history',JSON.stringify(local));allHistory=[...BUILTIN_HISTORY.map((h,i)=>({id:'b_'+i,...h})),...local.map((r,i)=>({id:'l_'+i,...r}))];toast('Record added (local)!','success');}}
-function deleteHistoryRecord(id){if(!confirm('Delete this record?'))return;if(fbReady){db.ref('history/'+id).remove().then(()=>toast('Deleted','success'));}else{const local=JSON.parse(localStorage.getItem('wds_history')||'[]');localStorage.setItem('wds_history',JSON.stringify(local.filter((_,i)=>'l_'+i!==id)));allHistory=allHistory.filter(r=>r.id!==id);if(_historySeason)renderHistoryTable(allHistory.filter(r=>r.season===_historySeason),_historySeason);toast('Deleted','success');}}
-function renderHistoryStats(){const el=document.getElementById('history-stats');if(!el)return;const tally={};(allHistory||[]).forEach(r=>{if(r.winner&&r.winner!=='-')tally[r.winner]=(tally[r.winner]||0)+1;});const sorted=Object.entries(tally).sort((a,b)=>b[1]-a[1]).slice(0,6);el.innerHTML=sorted.map(([s,c])=>'<div class="stat-pill"><strong>'+s+'</strong> '+c+' title'+(c!==1?'s':'')+'</div>').join('');}
-function parseRoundDate(dateStr){if(!dateStr)return null;const months={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};const parts=dateStr.split(' ');if(parts.length<2)return null;const d=parseInt(parts[0]),m=months[parts[1]];if(isNaN(d)||m===undefined)return null;return new Date(2026,m,d,9,0,0);}
-function getCurrentRound(){const ROUND_DATES=currentSeason==='summer'?SUMMER_ROUND_DATES:WINTER_ROUND_DATES;const FIX=currentSeason==='summer'?SUMMER_FIX:WINTER_FIX;const ROUNDS=Object.keys(FIX).filter(r=>r!=='Grand Final');const today=new Date();let closest=ROUNDS[0],minDiff=Infinity;ROUNDS.forEach(r=>{const d=parseRoundDate(ROUND_DATES[r]);if(!d)return;const diff=Math.abs(today-d);if(diff<minDiff){minDiff=diff;closest=r;}});return closest;}
-function renderCountdown(){const el=document.getElementById('home-countdown');if(!el)return;const ROUND_DATES=currentSeason==='summer'?SUMMER_ROUND_DATES:WINTER_ROUND_DATES;const FIX=currentSeason==='summer'?SUMMER_FIX:WINTER_FIX;const ROUNDS=Object.keys(FIX).filter(r=>r!=='Grand Final');const today=new Date();let nextRound=null,nextDate=null;for(const r of ROUNDS){const d=parseRoundDate(ROUND_DATES[r]);if(d&&d>today){nextRound=r;nextDate=d;break;}}if(!nextRound){el.style.display='none';return;}const diff=nextDate-today;const days=Math.floor(diff/86400000),hrs=Math.floor((diff%86400000)/3600000),mins=Math.floor((diff%3600000)/60000);el.style.display='flex';el.innerHTML='<div><div class="cd-label">Next round</div><div class="cd-title">'+nextRound+' — '+ROUND_DATES[nextRound]+' 2026</div></div><div class="cd-units"><div class="cd-unit"><span class="cd-num">'+days+'</span><span class="cd-lbl">days</span></div><div class="cd-unit"><span class="cd-num">'+hrs+'</span><span class="cd-lbl">hrs</span></div><div class="cd-unit"><span class="cd-num">'+mins+'</span><span class="cd-lbl">min</span></div></div>';}
-function renderTally(){const el=document.getElementById('home-tally');if(!el)return;const tally={};TEAMS.forEach(t=>tally[t]=0);(allHistory||[]).forEach(r=>{if(r.winner&&tally.hasOwnProperty(r.winner))tally[r.winner]++;});const sorted=Object.entries(tally).sort((a,b)=>b[1]-a[1]);el.innerHTML=sorted.map(([s,c])=>'<div class="tally-item"><div class="tally-count">'+c+'</div><div class="tally-school">'+s+'</div></div>').join('');}
-function renderTodayBanner(){const el=document.getElementById('games-today-banner');if(!el)return;const ROUND_DATES=currentSeason==='summer'?SUMMER_ROUND_DATES:WINTER_ROUND_DATES;const today=new Date();const todayStr=today.getDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][today.getMonth()];const todayRound=Object.entries(ROUND_DATES).find(([r,d])=>d===todayStr);if(todayRound){el.innerHTML='<span>🏆</span> <strong>'+todayRound[0]+' is today!</strong> — '+todayRound[1]+' 2026. Good luck to all teams!';el.style.display='flex';}else{el.style.display='none';}}
-function shareResults(){const text='Williamstown District Sport — Live Results & Ladders\n'+window.location.href;if(navigator.share){navigator.share({title:'Williamstown District Sport',text:'Live results and ladders',url:window.location.href});}else{navigator.clipboard.writeText(window.location.href).then(()=>toast('Link copied!','success')).catch(()=>toast('Could not copy link','error'));}}
-function clearSchoolFilter(){const sel=document.getElementById('fixture-school-filter');if(sel)sel.value='';const btn=document.getElementById('school-filter-clear');if(btn)btn.style.display='none';renderFixtures();}
-function toast(msg,type){const el=document.getElementById('toast');if(!el)return;el.textContent=msg;el.className='toast show '+(type||'success');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),3000);}
-var pendingPage=null;
-function goTo(page){if((page==='enter'||page==='admin')&&!currentUser){pendingPage=page;handleAuth();return;}document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-inner a').forEach(a=>a.classList.toggle('active',a.dataset.page===page));const el=document.getElementById('pg-'+page);if(el){el.classList.add('active');}else{document.getElementById('pg-home').classList.add('active');}window.scrollTo({top:0,behavior:'smooth'});if(page==='admin')loadCoachList();}
-function doLogin(){const e=document.getElementById('login-email').value.trim(),p=document.getElementById('login-pass').value;if(!e||!p){showLoginErr('Enter email and password');return;}if(fbReady){firebase.auth().signInWithEmailAndPassword(e,p).then(()=>{closeLogin();if(pendingPage){var pp=pendingPage;pendingPage=null;setTimeout(()=>goTo(pp),300);}}).catch(er=>showLoginErr(er.code==='auth/invalid-credential'?'Invalid email or password':er.message));}else{currentUser={email:e,uid:'demo'};userRole='admin';closeLogin();updateAuthUI();renderAll();toast('Logged in (demo mode)','info');if(pendingPage){var pp=pendingPage;pendingPage=null;setTimeout(()=>goTo(pp),300);}}}
-function renderAll(){renderTabs();renderLadder();renderFixtures();renderHome();renderCountdown();renderTally();renderHistoryStats();if(document.getElementById('old-entry-panel').style.display!=='none')buildScoreForm();else buildHomeForm();renderVenues();renderGuidelines();renderContacts();renderTodayBanner();if(userRole==='admin')renderCoachList();}
-function renderFixtures(){const c=document.getElementById('fixture-rounds');c.innerHTML='';const ROUNDS=currentSeason==='summer'?Object.keys(SUMMER_FIX):Object.keys(WINTER_FIX);const ROUND_DATES=currentSeason==='summer'?SUMMER_ROUND_DATES:WINTER_ROUND_DATES;const FIX=currentSeason==='summer'?SUMMER_FIX:WINTER_FIX;const schoolFilter=(document.getElementById('fixture-school-filter')||{}).value||'';const clearBtn=document.getElementById('school-filter-clear');if(clearBtn)clearBtn.style.display=schoolFilter?'inline-block':'none';const today=new Date();const currentRound=getCurrentRound();let scrollTo=null;ROUNDS.forEach(r=>{if(r==='Grand Final'&&currentSeason==='summer'&&typeof SUMMER_GF!=='undefined'){const gf=SUMMER_GF[sport+'__'+gender];if(gf){c.innerHTML+='<div class="round-block" id="rb-Grand-Final" style="border:2px solid var(--gold);background:var(--gold-light)"><div class="round-head" style="background:var(--gold);color:var(--navy)"><h3>Grand Final</h3><span class="date-tag" style="background:var(--navy);color:var(--gold)">27 Mar 2026</span></div><div style="text-align:center;padding:4px 0;font-size:.78rem;color:var(--navy);font-weight:600">All games at Newport Gardens PS</div><div class="match-row"><div class="match-team home" style="font-weight:700">'+gf.h+' <span style="font-size:.7rem;color:var(--gold)">(1st)</span></div><div class="match-center"><span class="score-box">-</span><span class="match-vs">vs</span><span class="score-box">-</span></div><div class="match-team away" style="font-weight:700"><span style="font-size:.7rem;color:var(--gold)">(2nd)</span> '+gf.a+'</div></div></div>';}return;}if(schoolFilter){const hasSchool=FIX[r]&&FIX[r].some(m=>m.h===schoolFilter||m.a===schoolFilter);if(!hasSchool)return;}const rd=parseRoundDate(ROUND_DATES[r]);const isFuture=rd&&rd>today;const isCurrent=r===currentRound;if(isCurrent)scrollTo=r;const sc=getScore(sport,gender,r);let html='<div class="round-block'+(isFuture?' future':'')+(isCurrent?' current-round':'')+'" id="rb-'+r.replace(/\s/g,'-')+'">';html+='<div class="round-head"><h3>'+r+'</h3><span class="date-tag">'+ROUND_DATES[r]+' 2026</span>'+(isCurrent?'<span style="background:var(--gold);color:var(--navy);font-size:.68rem;padding:2px 8px;border-radius:10px;font-weight:700;margin-left:6px">THIS WEEK</span>':'')+'</div>';html+=FIX[r].map((m,i)=>{const s=sc&&sc[i];if(!s)return '<div class="match-row"><div class="match-team home">'+m.h+'</div><div class="match-center"><span class="score-box">-</span><span class="match-vs">vs</span><span class="score-box">-</span></div><div class="match-team away">'+m.a+'</div></div>';const hs=s.home!==''?s.home:'-',as=s.away!==''?s.away:'-';let hc='',ac='';if(s&&s.home!==''&&s.away!==''){const h=+s.home,a=+s.away;if(h>a){hc=' win';ac=' loss'}else if(a>h){ac=' win';hc=' loss'}}return '<div class="match-row"><div class="match-team home">'+m.h+'</div><div class="match-center"><span class="score-box'+hc+'">'+hs+'</span><span class="match-vs">vs</span><span class="score-box'+ac+'">'+as+'</span></div><div class="match-team away">'+m.a+'</div></div>';}).join('');html+='</div>';c.innerHTML+=html;});if(scrollTo){setTimeout(()=>{const el=document.getElementById('rb-'+scrollTo.replace(/\s/g,'-'));if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},150);}}
-function renderCoachList(){loadCoachList();}
-function loadCoachList(){if(!db||!currentUser||userRole!=='admin')return;const el=document.getElementById('coach-list');if(!el)return;el.innerHTML='<div class="loading"><div class="spinner"></div>Loading...</div>';db.ref('users').once('value').then(snap=>{const users=snap.val()||{};const entries=Object.entries(users);if(!entries.length){el.innerHTML='<div style="padding:16px;color:var(--gray);font-size:.85rem">No coach accounts yet. Create one above.</div>';return;}el.innerHTML='<table style="width:100%;font-size:.82rem;border-collapse:collapse"><thead><tr style="background:#f8fafc"><th style="padding:8px 12px;text-align:left;color:var(--navy)">Name</th><th style="padding:8px 12px;text-align:left;color:var(--navy)">Email</th><th style="padding:8px 12px;text-align:left;color:var(--navy)">Role</th><th style="padding:8px 12px"></th></tr></thead><tbody>'+entries.map(([uid,u])=>'<tr style="border-top:1px solid #edf2f7"><td style="padding:8px 12px">'+(u.displayName||'—')+'</td><td style="padding:8px 12px">'+u.email+'</td><td style="padding:8px 12px"><span class="role-badge role-'+u.role+'">'+u.role+'</span></td><td style="padding:8px 12px;text-align:right"><button class="btn btn-outline btn-sm" style="font-size:.72rem;padding:3px 10px;color:#e53e3e;border-color:#e53e3e" onclick="deleteCoach(\''+uid+'\',\''+u.email+'\')">Remove</button></td></tr>').join('')+'</tbody></table>';}).catch(()=>{const el=document.getElementById('coach-list');if(el)el.innerHTML='<div style="padding:16px;color:var(--red);font-size:.85rem">Error loading users.</div>';});}
-function createCoach(){if(!currentUser||userRole!=='admin'){toast('Admin access required','error');return;}const email=document.getElementById('new-coach-email').value.trim(),pass=document.getElementById('new-coach-pass').value,name=document.getElementById('new-coach-name').value.trim(),role=document.getElementById('new-coach-role').value;if(!email||!pass||pass.length<6){toast('Email and password (min 6 chars) required','error');return;}let secondary;try{secondary=firebase.app('secondary');}catch(e){secondary=firebase.initializeApp(FIREBASE_CONFIG,'secondary');}secondary.auth().createUserWithEmailAndPassword(email,pass).then(cred=>db.ref('users/'+cred.user.uid).set({email,displayName:name||email,role,created:Date.now()}).then(()=>secondary.auth().signOut())).then(()=>{toast('Account created: '+email,'success');document.getElementById('new-coach-email').value='';document.getElementById('new-coach-pass').value='';document.getElementById('new-coach-name').value='';loadCoachList();}).catch(err=>toast(err.message,'error'));}
-function deleteCoach(uid,email){if(!confirm('Remove account for '+email+'? They will no longer be able to log in.'))return;db.ref('users/'+uid).remove().then(()=>{toast('Removed '+email,'success');loadCoachList();}).catch(err=>toast(err.message,'error'));}
-function exportData(){const data={scores:allScores,history:allHistory,exportedAt:new Date().toISOString()};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='williamstown-sport-'+new Date().toISOString().slice(0,10)+'.json';a.click();toast('Data exported!','success');}
-function resetSeason(){if(!confirm('RESET ALL SCORES? This cannot be undone.'))return;const c=prompt('Type RESET to confirm:');if(c!=='RESET'){toast('Reset cancelled','info');return;}if(!fbReady){toast('Firebase not connected','error');return;}db.ref('scores').remove().then(()=>{allScores={};renderAll();toast('All scores reset!','success');}).catch(err=>toast(err.message,'error'));}
-(function(){
-  document.querySelectorAll('.nav-inner a[data-page]').forEach(function(a){a.addEventListener('click',function(){var p=this.dataset.page;document.querySelector('nav').classList.remove('mob-open');goTo(p);if(p==='notices'){showNoticeForm();if(db&&!noticesRef)initNotices();}if(p==='scoresheets'){renderScoresheetsGrid();}});});
-  var sel=document.getElementById('fixture-school-filter');
-  if(sel){TEAMS.forEach(function(t){var o=document.createElement('option');o.value=t;o.textContent=t;sel.appendChild(o);});}
-  var ml=document.getElementById('pwa-manifest');
-  if(ml){var manifest={name:'Williamstown District Sport',short_name:'Willy District',start_url:window.location.pathname,display:'standalone',background_color:'#1a365d',theme_color:'#d69e2e',icons:[{src:'https://schoolsportportal.com.au/favicon.png',sizes:'192x192',type:'image/png'}]};ml.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(manifest));}
-  currentSeason=detectSeason();
-  document.querySelectorAll('.season-btn').forEach(function(b){b.classList.toggle('active',b.dataset.season===currentSeason);});
-  sport=currentSeason==='summer'?SUMMER_SPORTS[0]:WINTER_SPORTS[0];
-  initFirebase();
+
+async function addScore(e){
+  e.preventDefault();
+  const body={
+    district:DISTRICT,
+    sport:document.getElementById('sf-sport').value,
+    gender:document.getElementById('sf-gender').value,
+    school:document.getElementById('sf-school').value,
+    place:parseInt(document.getElementById('sf-place').value)||0,
+    points:parseInt(document.getElementById('sf-points').value)||0,
+    season:2026
+  };
+  const r=await fetch(API+'/api/scores',{method:'POST',headers:{'Content-Type':'application/json',...authHdr()},body:JSON.stringify(body)});
+  if(r.ok){document.querySelectorAll('.score-form input,.score-form select').forEach(i=>{if(i.id&&i.id.startsWith('sf-'))i.value='';});loadScores();}
+  else{alert('Failed to save: '+(await r.text()));}
+}
+
+async function delScore(id){
+  if(!confirm('Delete this score?'))return;
+  await fetch(API+'/api/scores/'+encodeURIComponent(id),{method:'DELETE',headers:authHdr()});
+  loadScores();
+}
+
+async function loadUsers(){
+  try{
+    const r=await fetch(API+'/api/users',{headers:authHdr()});
+    if(!r.ok){document.getElementById('users-list').textContent='Admin only';return;}
+    const rows=await r.json();
+    document.getElementById('users-list').innerHTML=rows.map(u=>`<div class="user-row"><div><strong>${escHtml(u.email)}</strong> ${u.display_name?'<span style="color:#64748b">— '+escHtml(u.display_name)+'</span>':''}</div><div><span class="role-tag role-${escHtml(u.role)}">${escHtml(u.role)}</span> <button class="btn btn-sm btn-danger" onclick="delUser('+JSON.stringify(u.email).replace(/"/g,'&quot;')+')">×</button></div></div>`).join('');
+  }catch(e){console.error(e);}
+}
+
+async function addUser(e){
+  e.preventDefault();
+  const body={
+    email:document.getElementById('uf-email').value.trim(),
+    displayName:document.getElementById('uf-name').value.trim(),
+    role:document.getElementById('uf-role').value
+  };
+  const r=await fetch(API+'/api/users',{method:'POST',headers:{'Content-Type':'application/json',...authHdr()},body:JSON.stringify(body)});
+  if(r.ok){document.getElementById('uf-email').value='';document.getElementById('uf-name').value='';loadUsers();}
+  else{alert('Failed: '+(await r.text()));}
+}
+
+async function delUser(email){
+  if(!confirm('Remove '+email+'?'))return;
+  await fetch(API+'/api/users/'+encodeURIComponent(email),{method:'DELETE',headers:authHdr()});
+  loadUsers();
+}
+
+function escHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+
+(async()=>{
+  const me=await loadMe();
+  window._me=me;
+  if(me){
+    document.getElementById('login-section').classList.add('hidden');
+    document.getElementById('scores-section').classList.remove('hidden');
+    document.getElementById('score-form-wrap').classList.remove('hidden');
+    document.getElementById('auth-bar').classList.remove('hidden');
+    document.getElementById('who-email').textContent=me.email;
+    document.getElementById('who-role').textContent=me.role;
+    document.getElementById('who-role').className='role-tag role-'+me.role;
+    if(me.role==='admin'){
+      document.getElementById('admin-section').classList.remove('hidden');
+      loadUsers();
+    }
+  }else{
+    document.getElementById('scores-section').classList.remove('hidden'); // public read
+  }
+  loadScores();
 })();
-
-function showOnboarding(){if(!localStorage.getItem('ssp_onboarded')){const m=document.getElementById('onboard-modal');if(m)m.classList.add('show');}}
-function dismissOnboarding(){localStorage.setItem('ssp_onboarded','1');const m=document.getElementById('onboard-modal');if(m)m.classList.remove('show');goTo('enter');}
-function toggleHowTo(){const b=document.getElementById('how-to-body'),c=document.getElementById('how-to-chevron');const open=b.style.display!=='none';b.style.display=open?'none':'block';c.textContent=open?'▼ show':'▲ hide';}
-function toggleMobileNav(){document.querySelector('nav').classList.toggle('mob-open');}
-// Mobile nav closes via event listener (see nav IIFE below)
-// Show onboarding on first login
-function updateAuthUI(){const b=document.getElementById('auth-btn'),bg=document.getElementById('user-badge'),an=document.getElementById('admin-nav');if(currentUser){b.textContent='Logout';b.classList.add('gold');bg.textContent=currentUser.email||'';document.body.classList.add('logged-in');if(userRole==='admin'){document.body.classList.add('admin-on');an.style.display='block'}else{document.body.classList.remove('admin-on');an.style.display='none'}if(!localStorage.getItem('ssp_onboarded'))setTimeout(showOnboarding,400);}else{b.textContent='Login';b.classList.remove('gold');bg.textContent='';document.body.classList.remove('logged-in','admin-on');an.style.display='none';const ap=document.querySelector('.page.active');if(ap&&(ap.id==='pg-enter'||ap.id==='pg-admin'))goTo('home');}}
-
-
-// ══════════════════════════════════════════════════════════
-// NOTICES BOARD
-// ══════════════════════════════════════════════════════════
-var noticesRef = null;
-
-function initNotices(){
-  if(!db) return;
-  noticesRef = db.ref('notices');
-  noticesRef.orderByChild('timestamp').limitToLast(50).on('value', function(snap){
-    var items = [];
-    snap.forEach(function(c){ items.push(Object.assign({id:c.key}, c.val())); });
-    items.reverse();
-    renderNoticesList(items);
-    renderHomeAlerts(items.slice(0,3));
-    updateNoticesNavBadge(items.length);
-  });
-}
-
-function renderNoticesList(items){
-  var el = document.getElementById('notices-list');
-  if(!el) return;
-  if(!items.length){ el.innerHTML='<div class="notices-empty">No notices posted yet.</div>'; return; }
-  el.innerHTML = items.map(function(n){
-    var typeMap = {venue:'badge-venue',forfeit:'badge-forfeit',date:'badge-date',general:'badge-general'};
-    var labelMap = {venue:'Venue Change',forfeit:'Forfeit',date:'Date/Time Change',general:'General'};
-    var cls = typeMap[n.type] || 'badge-general';
-    var lbl = labelMap[n.type] || 'General';
-    var meta = [n.sport, n.round, n.postedBy, n.timestamp ? new Date(n.timestamp).toLocaleDateString('en-AU',{day:'numeric',month:'short'}) : ''].filter(Boolean).join(' · ');
-    var delBtn = (userRole==='admin'||currentUser) ? '<button class="notice-del" onclick="deleteNotice(\''+n.id+'\')" title="Delete">✕</button>' : '';
-    return '<div class="notice-card"><span class="notice-badge '+cls+'">'+lbl+'</span>'
-      +'<div class="notice-body"><strong>'+escHtml(n.message||'')+'</strong>'
-      +(n.forfeitWinner ? '<p>Winner: <strong>'+escHtml(n.forfeitWinner)+'</strong></p>' : '')
-      +'<div class="notice-meta">'+escHtml(meta)+'</div></div>'+delBtn+'</div>';
-  }).join('');
-}
-
-function renderHomeAlerts(items){
-  var el = document.getElementById('notice-alerts');
-  if(!el) return;
-  var urgent = items.filter(function(n){ return n.type==='forfeit'||n.type==='venue'||n.type==='date'; });
-  if(!urgent.length){ el.innerHTML=''; return; }
-  el.innerHTML = urgent.map(function(n){
-    var icons = {venue:'📍',forfeit:'🚫',date:'📅',general:'📣'};
-    var icon = icons[n.type]||'📣';
-    return '<div class="notice-alert" onclick="goTo(\'notices\')">'
-      +icon+' <strong>'+escHtml(n.message||'')+'</strong>'
-      +(n.sport?' <span style="opacity:.7">— '+escHtml(n.sport)+'</span>':'')+'</div>';
-  }).join('');
-}
-
-function updateNoticesNavBadge(count){
-  var el = document.getElementById('notices-nav-label');
-  if(!el) return;
-  el.textContent = count > 0 ? 'Notices ('+count+')' : 'Notices';
-}
-
-function toggleForfeitRow(){
-  var t = document.getElementById('nf-type');
-  var row = document.getElementById('forfeit-winner-row');
-  if(row) row.style.display = (t&&t.value==='forfeit') ? 'flex' : 'none';
-}
-
-function postNotice(){
-  if(!currentUser){ toast('You need to be logged in to post a notice.','error'); return; }
-  var type = document.getElementById('nf-type').value;
-  var sport = document.getElementById('nf-sport').value;
-  var round = document.getElementById('nf-round').value;
-  var msg = (document.getElementById('nf-message').value||'').trim();
-  var winner = (document.getElementById('nf-forfeit-winner')&&document.getElementById('nf-forfeit-winner').value)||'';
-  if(!msg){ toast('Please enter a message.','error'); return; }
-  var notice = {
-    type: type,
-    message: msg,
-    sport: sport||null,
-    round: round||null,
-    postedBy: currentUser.displayName||currentUser.email,
-    timestamp: Date.now()
-  };
-  if(type==='forfeit'&&winner) notice.forfeitWinner = winner;
-  db.ref('notices').push(notice).then(function(){
-    toast('Notice posted.','success');
-    document.getElementById('nf-message').value='';
-    document.getElementById('nf-type').value='general';
-    document.getElementById('nf-sport').value='';
-    document.getElementById('nf-round').value='';
-    if(document.getElementById('forfeit-winner-row')) document.getElementById('forfeit-winner-row').style.display='none';
-  }).catch(function(e){ toast('Error: '+e.message,'error'); });
-}
-
-function deleteNotice(id){
-  if(!confirm('Delete this notice?')) return;
-  db.ref('notices/'+id).remove().then(function(){ toast('Notice deleted.','success'); });
-}
-
-function showNoticeForm(){
-  var f = document.getElementById('coach-notice-form');
-  if(f) f.style.display = (currentUser&&(userRole==='admin'||userRole==='coach')) ? 'block' : 'none';
-}
-
-function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-// ══════════════════════════════════════════════════════════
-// SCORESHEETS PAGE
-// ══════════════════════════════════════════════════════════
-var SPORT_SHEETS = [
-  {sport:'AFL', icon:'🏉', file:'AFL'},
-  {sport:'Soccer', icon:'⚽', file:'Soccer'},
-  {sport:'Netball', icon:'🏀', file:'Netball'},
-  {sport:'Hockey', icon:'🏑', file:'Hockey'},
-  {sport:'Softball', icon:'🥎', file:'Softball'},
-  {sport:'Basketball', icon:'🏀', file:'Basketball'},
-  {sport:'Volleyball', icon:'🏐', file:'Volleyball'},
-  {sport:'Hot Shots', icon:'🎾', file:'Hot Shots'},
-  {sport:'Tee Ball', icon:'⚾', file:'Tee Ball'},
-  {sport:'Cricket T20', icon:'🏏', file:'Cricket T20'},
-];
-
-// Google Drive PDF IDs (existing sheets for download)
-var SHEET_DRIVE_IDS = {
-  'Basketball':  '1_O13OFMr40Ab8MXPXolE4_Tww_p4CsRa',
-  'Volleyball':  '1_UMtdsYVxnf6urouVXPmYAEEZ_I6LiaU',
-  'Hot Shots':   '1_Yj5HqRkyyuQEtTh778W3TbGdegrUdA9',
-  'Cricket T20': '1_iF7RmHHTHHS8VM6Ur9BKZcy1BgwHS6P',
-  'Softball':    '1_mWrBSzv88wRz6g8Gi6Izspi38Yhyf_g',
-  'Soccer':      '1aKOacFqcm5mTchE6t-V72MthD63zOcqA',
-  'Netball':     '1aI9FNjE8wiee184l6Oa2aiboUbx758rF',
-  'Hockey':      '1aabC1OA9BGvVk56SRdM9j1WDikyxtccy',
-  'AFL':         '1aKhh8ggU56TsN8-eEV2CnD4aqtA1i9GM',
-  'Tee Ball':    '1_O1NIrKGlaCDLBZZIbQOAMQ4Yrt4FeK9',
-};
-
-function renderScoresheetsGrid(){
-  var grid = document.getElementById('ss-grid');
-  if(!grid) return;
-  grid.innerHTML = SPORT_SHEETS.map(function(s){
-    var driveId = SHEET_DRIVE_IDS[s.sport];
-    var dlLink = driveId
-      ? '<a class="btn-dl" href="https://drive.google.com/uc?export=download&id='+driveId+'" target="_blank">⬇ Download PDF</a>'
-      : '';
-    var uploadBtn = currentUser
-      ? '<label class="ss-upload-btn" onclick="void(0)"><input type="file" accept="image/*,application/pdf" style="display:none" onchange="uploadSheet(this,\''+s.sport+'\')" />📷 Upload completed sheet</label>'
-      : '';
-    var uploaded = document.getElementById('ss-done-'+s.sport.replace(/\s/g,'-'));
-    return '<div class="ss-card">'
-      +'<span class="ss-icon">'+s.icon+'</span>'
-      +'<div class="ss-sport">'+s.sport+'</div>'
-      +dlLink
-      +uploadBtn
-      +'<div class="ss-uploaded" id="ss-done-'+s.sport.replace(/\s/g,'-')+'"></div>'
-      +'</div>';
-  }).join('');
-  loadUploadedSheets();
-}
-
-function uploadSheet(input, sport){
-  if(!input.files||!input.files[0]) return;
-  var file = input.files[0];
-  if(file.size > 5*1024*1024){ toast('File too large — please use a photo under 5MB.','error'); return; }
-  var reader = new FileReader();
-  reader.onload = function(e){
-    var data = e.target.result;
-    var season = currentSeason + '_2026';
-    var key = sport.replace(/\s/g,'-');
-    var record = {
-      sport: sport,
-      season: season,
-      uploadedBy: currentUser.displayName||currentUser.email,
-      timestamp: Date.now(),
-      data: data.substring(0, 300000) // cap at ~300KB base64
-    };
-    db.ref('scoresheets/'+season+'/'+key).push(record).then(function(){
-      toast('Sheet uploaded! ✓','success');
-      var done = document.getElementById('ss-done-'+key);
-      if(done) done.textContent = '✓ Uploaded';
-      loadUploadedSheets();
-    }).catch(function(e){ toast('Upload error: '+e.message,'error'); });
-  };
-  reader.readAsDataURL(file);
-}
-
-function loadUploadedSheets(){
-  if(!db) return;
-  var season = currentSeason + '_2026';
-  db.ref('scoresheets/'+season).once('value').then(function(snap){
-    var records = [];
-    snap.forEach(function(sportSnap){
-      sportSnap.forEach(function(r){
-        records.push(Object.assign({id:r.key}, r.val()));
-      });
-    });
-    records.sort(function(a,b){ return b.timestamp-a.timestamp; });
-    renderUploadedSheets(records);
-  });
-}
-
-function renderUploadedSheets(records){
-  var hist = document.getElementById('ss-history');
-  var grid = document.getElementById('ss-history-grid');
-  if(!hist||!grid) return;
-  if(!records.length){ hist.style.display='none'; return; }
-  hist.style.display='block';
-  grid.innerHTML = records.map(function(r){
-    var isImg = r.data&&r.data.startsWith('data:image');
-    var preview = isImg
-      ? '<img src="'+r.data+'" onclick="window.open(this.src)" title="Click to enlarge" />'
-      : '<div style="width:56px;height:56px;background:#f0f4f8;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.4rem">📄</div>';
-    var del = (currentUser&&(userRole==='admin'||currentUser.email===r.uploadedBy))
-      ? '<button class="ss-del" onclick="deleteSheet(\''+r.season+'\',\''+r.sport.replace(/\s/g,'-')+'\',\''+r.id+'\')" title="Delete">✕</button>'
-      : '';
-    var d = new Date(r.timestamp).toLocaleDateString('en-AU',{day:'numeric',month:'short'});
-    return '<div class="ss-record">'+preview+'<div class="ss-record-info">'
-      +'<strong>'+escHtml(r.sport)+'</strong>'
-      +'<span>'+escHtml(r.uploadedBy)+' · '+d+'</span>'
-      +'</div>'+del+'</div>';
-  }).join('');
-}
-
-function deleteSheet(season, sportKey, id){
-  if(!confirm('Delete this uploaded sheet?')) return;
-  db.ref('scoresheets/'+season+'/'+sportKey+'/'+id).remove().then(function(){
-    toast('Deleted.','success'); loadUploadedSheets();
-  });
-}
-
-// Page-specific init handled in nav click listeners below
-
-// ══════════════════════════════════════════════════════════
-// OVERRIDE initFirebase to also init notices
-// ══════════════════════════════════════════════════════════
-(function(){
-  var _orig = window.initFirebase;
-  window.initFirebase = function(){
-    _orig();
-    setTimeout(function(){ if(db) initNotices(); }, 800);
-  };
-})();
-
 </script>
+<script src="https://falkor-widget.luckdragon.io/widget.js" data-product="School Sport Portal"></script>
 </body>
 </html>
