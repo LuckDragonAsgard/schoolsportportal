@@ -166,12 +166,17 @@ footer a{color:#1a56db}
   <section id="login-section">
     <div class="login-card">
       <h2>Coordinator Sign-in</h2>
-      <p>Enter your email and we'll send you a one-time sign-in link.</p>
+      <p>Enter your email and password.</p>
       <form onsubmit="login(event)">
-        <input id="login-email" type="email" placeholder="you@school.edu.au" required>
-        <button class="btn" type="submit" style="width:100%">Send sign-in link</button>
+        <input id="login-email" type="email" placeholder="you@school.edu.au" required autocomplete="username">
+        <input id="login-password" type="password" placeholder="Password" required autocomplete="current-password" style="margin-top:8px">
+        <button class="btn" type="submit" style="width:100%;margin-top:10px">Sign in</button>
       </form>
       <div id="login-msg" class="err"></div>
+      <details style="margin-top:14px">
+        <summary style="cursor:pointer;font-size:12px;color:#64748b">Forgot password? Need your password set?</summary>
+        <p style="margin-top:8px;font-size:12px;color:#64748b;line-height:1.5">Email <a href="mailto:hello@schoolsportportal.com.au?subject=Password%20reset" style="color:#1a56db">hello@schoolsportportal.com.au</a> with your registered email and we'll send you a new password within one school day. Or, if you're an admin, sign in and use the "Set password" link in the user list to reset another user's password.</p>
+      </details>
       <p style="margin-top:18px;font-size:12px;color:#94a3b8">Public read access available without login. Sign in to see + edit district scores.</p>
     </div>
   </section>
@@ -189,7 +194,7 @@ footer a{color:#1a56db}
 
 <footer>
   <a href="/">School Sport Portal</a> &nbsp;·&nbsp; Williamstown District &nbsp;·&nbsp; Hobsons Bay Division<br>
-  <a href="/privacy">Privacy</a> &nbsp;·&nbsp; <a href="/terms">Terms</a> &nbsp;·&nbsp; <a href="/help">Help</a> &nbsp;·&nbsp; <a href="https://sportportal.com.au">Get your school set up →</a>
+  <a href="/privacy">Privacy</a> &nbsp;·&nbsp; <a href="/terms">Terms</a> &nbsp;·&nbsp; <a href="/help">Help</a> &nbsp;·&nbsp; <a href="https://schoolsportportal.com.au/#contact">Get your school set up →</a>
 </footer>
 
 <script>
@@ -201,14 +206,37 @@ function authHdr(){const t=tok();return t?{'Authorization':'Bearer '+t}:{}}
 async function login(e){
   e.preventDefault();
   const email=document.getElementById('login-email').value.trim();
+  const password=document.getElementById('login-password').value;
   const msg=document.getElementById('login-msg');
-  msg.textContent='Sending…';msg.className='err';
+  msg.textContent='Signing in…';msg.className='err';
   try{
-    const r=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email})});
+    const r=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
     const j=await r.json();
-    if(r.ok){msg.textContent='Sign-in link sent to '+j.email+'. Check your inbox.';msg.className='ok';}
-    else{msg.textContent=j.error||'Login failed';}
+    if(r.ok && j.session){
+      localStorage.setItem('ssp_session', j.session);
+      msg.textContent='Welcome '+(j.email)+'. Loading…';
+      msg.className='ok';
+      setTimeout(()=>location.reload(), 400);
+    } else {
+      msg.textContent=j.error||'Sign-in failed';
+    }
   }catch(e2){msg.textContent='Network error';}
+}
+
+async function changeMyPassword(){
+  const me = await loadMe();
+  if (!me) return alert('Not signed in');
+  const currentPassword = prompt('Current password:');
+  if (currentPassword === null) return;
+  const newPassword = prompt('New password (at least 8 characters):');
+  if (newPassword === null) return;
+  if (newPassword.length < 8) return alert('Password must be at least 8 characters');
+  try {
+    const r = await fetch(API+'/auth/set-password', {method:'POST', headers:{'Content-Type':'application/json',...authHdr()}, body: JSON.stringify({email: me.email, currentPassword, newPassword})});
+    const j = await r.json();
+    if (j.ok) alert('Password changed.');
+    else alert(j.error||'Failed to change password');
+  } catch(e) { alert('Network error'); }
 }
 
 async function loadMe(){
