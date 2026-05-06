@@ -245,6 +245,79 @@
     </div>
   </div>
 
+
+  <div class="section" id="xc-results-section">
+    <p class="section-title">District Cross Country 2026 — Live Results</p>
+    <div id="xc-status" class="notice" style="margin-bottom:12px">
+      <span>⏳</span><span id="xc-status-text">Loading results…</span>
+    </div>
+    <div id="xc-races"></div>
+  </div>
+
+  <script>
+  (function(){
+    const API = 'https://carnival-results.pgallivan.workers.dev';
+    const CODE = 'WD26';
+    const WPS_SC = 'wps';
+    const RACE_LABELS = {'10-girls':'9/10 Girls','10-boys':'9/10 Boys','11-girls':'11 Girls','11-boys':'11 Boys','12-girls':'12/13 Girls','12-boys':'12/13 Boys'};
+    const RACE_ORDER = ['10-girls','10-boys','11-girls','11-boys','12-girls','12-boys'];
+
+    function fmtMs(ms){if(!ms)return'—';const s=Math.floor(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+
+    async function load(){
+      try{
+        const r=await fetch(API+'/api/results/'+CODE);
+        const d=await r.json();
+        const results=d.results||{};
+        const keys=Object.keys(results);
+        const statusEl=document.getElementById('xc-status-text');
+        const racesEl=document.getElementById('xc-races');
+
+        if(!keys.length){
+          statusEl.textContent='No results published yet — check back during the carnival (Thu 7 May).';
+          return;
+        }
+
+        document.getElementById('xc-status').style.background='#f0fdf4';
+        document.getElementById('xc-status').style.borderColor='#bbf7d0';
+        statusEl.textContent='Results updating live as races are published.';
+
+        let html='';
+        for(const key of RACE_ORDER){
+          const data=results[key];
+          if(!data)continue;
+          const places=data.places||[];
+          const wpsPlaces=places.filter(p=>{
+            // match by bib range: wps bibs are 29-32,61-64,93-96,125-128,157-160,189-192
+            const b=parseInt(p.bib);
+            return (b>=29&&b<=32)||(b>=61&&b<=64)||(b>=93&&b<=96)||(b>=125&&b<=128)||(b>=157&&b<=160)||(b>=189&&b<=192);
+          });
+          const pub=data.publishedAt?new Date(data.publishedAt).toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'}):'';
+          html+=\`<div style="margin-bottom:16px;background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08)">
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:8px;color:#f57f17">\${RACE_LABELS[key]||key} <span style="font-weight:400;color:#94a3b8;font-size:.78rem">\${pub?'Published '+pub:''}</span></div>\`;
+          if(!wpsPlaces.length){
+            html+=\`<div style="color:#94a3b8;font-size:.85rem">No WPS finishers recorded yet.</div>\`;
+          }else{
+            html+=\`<table style="width:100%;border-collapse:collapse;font-size:.85rem">
+              <thead><tr style="color:#64748b;font-size:.78rem"><th style="text-align:left;padding:4px 6px">Place</th><th style="text-align:left;padding:4px 6px">Name</th><th style="text-align:left;padding:4px 6px">Time</th><th style="text-align:left;padding:4px 6px">Qual</th></tr></thead><tbody>\`;
+            for(const p of wpsPlaces){
+              const q=p.place<=10?'<span style="color:#16a34a;font-weight:700">✓ Div</span>':'';
+              html+=\`<tr style="border-top:1px solid #f1f5f9"><td style="padding:5px 6px;font-weight:700">\${p.place}</td><td style="padding:5px 6px">\${p.name||'Bib '+p.bib}</td><td style="padding:5px 6px;color:#64748b">\${fmtMs(p.elapsedMs)}</td><td style="padding:5px 6px">\${q}</td></tr>\`;
+            }
+            html+=\`</tbody></table>\`;
+          }
+          html+=\`</div>\`;
+        }
+        racesEl.innerHTML=html||'<p style="color:#94a3b8">No results yet.</p>';
+      }catch(e){
+        document.getElementById('xc-status-text').textContent='Unable to load results. Try refreshing.';
+      }
+    }
+
+    load();
+    setInterval(load, 30000); // refresh every 30s
+  })();
+  </script>
 </main>
 
 <footer class="site-footer">
