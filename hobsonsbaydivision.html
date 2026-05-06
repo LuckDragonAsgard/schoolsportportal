@@ -166,6 +166,75 @@
       <a class="site-link" href="/williamstowndistrict"><span class="site-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><div class="site-label">District (Child)</div><div class="site-name">Williamstown District</div></div><span class="site-arrow">→</span></a>
     </div>
   </div>
+
+  <section class="section" id="xc-qualifiers-section">
+    <p class="section-title">Cross Country — District Qualifiers</p>
+    <div style="color:#64748b;font-size:.82rem;margin-bottom:12px">Top 10 from each race at Williamstown District XC (Thu 7 May) progress to Hobsons Bay Division Carnival — Werribee Racecourse, Thu 28 May.</div>
+    <div id="hb-xc-status" class="notice" style="margin-bottom:12px">
+      <span>⏳</span><span id="hb-xc-status-text">Loading qualifiers…</span>
+    </div>
+    <div id="hb-xc-races"></div>
+  </section>
+
+  <script>
+  (function(){
+    const API='https://carnival-results.pgallivan.workers.dev';
+    const CODE='WD26';
+    const RACE_LABELS={'10-girls':'9/10 Girls','10-boys':'9/10 Boys','11-girls':'11 Girls','11-boys':'11 Boys','12-girls':'12/13 Girls','12-boys':'12/13 Boys'};
+    const RACE_ORDER=['10-girls','10-boys','11-girls','11-boys','12-girls','12-boys'];
+    const SCHOOL_COLOURS={'wps':'#f57f17','altona':'#1565c0','ng':'#2e7d32','nl':'#6a1b9a','seaholme':'#00838f','st-marys':'#c62828','wnps':'#4527a0','sacred-heart':'#ad1457'};
+
+    function fmtMs(ms){if(!ms)return'—';const s=Math.floor(ms/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+
+    async function load(){
+      try{
+        const r=await fetch(API+'/api/results/'+CODE);
+        const d=await r.json();
+        const results=d.results||{};
+        const keys=Object.keys(results);
+        const statusEl=document.getElementById('hb-xc-status-text');
+        const racesEl=document.getElementById('hb-xc-races');
+
+        if(!keys.length){
+          statusEl.textContent='Results will appear here as races are published on the day (Thu 7 May).';
+          return;
+        }
+
+        document.getElementById('hb-xc-status').style.background='#f0fdf4';
+        document.getElementById('hb-xc-status').style.borderColor='#bbf7d0';
+        statusEl.textContent='Qualifiers updating live as races are published.';
+
+        let html='';
+        for(const key of RACE_ORDER){
+          const data=results[key];
+          if(!data)continue;
+          const places=(data.places||[]).slice(0,10);
+          const pub=data.publishedAt?new Date(data.publishedAt).toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'}):'';
+          html+=\`<div style="margin-bottom:16px;background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.08)">
+            <div style="font-weight:700;font-size:.95rem;margin-bottom:8px">\${RACE_LABELS[key]||key} <span style="font-size:.78rem;font-weight:400;color:#94a3b8">\${pub?'Pub '+pub:''}</span></div>
+            <table style="width:100%;border-collapse:collapse;font-size:.85rem">
+              <thead><tr style="color:#64748b;font-size:.78rem"><th style="text-align:left;padding:4px 6px">Place</th><th style="text-align:left;padding:4px 6px">Name</th><th style="text-align:left;padding:4px 6px">School</th><th style="text-align:left;padding:4px 6px">Time</th></tr></thead>
+              <tbody>\`;
+          for(const p of places){
+            html+=\`<tr style="border-top:1px solid #f1f5f9">
+              <td style="padding:5px 6px;font-weight:700;color:\${p.place<=3?'#b45309':''}">\${p.place}</td>
+              <td style="padding:5px 6px">\${p.name||'Bib '+p.bib}</td>
+              <td style="padding:5px 6px;font-size:.8rem;color:#64748b">\${p.school||''}</td>
+              <td style="padding:5px 6px;color:#64748b">\${fmtMs(p.elapsedMs)}</td>
+            </tr>\`;
+          }
+          html+=\`</tbody></table></div>\`;
+        }
+        racesEl.innerHTML=html||'<p style="color:#94a3b8">No results yet.</p>';
+      }catch(e){
+        document.getElementById('hb-xc-status-text').textContent='Unable to load. Try refreshing.';
+      }
+    }
+
+    load();
+    setInterval(load, 30000);
+  })();
+  </script>
 </main>
 <footer class="site-footer">
   <p>schoolsportportal.com.au/hobsonsbaydivision &nbsp;·&nbsp; Western Metropolitan Region School Sport</p>
