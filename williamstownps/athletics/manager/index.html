@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WPS Athletics Carnival Manager</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#F5C518;--dark:#07070F;--card:#0E0E1A;--text:#F0F0F0;--muted:#666;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;--red:#EF4444;--green:#22C55E;
+}
+body{font-family:var(--font);background:var(--dark);color:var(--text);min-height:100vh}
+header{background:#0C0C1A;border-bottom:2px solid var(--gold);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800}
+.logo-icon{background:var(--gold);color:#000;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:900}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:6px;font-size:12px;font-weight:700}
+nav a:hover,nav a.active{background:rgba(245,197,24,.15);color:var(--gold)}
+.school-link{background:var(--green);color:#000;padding:8px 14px;border-radius:6px;font-weight:700;text-decoration:none;font-size:12px}
+main{max-width:1200px;margin:0 auto;padding:20px}
+.ttl{font-size:24px;font-weight:900;margin-bottom:16px}
+.stat{font-size:13px;color:var(--gold);font-weight:700;margin-bottom:12px}
+.card{background:var(--card);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:18px;margin-bottom:16px}
+.ctitle{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+.inp{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;color:var(--text);padding:10px 14px;font-size:14px;outline:none;width:100%;margin-bottom:10px}
+.inp:focus{border-color:var(--gold)}
+.btn{background:var(--gold);border:none;border-radius:7px;color:#000;padding:10px 18px;cursor:pointer;font-size:13px;font-weight:800;letter-spacing:1px}
+.btn:hover{opacity:.88}
+.btn-small{padding:6px 12px;font-size:11px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+th{padding:8px 10px;text-align:left;color:var(--gold);font-weight:700;font-size:10px;border-bottom:1px solid rgba(245,197,24,0.2);text-transform:uppercase}
+td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.04)}
+tr:nth-child(even) td{background:rgba(255,255,255,0.01)}
+.success{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:10px 14px;color:var(--green);font-size:12px;margin:10px 0}
+.warning{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:6px;padding:10px 14px;color:var(--red);font-size:12px;margin:10px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:768px){.grid2{grid-template-columns:1fr}}
+.filter{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.filter select{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:var(--text);padding:8px 12px;font-size:12px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">AC</div>
+    <div>
+      <div style="font-size:16px;font-weight:900;letter-spacing:1px">WPS Athletics</div>
+      <div style="font-size:9px;color:var(--gold);letter-spacing:2px;text-transform:uppercase">Carnival Manager</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#" class="nav-link active" onclick="switchTab(event, 'overview')">Overview</a>
+    <a href="#" class="nav-link" onclick="switchTab(event, 'results')">Results</a>
+    <a href="#" class="nav-link" onclick="switchTab(event, 'export')">Export</a>
+    <a href="https://schoolsportportal.com.au/williamstownps" class="school-link" target="_blank">📍 WPS Portal</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- OVERVIEW -->
+<div id="overview-tab" class="tab">
+  <h1 class="ttl">WPS Athletics Carnival 2026</h1>
+  <div class="stat">272 students pre-loaded • All events entered • Ready for carnival day</div>
+  
+  <div class="grid2">
+    <div class="card">
+      <div class="ctitle">Students by Age Group</div>
+      <div style="font-size:14px;line-height:1.8">
+        <div>👶 8/9 years: <span style="color:var(--gold);font-weight:900">73 students</span></div>
+        <div>👦 10 years: <span style="color:var(--gold);font-weight:900">72 students</span></div>
+        <div>👨 11 years: <span style="color:var(--gold);font-weight:900">79 students</span></div>
+        <div>👨 12/13 years: <span style="color:var(--gold);font-weight:900">48 students</span></div>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="ctitle">Events (9 Total)</div>
+      <div style="font-size:13px;line-height:1.8;color:var(--muted)">
+        • 100m Sprint<br>
+        • 200m<br>
+        • 400m<br>
+        • 800m<br>
+        • Long Jump<br>
+        • High Jump<br>
+        • Shot Put<br>
+        • Turbo Javelin<br>
+        • 4x100m Relay
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle">How It Works</div>
+    <div class="success">
+      ✅ All 272 students are pre-loaded and entered in every event<br>
+      ✅ On carnival day, record results by age group<br>
+      ✅ Top 2 from each age group auto-qualify for district<br>
+      ⚠️ 8/9 and 10 year olds compete together for district entry
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle">Carnival Day Workflow</div>
+    <ol style="padding-left:20px;font-size:13px;line-height:1.8">
+      <li>Event called (e.g., "100m 8/9 girls")</li>
+      <li>Go to Results tab → Record results</li>
+      <li>1st and 2nd place auto-qualify for district</li>
+      <li>When carnival ends → Export Top 2</li>
+      <li>Import CSV into District Carnival system</li>
+    </ol>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="results-tab" class="tab" style="display:none">
+  <h1 class="ttl">Race Results</h1>
+  
+  <div class="card">
+    <div class="ctitle">Record Result</div>
+    <div class="filter">
+      <select id="result-agegroup" style="min-width:100px">
+        <option value="">Age Group</option>
+        <option value="8/9">8/9 years</option>
+        <option value="10">10 years</option>
+        <option value="11">11 years</option>
+        <option value="12/13">12/13 years</option>
+      </select>
+      <select id="result-gender" style="min-width:100px">
+        <option value="">Gender/Type</option>
+        <option value="F">Girls</option>
+        <option value="M">Boys</option>
+        <option value="X">Mixed (Relay)</option>
+      </select>
+      <select id="result-event" style="min-width:150px">
+        <option value="">Event</option>
+        <option value="100m">100m Sprint</option>
+        <option value="200m">200m</option>
+        <option value="400m">400m</option>
+        <option value="800m">800m</option>
+        <option value="Long Jump">Long Jump</option>
+        <option value="High Jump">High Jump</option>
+        <option value="Shot Put">Shot Put</option>
+        <option value="Turbo Javelin">Turbo Javelin</option>
+        <option value="4x100m Relay">4x100m Relay</option>
+      </select>
+    </div>
+    
+    <div class="filter">
+      <input type="text" class="inp" id="result-place" placeholder="Place (1st, 2nd, 3rd...)" style="max-width:150px">
+      <input type="text" class="inp" id="result-student" placeholder="Student name" style="flex:1;min-width:150px">
+      <input type="text" class="inp" id="result-time" placeholder="Time/Distance" style="max-width:120px">
+      <button class="btn btn-small" onclick="addResult()">Record</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ctitle">Results So Far</div>
+    <table>
+      <thead>
+        <tr><th>Age</th><th>Type</th><th>Event</th><th>Place</th><th>Student</th><th>Time</th><th>Action</th></tr>
+      </thead>
+      <tbody id="results-list">
+        <tr><td colspan="7" style="text-align:center;color:var(--muted)">No results recorded yet</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- EXPORT -->
+<div id="export-tab" class="tab" style="display:none">
+  <h1 class="ttl">Export to District</h1>
+  
+  <div class="card">
+    <div class="ctitle">Top 2 Finishers by Event & Age Group</div>
+    <div class="success">
+      🔄 School carnival uses 8/9, 10, 11, 12/13<br>
+      📤 District export remaps to: 10 and below, 11, 12/13<br>
+      (8/9 and 10 combine into "10 and below" for district)
+    </div>
+
+    <div class="card" style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.3);margin:16px 0">
+      <div class="ctitle">District Qualifiers</div>
+      <div id="top2-list" style="font-size:12px;line-height:1.8">
+        <p style="color:var(--muted)">Run the carnival and record results first.</p>
+      </div>
+    </div>
+
+    <button class="btn" style="background:var(--green);color:#000;margin-right:10px;margin-bottom:10px" onclick="exportTop2()">📤 Export District CSV</button>
+    <button class="btn" onclick="exportJSON()">💾 Backup JSON</button>
+  </div>
+
+  <div class="card">
+    <div class="ctitle">What Gets Exported</div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.8">
+      <strong>CSV file with:</strong><br>
+      • Event name<br>
+      • Place (1st, 2nd)<br>
+      • Student name<br>
+      • District age group: "10 and below", "11", or "12/13"<br>
+      • Gender (Girls/Boys/Mixed)<br>
+      • Time/Distance<br><br>
+      The export automatically remaps school age groups (8/9, 10, 11, 12/13) to district format (10 and below, 11, 12/13)
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// Pre-loaded student data
+const studentData = [{"name": "Finn BILES", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "BIL0006"}, {"name": "Bella BRENAN", "age": 10, "age_group": "10", "gender": "F", "house": "REID", "stkey": "BRE0014"}, {"name": "Grace CASSIVELIDIS", "age": 9, "age_group": "8/9", "gender": "F", "house": "REID", "stkey": "CAS0013"}, {"name": "Mai An DAO", "age": 9, "age_group": "8/9", "gender": "F", "house": "NELSON", "stkey": "DAO0002"}, {"name": "Emilio FEUILLET", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "FEU0001"}, {"name": "William GALLE", "age": 10, "age_group": "10", "gender": "M", "house": "GEM", "stkey": "GAL0004"}, {"name": "Grace JOHNSON", "age": 9, "age_group": "8/9", "gender": "F", "house": "REID", "stkey": "JOH0022"}, {"name": "Lenny JONES", "age": 10, "age_group": "10", "gender": "M", "house": "REID", "stkey": "JON0029"}, {"name": "Jett KERN", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "KER0010"}, {"name": "Ethan LEE", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "LEE0024"}, {"name": "Freya MARSDEN", "age": 9, "age_group": "8/9", "gender": "F", "house": "REID", "stkey": "MAR0073"}, {"name": "Eva MCNALLY", "age": 9, "age_group": "8/9", "gender": "F", "house": "FERGUSON", "stkey": "MCN0009"}, {"name": "Ophelia MIRANDA", "age": 9, "age_group": "8/9", "gender": "F", "house": "FERGUSON", "stkey": "MIR0003"}, {"name": "Evelina POPOVICH", "age": 9, "age_group": "8/9", "gender": "F", "house": "REID", "stkey": "POP0001"}, {"name": "James PRICE", "age": 10, "age_group": "10", "gender": "M", "house": "REID", "stkey": "PRI0009"}, {"name": "Kalista RITCHIE", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "RIT0001"}, {"name": "Austin RIVETT", "age": 10, "age_group": "10", "gender": "M", "house": "GEM", "stkey": "RIV0001"}, {"name": "Michelle RUON", "age": 10, "age_group": "10", "gender": "F", "house": "GEM", "stkey": "RUO0005"}, {"name": "Harvey SPLATT", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "SPL0004"}, {"name": "Mack SULLIVAN", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "SUL0008"}, {"name": "Bridget THOMSON", "age": 10, "age_group": "10", "gender": "F", "house": "GEM", "stkey": "THO0021"}, {"name": "Arjun TOMAR", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "TOM0052"}, {"name": "Ned WATSON", "age": 8, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "WAT0071"}, {"name": "Dom WESTON", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "WES0011"}, {"name": "Richie WHITE", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "WHI0020"}, {"name": "Bladen WHITTON", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "WHI0021"}, {"name": "Flynn YATES", "age": 10, "age_group": "10", "gender": "M", "house": "REID", "stkey": "YAT0003"}, {"name": "Domenic ANASTASIOU", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "ANA0002"}, {"name": "Jude BAKER", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "BAK0014"}, {"name": "Jeziah BLAKE", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "BLA0020"}, {"name": "Fergus CAREY", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "CAR0082"}, {"name": "Florence DACOMBE", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "DAC0002"}, {"name": "Archie GEORGE", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "GEO0004"}, {"name": "Cooper GRAHAM", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "GRA0025"}, {"name": "Ivy GRAY", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "GRA0028"}, {"name": "Henry JONAS", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "JON0024"}, {"name": "Samara JONES", "age": 9, "age_group": "8/9", "gender": "F", "house": "REID", "stkey": "JON0023"}, {"name": "Sienna JORDAN", "age": 10, "age_group": "10", "gender": "F", "house": "GEM", "stkey": "JOR0056"}, {"name": "Ivy KINDER", "age": 9, "age_group": "8/9", "gender": "F", "house": "FERGUSON", "stkey": "KIN0008"}, {"name": "Maxi LEMON", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "LEM0001"}, {"name": "Amber LUBICZ", "age": 8, "age_group": "8/9", "gender": "F", "house": "GEM", "stkey": "LUB0001"}, {"name": "Willow MAIDMENT", "age": 9, "age_group": "8/9", "gender": "F", "house": "NELSON", "stkey": "MAI0009"}, {"name": "Flynn MIDDLETON", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "MID0010"}, {"name": "Louis MOORE", "age": 10, "age_group": "10", "gender": "M", "house": "REID", "stkey": "MOO0008"}, {"name": "Leo PERCOVICH", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "PER0014"}, {"name": "Jack PLUNKETT", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "PLU0055"}, {"name": "Lola ROSINI-CHIEREGO", "age": 10, "age_group": "10", "gender": "F", "house": "FERGUSON", "stkey": "ROS0014"}, {"name": "Elliot RUNDELL", "age": 10, "age_group": "10", "gender": "M", "house": "NELSON", "stkey": "RUN0001"}, {"name": "Xavier SHEPHERD", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "SHE0018"}, {"name": "Harvey SPRIGGS", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "SPR0001"}, {"name": "Thomas WEEKS", "age": 10, "age_group": "10", "gender": "M", "house": "GEM", "stkey": "WEE0002"}, {"name": "Chloe WOOD", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "WOO0073"}, {"name": "Zac ZAMMIT", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "ZAM0001"}, {"name": "Esther ZOMBOLA", "age": 10, "age_group": "10", "gender": "F", "house": "REID", "stkey": "ZOM0004"}, {"name": "Eli ADRICHEM", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "ADR0001"}, {"name": "Luka ALLAN-ZOVKO", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "ALL0023"}, {"name": "Calvin ANDERSEN", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "AND0009"}, {"name": "Summer BACELIC", "age": 9, "age_group": "8/9", "gender": "F", "house": "GEM", "stkey": "BAC0002"}, {"name": "Nova CAMPBELL", "age": 9, "age_group": "8/9", "gender": "F", "house": "NELSON", "stkey": "CAM0007"}, {"name": "Isla DE NIESE", "age": 10, "age_group": "10", "gender": "F", "house": "GEM", "stkey": "DEN0020"}, {"name": "Isaac DICKENS", "age": 10, "age_group": "10", "gender": "M", "house": "GEM", "stkey": "DIC0007"}, {"name": "Zain EL-ACHKAR", "age": 10, "age_group": "10", "gender": "M", "house": "NELSON", "stkey": "ELA0001"}, {"name": "Eli FLYNN", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "FLY0001"}, {"name": "Ned GREENHAM", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "GRE0010"}, {"name": "Duke GROGAN", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "GRO0003"}, {"name": "Isaac HASZARD", "age": 10, "age_group": "10", "gender": "M", "house": "GEM", "stkey": "HAS0015"}, {"name": "Oliver ITALIANO", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "ITA0002"}, {"name": "Dion LIKA", "age": 10, "age_group": "10", "gender": "M", "house": "NELSON", "stkey": "LIK0001"}, {"name": "Frankie MACFARLANE", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "MAC0025"}, {"name": "Blazey MORRISON", "age": 9, "age_group": "8/9", "gender": "F", "house": "GEM", "stkey": "MOR0048"}, {"name": "Nevaeh O'KEEFFE-OHALLORAN", "age": 10, "age_group": "10", "gender": "F", "house": "REID", "stkey": "OKE0003"}, {"name": "Eabha PEASE", "age": 10, "age_group": "10", "gender": "F", "house": "FERGUSON", "stkey": "PEA0010"}, {"name": "Jonah PEDA", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "PED0007"}, {"name": "Lani PUOPOLO", "age": 10, "age_group": "10", "gender": "F", "house": "GEM", "stkey": "PUO0003"}, {"name": "Olivia PURSLOWE", "age": 9, "age_group": "8/9", "gender": "F", "house": "REID", "stkey": "PUR0005"}, {"name": "Edward RICKARD", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "RIC0014"}, {"name": "Jack SADLER", "age": 10, "age_group": "10", "gender": "M", "house": "REID", "stkey": "SAD0005"}, {"name": "Juan SAWYER-FERRER", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "SAW0003"}, {"name": "Rose SEXTON", "age": 9, "age_group": "8/9", "gender": "F", "house": "FERGUSON", "stkey": "SEX0002"}, {"name": "Sonny WILLIAMS-BROWN", "age": 10, "age_group": "10", "gender": "M", "house": "GEM", "stkey": "WIL0126"}, {"name": "Lucy BENNETT", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "BEN0071"}, {"name": "Evelyn CAREY", "age": 10, "age_group": "10", "gender": "F", "house": "GEM", "stkey": "CAR0079"}, {"name": "Amelia CARTER", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "CAR0081"}, {"name": "Jed CONNALLY", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "CON0017"}, {"name": "Henry CROZIER-DURHAM", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "CRO0006"}, {"name": "Hamish CURTIS", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "CUR0011"}, {"name": "James DOBSON", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "DOB0004"}, {"name": "Elias D'SOUZA", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "DSO0001"}, {"name": "Ivy FARRELL-KNIGHT", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "FAR0013"}, {"name": "Nathaniel FLETCHER", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "FLE0008"}, {"name": "Luca GALLE", "age": 10, "age_group": "10", "gender": "M", "house": "GEM", "stkey": "GAL0006"}, {"name": "Jack GATTER", "age": 10, "age_group": "10", "gender": "M", "house": "REID", "stkey": "GAT0004"}, {"name": "Jamka HOLANDSJO", "age": 10, "age_group": "10", "gender": "F", "house": "FERGUSON", "stkey": "HOL0065"}, {"name": "Farris KLIKO", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "KLI0001"}, {"name": "Charlie MCEVOY", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "MCE0001"}, {"name": "Freya MCGUIRE HINDLE", "age": 9, "age_group": "8/9", "gender": "F", "house": "FERGUSON", "stkey": "MCG0007"}, {"name": "Isaiah MINAS", "age": 10, "age_group": "10", "gender": "M", "house": "NELSON", "stkey": "MIN0008"}, {"name": "Arlo MORGAN", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "MOR0041"}, {"name": "Isabel PLUNKETT", "age": 10, "age_group": "10", "gender": "F", "house": "GEM", "stkey": "PLU0054"}, {"name": "Chloe RAJCH", "age": 9, "age_group": "8/9", "gender": "F", "house": "FERGUSON", "stkey": "RAJ0004"}, {"name": "Rafael RAWLINS", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "RAW0002"}, {"name": "Thomas REID", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "REI0016"}, {"name": "Annabel SECCULL", "age": 9, "age_group": "8/9", "gender": "F", "house": "FERGUSON", "stkey": "SEC0002"}, {"name": "Jason THURLEY", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "THU0003"}, {"name": "Sylfia UNG", "age": 9, "age_group": "8/9", "gender": "F", "house": "NELSON", "stkey": "UNG0001"}, {"name": "Gus WESTON", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "WES0012"}, {"name": "Jordan XUEREB", "age": 10, "age_group": "10", "gender": "M", "house": "NELSON", "stkey": "XUE0001"}, {"name": "Millicent ANDREWS", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "AND0013"}, {"name": "Stephanie BITACHON NYINYIPOUTYA MARGEURI", "age": 9, "age_group": "8/9", "gender": "F", "house": "GEM", "stkey": "BIT0001"}, {"name": "Lexi BURGHARDT", "age": 9, "age_group": "8/9", "gender": "F", "house": "REID", "stkey": "BUR0018"}, {"name": "Joshua COSESKI", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "COS0007"}, {"name": "Luka DAMIN", "age": 10, "age_group": "10", "gender": "M", "house": "NELSON", "stkey": "DAM0005"}, {"name": "Isabelle DAVIES", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "DAV0019"}, {"name": "Edward DIENER", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "DIE0001"}, {"name": "Jack FEDELE", "age": 10, "age_group": "10", "gender": "M", "house": "NELSON", "stkey": "FED0003"}, {"name": "Quinn FORTE KEENAN", "age": 10, "age_group": "10", "gender": "M", "house": "REID", "stkey": "FOR0020"}, {"name": "Archer KERSLEY", "age": 9, "age_group": "8/9", "gender": "M", "house": "GEM", "stkey": "KER0012"}, {"name": "Summer MAIN", "age": 9, "age_group": "8/9", "gender": "F", "house": "GEM", "stkey": "MAI0007"}, {"name": "Liam MCARTHUR", "age": 10, "age_group": "10", "gender": "M", "house": "REID", "stkey": "MCA0011"}, {"name": "Isla MCCULLY", "age": 10, "age_group": "10", "gender": "F", "house": "REID", "stkey": "MCC0016"}, {"name": "Atti MIRANDA", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "MIR0001"}, {"name": "Lennox MONTGOMERY BROWN", "age": 8, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "MON0069"}, {"name": "Sophie NORTON", "age": 8, "age_group": "8/9", "gender": "F", "house": "NELSON", "stkey": "NOR0012"}, {"name": "George OAKMAN", "age": 9, "age_group": "8/9", "gender": "M", "house": "FERGUSON", "stkey": "OAK0001"}, {"name": "Stefan PAJIC", "age": 10, "age_group": "10", "gender": "M", "house": "GEM", "stkey": "PAJ0002"}, {"name": "Isa QAISER", "age": 10, "age_group": "10", "gender": "M", "house": "REID", "stkey": "QAI0002"}, {"name": "Asher ROGAN", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "ROG0007"}, {"name": "Abdullah SACKOR", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "SAC0002"}, {"name": "Neri SAVAGE", "age": 9, "age_group": "8/9", "gender": "F", "house": "GEM", "stkey": "SAV0003"}, {"name": "Chloe SPEAKMAN", "age": 9, "age_group": "8/9", "gender": "F", "house": "GEM", "stkey": "SPE0010"}, {"name": "Scarlett STRAPP", "age": 10, "age_group": "10", "gender": "F", "house": "FERGUSON", "stkey": "STR0004"}, {"name": "Leo WILLIAMSON", "age": 9, "age_group": "8/9", "gender": "M", "house": "NELSON", "stkey": "WIL0118"}, {"name": "Mae WILLS", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "WIL0114"}, {"name": "Theo ZOMBOLA", "age": 9, "age_group": "8/9", "gender": "M", "house": "REID", "stkey": "ZOM0006"}, {"name": "William ANASTASIOU", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "ANA0001"}, {"name": "Yusuf BALLA", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "BAL0068"}, {"name": "Charlie BARKER", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "BAR0032"}, {"name": "Irida BLADON", "age": 12, "age_group": "12/13", "gender": "F", "house": "GEM", "stkey": "BLA0017"}, {"name": "Lola BURGHARDT", "age": 11, "age_group": "11", "gender": "F", "house": "REID", "stkey": "BUR0016"}, {"name": "Ted CAREY", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "CAR0076"}, {"name": "Delia DACOMBE", "age": 12, "age_group": "12/13", "gender": "F", "house": "NELSON", "stkey": "DAC0001"}, {"name": "Jagger ELLIS", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "ELL0066"}, {"name": "Danica GRANT", "age": 12, "age_group": "12/13", "gender": "F", "house": "FERGUSON", "stkey": "GRA0029"}, {"name": "Winnie GREENHAM", "age": 12, "age_group": "12/13", "gender": "F", "house": "NELSON", "stkey": "GRE0009"}, {"name": "Lexi GRIDAS", "age": 12, "age_group": "12/13", "gender": "F", "house": "GEM", "stkey": "GRI0014"}, {"name": "Ulf-Felix HAWKINS", "age": 12, "age_group": "12/13", "gender": "M", "house": "REID", "stkey": "HAW0002"}, {"name": "Ned HEDDITCH", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "HED0007"}, {"name": "Hugo HUNNEYBALL", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "HUN0009"}, {"name": "Alexander KOCHANSKY", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "KOC0002"}, {"name": "Otis LETHBORG", "age": 12, "age_group": "12/13", "gender": "M", "house": "FERGUSON", "stkey": "LET0055"}, {"name": "Oisin LINDSAY", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "LIN0023"}, {"name": "Greta LOVELL", "age": 11, "age_group": "11", "gender": "F", "house": "FERGUSON", "stkey": "LOV0005"}, {"name": "Mateo MASIC", "age": 12, "age_group": "12/13", "gender": "M", "house": "NELSON", "stkey": "MAS0008"}, {"name": "Jarvis MUNRO", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "MUN0012"}, {"name": "Evie RADFORD", "age": 11, "age_group": "11", "gender": "F", "house": "NELSON", "stkey": "RAD0005"}, {"name": "Emilia RAJCH", "age": 11, "age_group": "11", "gender": "F", "house": "FERGUSON", "stkey": "RAJ0002"}, {"name": "Munib SAID", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "SAI0002"}, {"name": "Dorothy SHANG", "age": 12, "age_group": "12/13", "gender": "F", "house": "GEM", "stkey": "SHA0018"}, {"name": "Finley SHARPLES", "age": 11, "age_group": "11", "gender": "F", "house": "REID", "stkey": "SHA0022"}, {"name": "Coby SMITH", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "SMI0035"}, {"name": "Jarvis SULLIVAN", "age": 12, "age_group": "12/13", "gender": "M", "house": "REID", "stkey": "SUL0009"}, {"name": "Isabel WOOD", "age": 11, "age_group": "11", "gender": "F", "house": "NELSON", "stkey": "WOO0072"}, {"name": "Mia ALBICOCCO", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "ALB0007"}, {"name": "Alice BROWN", "age": 12, "age_group": "12/13", "gender": "F", "house": "REID", "stkey": "BRO0034"}, {"name": "Maahir CHAUDHARY", "age": 10, "age_group": "10", "gender": "M", "house": "NELSON", "stkey": "CHA0045"}, {"name": "Mason CHRISTOU", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "CHR0008"}, {"name": "Hunter COYLE", "age": 12, "age_group": "12/13", "gender": "M", "house": "REID", "stkey": "COY0003"}, {"name": "Audrey CULLINAN", "age": 12, "age_group": "12/13", "gender": "F", "house": "FERGUSON", "stkey": "CUL0002"}, {"name": "Ava DAMIN", "age": 12, "age_group": "12/13", "gender": "F", "house": "NELSON", "stkey": "DAM0004"}, {"name": "Matilda DEAN", "age": 11, "age_group": "11", "gender": "F", "house": "REID", "stkey": "DEA0004"}, {"name": "Calvin ELLIS", "age": 12, "age_group": "12/13", "gender": "M", "house": "REID", "stkey": "ELL0061"}, {"name": "Soleil GOUGH", "age": 11, "age_group": "11", "gender": "F", "house": "GEM", "stkey": "GOU0004"}, {"name": "Nina GRAY", "age": 11, "age_group": "11", "gender": "F", "house": "FERGUSON", "stkey": "GRA0023"}, {"name": "Ellie HAY", "age": 11, "age_group": "11", "gender": "F", "house": "NELSON", "stkey": "HAY0063"}, {"name": "Elanora INNES", "age": 11, "age_group": "11", "gender": "F", "house": "NELSON", "stkey": "INN0005"}, {"name": "Jack KRUSE", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "KRU0001"}, {"name": "Bernie MACLEOD", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "MAC0023"}, {"name": "Caleb MCKISSOCK", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "MCK0023"}, {"name": "Kai MORGAN", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "MOR0037"}, {"name": "Cruz PRIDDY", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "PRI0005"}, {"name": "Cecilia RAWLINS", "age": 12, "age_group": "12/13", "gender": "F", "house": "REID", "stkey": "RAW0001"}, {"name": "Aitken RUON", "age": 12, "age_group": "12/13", "gender": "M", "house": "GEM", "stkey": "RUO0003"}, {"name": "Alexander SCHMALOW", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "SCH0084"}, {"name": "Noah SHEPHERD", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "SHE0017"}, {"name": "Hailey SIMMS", "age": 11, "age_group": "11", "gender": "F", "house": "GEM", "stkey": "SIM0013"}, {"name": "Gwen VAN COPPENHAGEN", "age": 11, "age_group": "11", "gender": "F", "house": "NELSON", "stkey": "VAN0014"}, {"name": "Minh VU", "age": 10, "age_group": "10", "gender": "M", "house": "FERGUSON", "stkey": "VU-0003"}, {"name": "Johnny WHITE", "age": 12, "age_group": "12/13", "gender": "M", "house": "NELSON", "stkey": "WHI0019"}, {"name": "Joshua WILSON", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "WIL0113"}, {"name": "Ethan ARDIZZONE", "age": 12, "age_group": "12/13", "gender": "M", "house": "REID", "stkey": "ARD0001"}, {"name": "Daanish ARORA DUGGAL", "age": 12, "age_group": "12/13", "gender": "M", "house": "FERGUSON", "stkey": "ARO0001"}, {"name": "Samuel BARLOW", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "BAR0035"}, {"name": "Charlie BIRBECK", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "BIR0010"}, {"name": "Hamish BLACK", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "BLA0019"}, {"name": "Layla BOWERS", "age": 10, "age_group": "10", "gender": "F", "house": "FERGUSON", "stkey": "BOW0003"}, {"name": "Richard BREWER", "age": 10, "age_group": "10", "gender": "M", "house": "NELSON", "stkey": "BRE0010"}, {"name": "Liam BURGESS", "age": 12, "age_group": "12/13", "gender": "M", "house": "NELSON", "stkey": "BUR0013"}, {"name": "Ashton DALE", "age": 12, "age_group": "12/13", "gender": "M", "house": "REID", "stkey": "DAL0055"}, {"name": "Andrew EVERY", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "EVE0010"}, {"name": "Aleya FAZLIC", "age": 11, "age_group": "11", "gender": "F", "house": "REID", "stkey": "FAZ0002"}, {"name": "Jasmine FERRIER", "age": 11, "age_group": "11", "gender": "F", "house": "FERGUSON", "stkey": "FER0007"}, {"name": "Jack GERMON", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "GER0003"}, {"name": "Eily HE", "age": 11, "age_group": "11", "gender": "F", "house": "NELSON", "stkey": "HE-0004"}, {"name": "Novak KLJAJIC", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "KLJ0001"}, {"name": "Jessica KNOWLES", "age": 11, "age_group": "11", "gender": "F", "house": "REID", "stkey": "KNO0002"}, {"name": "Eva NIKOLIC", "age": 11, "age_group": "11", "gender": "F", "house": "GEM", "stkey": "NIK0008"}, {"name": "Ruzgar SALMAN", "age": 12, "age_group": "12/13", "gender": "M", "house": "REID", "stkey": "SAL0010"}, {"name": "Flo SAMBROOKS", "age": 10, "age_group": "10", "gender": "F", "house": "NELSON", "stkey": "SAM0008"}, {"name": "Lily SEXTON", "age": 12, "age_group": "12/13", "gender": "F", "house": "FERGUSON", "stkey": "SEX0001"}, {"name": "Mya SKREKOVSKI", "age": 11, "age_group": "11", "gender": "F", "house": "FERGUSON", "stkey": "SKR0003"}, {"name": "Amaryh SMOLSKI", "age": 11, "age_group": "11", "gender": "F", "house": "GEM", "stkey": "SMO0008"}, {"name": "James THOMSON", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "THO0019"}, {"name": "Samantha THURLEY", "age": 11, "age_group": "11", "gender": "F", "house": "FERGUSON", "stkey": "THU0001"}, {"name": "Evie VANDERLOO", "age": 11, "age_group": "11", "gender": "F", "house": "REID", "stkey": "VAN0016"}, {"name": "Jack VARDON", "age": 10, "age_group": "10", "gender": "M", "house": "GEM", "stkey": "VAR0006"}, {"name": "Rui WEATHERHEAD", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "WEA0001"}, {"name": "Alexander ZIPEVSKI", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "ZIP0001"}, {"name": "Adalind ANDREWS", "age": 12, "age_group": "12/13", "gender": "F", "house": "NELSON", "stkey": "AND0011"}, {"name": "Mahli ARMSTRONG", "age": 12, "age_group": "12/13", "gender": "F", "house": "FERGUSON", "stkey": "ARM0053"}, {"name": "Noah ARVANITIS", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "ARV0005"}, {"name": "Oscar ATKINS", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "ATK0009"}, {"name": "Ally BALLA", "age": 11, "age_group": "11", "gender": "F", "house": "GEM", "stkey": "BAL0063"}, {"name": "George BILSTON", "age": 13, "age_group": "12/13", "gender": "M", "house": "FERGUSON", "stkey": "BIL0004"}, {"name": "Lana BUDINOSKA", "age": 12, "age_group": "12/13", "gender": "F", "house": "REID", "stkey": "BUD0002"}, {"name": "Louis CLARKE", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "CLA0016"}, {"name": "Riley CONNOLLY", "age": 12, "age_group": "12/13", "gender": "M", "house": "NELSON", "stkey": "CON0012"}, {"name": "Eli FARRELL-KNIGHT", "age": 12, "age_group": "12/13", "gender": "M", "house": "NELSON", "stkey": "FAR0011"}, {"name": "Ava FLEMING", "age": 11, "age_group": "11", "gender": "F", "house": "NELSON", "stkey": "FLE0006"}, {"name": "Yeel HAILU", "age": 12, "age_group": "12/13", "gender": "M", "house": "NELSON", "stkey": "HAI0005"}, {"name": "Morgan HARCOMBE", "age": 10, "age_group": "10", "gender": "F", "house": "FERGUSON", "stkey": "HAR0109"}, {"name": "Charlotte HASZARD", "age": 11, "age_group": "11", "gender": "F", "house": "GEM", "stkey": "HAS0014"}, {"name": "Matteo IOVINO", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "IOV0001"}, {"name": "Mila JOVANOVSKI", "age": 12, "age_group": "12/13", "gender": "F", "house": "FERGUSON", "stkey": "JOV0004"}, {"name": "Lachlan KELLY", "age": 12, "age_group": "12/13", "gender": "M", "house": "GEM", "stkey": "KEL0028"}, {"name": "Fifi LEFRANC", "age": 12, "age_group": "12/13", "gender": "F", "house": "NELSON", "stkey": "LEF0010"}, {"name": "Alexi LOUCA", "age": 12, "age_group": "12/13", "gender": "M", "house": "GEM", "stkey": "LOU0010"}, {"name": "Griffin MOORE", "age": 12, "age_group": "12/13", "gender": "M", "house": "REID", "stkey": "MOO0006"}, {"name": "Jazmin MOORE", "age": 11, "age_group": "11", "gender": "F", "house": "GEM", "stkey": "MOO0010"}, {"name": "Lana MORAN-HILL", "age": 11, "age_group": "11", "gender": "F", "house": "REID", "stkey": "MOR0038"}, {"name": "Caroline MORGAN", "age": 11, "age_group": "11", "gender": "F", "house": "FERGUSON", "stkey": "MOR0039"}, {"name": "Walter MORGAN", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "MOR0047"}, {"name": "Jaylin O'KEEFFE-OHALLORAN", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "OKE0002"}, {"name": "Ollie SHARKIE", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "SHA0020"}, {"name": "Blake WINTON", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "WIN0004"}, {"name": "Mateo ALLAN-ZOVKO", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "ALL0022"}, {"name": "Harvey ANILE", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "ANI0001"}, {"name": "Marlee BARRY", "age": 12, "age_group": "12/13", "gender": "F", "house": "FERGUSON", "stkey": "BAR0038"}, {"name": "Mia COLLINS", "age": 10, "age_group": "10", "gender": "F", "house": "REID", "stkey": "COL0003"}, {"name": "Flynn CURTIS", "age": 11, "age_group": "11", "gender": "M", "house": "NELSON", "stkey": "CUR0010"}, {"name": "Ira DASTRES", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "DAS0005"}, {"name": "William ELLIOTT", "age": 10, "age_group": "10", "gender": "M", "house": "GEM", "stkey": "ELL0064"}, {"name": "Sophia EVERY", "age": 11, "age_group": "11", "gender": "F", "house": "NELSON", "stkey": "EVE0012"}, {"name": "Henry FIELDING", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "FIE0003"}, {"name": "Axel GROGAN", "age": 12, "age_group": "12/13", "gender": "M", "house": "FERGUSON", "stkey": "GRO0001"}, {"name": "Matilda HALL", "age": 11, "age_group": "11", "gender": "F", "house": "FERGUSON", "stkey": "HAL0010"}, {"name": "Bae JONOT", "age": 12, "age_group": "12/13", "gender": "F", "house": "REID", "stkey": "JON0021"}, {"name": "Banjo KANE", "age": 12, "age_group": "12/13", "gender": "M", "house": "GEM", "stkey": "KAN0007"}, {"name": "Henrietta LAWRENCE", "age": 10, "age_group": "10", "gender": "F", "house": "REID", "stkey": "LAW0010"}, {"name": "Joella LEWIS", "age": 11, "age_group": "11", "gender": "F", "house": "FERGUSON", "stkey": "LEW0004"}, {"name": "Dan MACLEOD", "age": 11, "age_group": "11", "gender": "M", "house": "REID", "stkey": "MAC0024"}, {"name": "Lionel MARTIN", "age": 11, "age_group": "11", "gender": "M", "house": "GEM", "stkey": "MAR0071"}, {"name": "Karl MCMULLAN", "age": 12, "age_group": "12/13", "gender": "M", "house": "REID", "stkey": "MCM0017"}, {"name": "Hudson MIDDLETON", "age": 12, "age_group": "12/13", "gender": "M", "house": "FERGUSON", "stkey": "MID0008"}, {"name": "Bridget O'CONNOR", "age": 12, "age_group": "12/13", "gender": "F", "house": "REID", "stkey": "OCO0005"}, {"name": "Penelope RICKARD", "age": 12, "age_group": "12/13", "gender": "F", "house": "REID", "stkey": "RIC0013"}, {"name": "Mariam SACKOR", "age": 11, "age_group": "11", "gender": "F", "house": "REID", "stkey": "SAC0001"}, {"name": "Salman SALAHADIN HAGOS", "age": 12, "age_group": "12/13", "gender": "M", "house": "REID", "stkey": "SAL0013"}, {"name": "Yusuf Kosloff SARKER", "age": 12, "age_group": "12/13", "gender": "M", "house": "GEM", "stkey": "SAR0057"}, {"name": "Eve SAVAGE", "age": 11, "age_group": "11", "gender": "F", "house": "GEM", "stkey": "SAV0002"}, {"name": "Jackson TAYLOR", "age": 11, "age_group": "11", "gender": "M", "house": "FERGUSON", "stkey": "TAY0077"}, {"name": "Matilda VINNELL", "age": 12, "age_group": "12/13", "gender": "F", "house": "GEM", "stkey": "VIN0007"}, {"name": "Gus WELLON", "age": 12, "age_group": "12/13", "gender": "M", "house": "GEM", "stkey": "WEL0013"}];
+
+// Full data will load from localStorage or initialize
+let data = {
+  students: studentData,
+  results: []
+};
+
+const events = ["100m", "200m", "400m", "800m", "Long Jump", "High Jump", "Shot Put", "Turbo Javelin", "4x100m Relay"];
+
+function loadData() {
+  const saved = localStorage.getItem('wps-carnival-data');
+  if (saved) {
+    data = JSON.parse(saved);
+  }
+  refreshUI();
+}
+
+function saveData() {
+  localStorage.setItem('wps-carnival-data', JSON.stringify(data));
+}
+
+function switchTab(e, tab) {
+  if (e) e.preventDefault();
+  document.querySelectorAll('.tab').forEach(t => t.style.display = 'none');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById(tab + '-tab').style.display = 'block';
+  document.querySelector(`[onclick*="${tab}"]`).classList.add('active');
+}
+
+function addResult() {
+  const agegroup = document.getElementById('result-agegroup').value;
+  const gender = document.getElementById('result-gender').value;
+  const event = document.getElementById('result-event').value;
+  const place = document.getElementById('result-place').value;
+  const student = document.getElementById('result-student').value;
+  const time = document.getElementById('result-time').value;
+  
+  if (!agegroup || !gender || !event || !place || !student || !time) {
+    alert('Please fill all fields');
+    return;
+  }
+  
+  data.results.push({id: Date.now(), agegroup, gender, event, place, student, time});
+  saveData();
+  document.getElementById('result-agegroup').value = '';
+  document.getElementById('result-gender').value = '';
+  document.getElementById('result-event').value = '';
+  document.getElementById('result-place').value = '';
+  document.getElementById('result-student').value = '';
+  document.getElementById('result-time').value = '';
+  refreshUI();
+}
+
+function getTop2() {
+  const qualifiers = {};
+  
+  events.forEach(event => {
+    ['M', 'F'].forEach(gender => {
+      // Get results for this event & gender
+      const results = data.results.filter(r => r.event === event && r.gender === gender);
+      
+      if (results.length === 0) return;
+      
+      // Separate age groups
+      const all = results.sort((a, b) => {
+        const placeOrder = {'1st': 1, '2nd': 2, '3rd': 3};
+        return (placeOrder[a.place] || 99) - (placeOrder[b.place] || 99);
+      });
+      
+      const key = `${event} - ${gender === 'M' ? 'Boys' : 'Girls'}`;
+      qualifiers[key] = all.slice(0, 2);
+    });
+  });
+  
+  return qualifiers;
+}
+
+function exportTop2() {
+  const top2 = getTop2();
+  let csv = 'Event,Age Group,Gender,Place,Student,Time/Distance\n';
+  
+  Object.entries(top2).forEach(([key, qualifiers]) => {
+    qualifiers.forEach(q => {
+      const genderLabel = q.gender === 'M' ? 'Boys' : q.gender === 'F' ? 'Girls' : 'Mixed';
+      // Remap age groups for district: 8/9 + 10 = "10 and below"
+      const districtAgeGroup = ['8/9', '10'].includes(q.agegroup) ? '10 and below' : q.agegroup;
+      csv += `${q.event},${districtAgeGroup},${genderLabel},${q.place},${q.student},${q.time}\n`;
+    });
+  });
+  
+  const blob = new Blob([csv], {type: 'text/csv'});
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'wps-district-qualifiers-' + new Date().toISOString().split('T')[0] + '.csv';
+  a.click();
+}
+
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'wps-carnival-backup-' + new Date().toISOString().split('T')[0] + '.json';
+  a.click();
+}
+
+function deleteResult(id) {
+  data.results = data.results.filter(r => r.id !== id);
+  saveData();
+  refreshUI();
+}
+
+function refreshUI() {
+  // Update results list
+  const resultsList = document.getElementById('results-list');
+  if (data.results.length === 0) {
+    resultsList.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--muted)">No results recorded yet</td></tr>';
+  } else {
+    resultsList.innerHTML = data.results.map(r => {
+      let typeLabel = r.gender === 'M' ? 'Boys' : r.gender === 'F' ? 'Girls' : 'Mixed';
+      return `<tr>
+      <td>${r.agegroup}</td>
+      <td>${typeLabel}</td>
+      <td>${r.event}</td>
+      <td style="color:var(--gold);font-weight:700">${r.place}</td>
+      <td>${r.student}</td>
+      <td>${r.time}</td>
+      <td><button style="background:none;border:none;color:var(--red);cursor:pointer;font-size:11px" onclick="deleteResult(${r.id})">Delete</button></td>
+    </tr>`;
+    }).join('');
+  }
+  
+  // Update top 2 display
+  const top2 = getTop2();
+  const top2List = document.getElementById('top2-list');
+  if (Object.keys(top2).length === 0) {
+    top2List.innerHTML = '<p style="color:var(--muted)">Run the carnival and record results first.</p>';
+  } else {
+    top2List.innerHTML = Object.entries(top2).map(([key, qualifiers]) => {
+      if (qualifiers.length === 0) return '';
+      const genderLabel = {
+        'M': 'Boys',
+        'F': 'Girls',
+        'X': 'Mixed'
+      };
+      const ageLabels = {
+        '8/9': 'Age 8/9',
+        '10': 'Age 10',
+        '11': 'Age 11',
+        '12/13': 'Age 12/13'
+      };
+      return `<div style="margin-bottom:12px;padding:10px;background:rgba(255,255,255,0.03);border-radius:6px">
+        <div style="font-weight:700;color:var(--gold);margin-bottom:6px">${key} - ${genderLabel[qualifiers[0].gender]}</div>
+        ${qualifiers.map(q => `<div style="font-size:11px">• ${q.place}: ${q.student} (${q.time}) - ${ageLabels[q.agegroup]}</div>`).join('')}
+      </div>`;
+    }).join('');
+  }
+}
+
+loadData();
+</script>
+
+</body>
+</html>
